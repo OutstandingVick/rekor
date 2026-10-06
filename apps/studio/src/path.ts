@@ -33,3 +33,13 @@ export function pricePath(design: Design, solved: SolveResult): PathPoint[][] {
   }
   return out;
 }
+
+/** Where a given pool price sits on the chart. */
+export function pointAt(design: Design, solved: SolveResult, sqrtPrice: bigint, segment = -1): PathPoint {
+  return {
+    segment,
+    sqrtPrice,
+    tokens: toUi(baseSoldAt(solved.config, sqrtPrice), design.baseDecimals),
+    price: sqrtPriceQ64ToPrice(sqrtPrice, design.baseDecimals, QUOTE_DECIMALS),
+  };
+}

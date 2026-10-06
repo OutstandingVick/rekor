@@ -15,9 +15,11 @@ export interface ChartProps {
   supplyTokens: number;
   inspect: (sqrtPrice: bigint) => Inspection;
   probeSol: number;
+  /** simulated trades, in order, as positions on the curve */
+  simulated?: PathPoint[];
 }
 
-export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol }: ChartProps) {
+export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, simulated = [] }: ChartProps) {
   const [ref, { width, height }] = useSize<HTMLDivElement>();
   const all = path.flat();
   const maxTokens = all.at(-1)?.tokens ?? 1;
@@ -76,6 +78,9 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol }
               <text x={-8} dy="0.32em" textAnchor="end">graduates · {sol(graduationMcSol)} SOL MC</text>
             </g>
           )}
+          {simulated.map((p, i) => (
+            <circle key={`s${i}`} className="sim-dot" cx={x(p.tokens)} cy={y(p.price)} r={i === simulated.length - 1 ? 4.5 : 3} />
+          ))}
           {hover && (
             <g className="crosshair">
               <line x1={x(hover.tokens)} x2={x(hover.tokens)} y1={M.top} y2={y(0)} />
