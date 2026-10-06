@@ -13,12 +13,16 @@ export function App() {
   const set = (patch: Partial<Design>) => setDesign((d) => ({ ...d, ...patch }));
   const analysis = useMemo(() => analyze(design), [design]);
   const numbers = useMemo(() => (analysis.ok ? headline(design, analysis.solved, analysis.fees) : null), [analysis, design]);
+  const maxThresholdSol = useMemo(() => {
+    const a = analyze({ ...design, thresholdSol: null });
+    return a.ok ? Number(a.solved.config.migrationQuoteThreshold) / 1e9 : null;
+  }, [design]);
   const path = useMemo(() => (analysis.ok ? pricePath(design, analysis.solved) : []), [analysis, design]);
 
   return (
     <div className="app">
       <aside className="zone zone-config" aria-label="Curve configuration">
-        <ConfigPanel design={design} set={set} />
+        <ConfigPanel design={design} set={set} maxThresholdSol={maxThresholdSol} />
       </aside>
       <main className="zone zone-stage">
         {analysis.ok ? (
