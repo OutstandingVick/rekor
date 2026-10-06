@@ -3,6 +3,7 @@ import { QUOTE_DECIMALS } from "./design";
 import { NumberField, Section } from "./fields";
 import { sol, tokens } from "./format";
 import type { Simulation } from "./simulation";
+import { TradeLog } from "./TradeLog";
 import "./simulate.css";
 
 export interface SimulatePanelProps {
@@ -30,6 +31,7 @@ export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSel
         holding <strong>{tokens(toUi(sim.holding, baseDecimals))}</strong>
         <span> · spent {sol(toUi(sim.trades.reduce((a, t) => a + (t.result.side === "buy" ? t.result.amountIn - t.result.amountLeft : 0n), 0n), QUOTE_DECIMALS))} SOL</span>
       </div>
+      <TradeLog trades={sim.trades} baseDecimals={baseDecimals} />
     </Section>
   );
 }
