@@ -11,16 +11,19 @@ export interface SimulatePanelProps {
   sizeSol: number;
   onSize: (sol: number) => void;
   onBuy: () => void;
+  onSell: (fraction: bigint) => void;
   onReset: () => void;
 }
 
-export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onReset }: SimulatePanelProps) {
+export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSell, onReset }: SimulatePanelProps) {
   return (
     <Section title="Simulate">
       <NumberField label="Size" unit="SOL" value={sizeSol} min={0.000001} max={1e6} onChange={onSize} />
       <div className="sim-actions">
         <button type="button" className="primary" onClick={onBuy}>Buy</button>
         <button type="button" onClick={onReset} disabled={sim.trades.length === 0}>Reset</button>
+        <button type="button" onClick={() => onSell(50n)} disabled={sim.holding === 0n}>Sell half</button>
+        <button type="button" onClick={() => onSell(100n)} disabled={sim.holding === 0n}>Sell all</button>
       </div>
       {sim.note && <div className="sim-note">{sim.note}</div>}
       <div className="sim-holding">

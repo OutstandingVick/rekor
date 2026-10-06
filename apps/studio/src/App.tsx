@@ -30,6 +30,11 @@ export function App() {
     setSim(step(sim, analysis.solved, analysis.fees, { kind: "buy", quote: BigInt(Math.round(probeSol * 1e9)) }));
   };
 
+  const sellNow = (percent: bigint) => {
+    if (!analysis.ok || !sim) return;
+    setSim(step(sim, analysis.solved, analysis.fees, { kind: "sell", base: (sim.holding * percent) / 100n }));
+  };
+
   const path = useMemo(() => (analysis.ok ? pricePath(design, analysis.solved) : []), [analysis, design]);
 
   return (
@@ -59,6 +64,7 @@ export function App() {
             sizeSol={probeSol}
             onSize={setProbeSol}
             onBuy={buyNow}
+            onSell={sellNow}
             onReset={() => setSim(fresh())}
           />
         )}
