@@ -70,15 +70,14 @@ describe("round trip", () => {
 });
 
 describe("cost to acquire", () => {
-  it("front-loaded liquidity raises snipe cost", () => {
-    const thin = { ...config, curve: config.curve.map((p, i) => ({ ...p, liquidity: i === 0 ? L : p.liquidity })) };
+  it("thin first segment raises snipe cost for the same token count", () => {
+    const thin = config;
     const thick = { ...config, curve: config.curve.map((p, i) => ({ ...p, liquidity: i === 0 ? 3n * L : p.liquidity })) };
-    // same token count: the deeper first segment absorbs it at a lower average price but
-    // buying the same *share* of a deeper segment costs more quote
     const target = 400_000n;
-    const a = costToAcquire(thin, initialState(thin), target, ZERO_FEES).quoteIn;
-    const b = costToAcquire(thick, initialState(thick), target * 3n, ZERO_FEES).quoteIn;
-    expect(b > a).toBe(true);
+    const a = costToAcquire(thin, initialState(thin), target, ZERO_FEES);
+    const b = costToAcquire(thick, initialState(thick), target, ZERO_FEES);
+    expect(a.quoteIn > b.quoteIn).toBe(true);
+    expect(a.sqrtPriceAfter > b.sqrtPriceAfter).toBe(true);
   });
 
   it("buying with the quoted cost yields at least the requested base", () => {
