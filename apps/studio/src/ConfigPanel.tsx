@@ -1,6 +1,7 @@
 import type { Design } from "./design";
 import { NumberField, Section } from "./fields";
 import { sol } from "./format";
+import { SegmentEditor } from "./SegmentEditor";
 
 export interface ConfigPanelProps {
   design: Design;
@@ -28,6 +29,9 @@ export function ConfigPanel({ design, set, maxThresholdSol }: ConfigPanelProps) 
           <span>Quote</span>
           <span className="static">SOL</span>
         </div>
+      </Section>
+      <Section title="Curve segments">
+        <SegmentEditor weights={design.weights} onChange={(weights) => set({ weights })} />
       </Section>
       <Section title="Graduation">
         <NumberField label="Start market cap" unit="SOL" value={design.startMcSol} min={0.000001} max={1e9} onChange={(startMcSol) => set({ startMcSol })} />
