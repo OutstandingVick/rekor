@@ -1,4 +1,6 @@
-import { sol, tokens as fmtTokens, price as fmtPrice } from "./format";
+import { useState } from "react";
+import { pct, sol, tokens as fmtTokens, price as fmtPrice } from "./format";
+import type { Inspection } from "./inspect";
 import { segmentTone } from "./palette";
 import type { PathPoint } from "./path";
 import { linear } from "./scale";
@@ -11,20 +13,33 @@ export interface ChartProps {
   path: PathPoint[][];
   graduationMcSol: number;
   supplyTokens: number;
+  inspect: (sqrtPrice: bigint) => Inspection;
+  probeSol: number;
 }
 
-export function Chart({ path, graduationMcSol, supplyTokens }: ChartProps) {
+export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol }: ChartProps) {
   const [ref, { width, height }] = useSize<HTMLDivElement>();
   const all = path.flat();
   const maxTokens = all.at(-1)?.tokens ?? 1;
   const maxPrice = Math.max(...all.map((p) => p.price), 0) * 1.08 || 1;
   const x = linear([0, maxTokens], [M.left, Math.max(M.left + 1, width - M.right)]);
   const y = linear([0, maxPrice], [Math.max(M.top + 1, height - M.bottom), M.top]);
+  const [hover, setHover] = useState<PathPoint | null>(null);
+
+  const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
+    const px = e.clientX - e.currentTarget.getBoundingClientRect().left;
+    if (px < M.left || px > width - M.right || all.length === 0) return setHover(null);
+    const t = x.invert(px);
+    let best = all[0];
+    for (const p of all) if (Math.abs(p.tokens - t) < Math.abs(best.tokens - t)) best = p;
+    setHover(best);
+  };
+  const info = hover ? inspect(hover.sqrtPrice) : null;
 
   return (
     <div className="chart" ref={ref}>
       {width > 0 && (
-        <svg width={width} height={height} role="img" aria-label="Price versus tokens sold">
+        <svg width={width} height={height} role="img" aria-label="Price versus tokens sold" onMouseMove={onMove} onMouseLeave={() => setHover(null)}>
           {y.ticks(5).map((t) => (
             <g key={`y${t}`}>
               <line className="grid" x1={M.left} x2={width - M.right} y1={y(t)} y2={y(t)} />
@@ -61,8 +76,23 @@ export function Chart({ path, graduationMcSol, supplyTokens }: ChartProps) {
               <text x={-8} dy="0.32em" textAnchor="end">graduates · {sol(graduationMcSol)} SOL MC</text>
             </g>
           )}
+          {hover && (
+            <g className="crosshair">
+              <line x1={x(hover.tokens)} x2={x(hover.tokens)} y1={M.top} y2={y(0)} />
+              <circle cx={x(hover.tokens)} cy={y(hover.price)} r={3} />
+            </g>
+          )}
           <line className="axis" x1={M.left} x2={width - M.right} y1={y(0)} y2={y(0)} />
         </svg>
+      )}
+      {hover && info && (
+        <div className="tooltip" style={{ left: Math.min(x(hover.tokens) + 12, width - 210), top: M.top + 8 }}>
+          <div><span>price</span>{fmtPrice(hover.price)} SOL</div>
+          <div><span>sold</span>{fmtTokens(hover.tokens)}</div>
+          <div><span>raised</span>{sol(info.raisedSol)} SOL</div>
+          <div><span>{probeSol} SOL buy</span>{info.graduates ? "graduates" : `+${pct(info.impact, 2)}`}</div>
+          <div><span>segment</span>{hover.segment + 1}</div>
+        </div>
       )}
     </div>
   );
