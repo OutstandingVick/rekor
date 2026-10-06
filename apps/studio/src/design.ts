@@ -20,7 +20,7 @@ export const DEFAULT_DESIGN: Design = {
   baseDecimals: 6,
   startMcSol: 30,
   graduationMcSol: 400,
-  thresholdSol: 85,
+  thresholdSol: 60,
   weights: [3, 2, 1.5, 1, 1],
   feeBps: 100,
   creatorPct: 50,
