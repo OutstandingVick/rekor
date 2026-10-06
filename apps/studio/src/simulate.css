@@ -6,3 +6,14 @@
 .sim-note { color: var(--actual); font-size: 11px; margin-bottom: 6px; }
 .sim-holding { color: var(--muted); }
 .sim-holding strong { color: var(--text); font-weight: 500; }
+.log-empty { color: var(--faint); margin: 10px 0 0; }
+.log { list-style: none; margin: 10px 0 0; padding: 0; }
+.log li { padding: 6px 0; border-top: 1px solid var(--line); }
+.log-line { display: flex; gap: 6px; align-items: baseline; font-variant-numeric: tabular-nums; }
+.log .side { width: 30px; color: var(--muted); }
+.log .side.buy { color: var(--curve); }
+.log .impact { margin-left: auto; color: var(--muted); }
+.log-steps { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 3px; color: var(--faint); font-size: 10px; }
+.log-steps span { display: inline-flex; align-items: center; gap: 3px; }
+.log-steps i { width: 8px; height: 8px; display: inline-block; }
+.log-steps .fee { margin-left: auto; }
