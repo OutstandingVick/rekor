@@ -1,5 +1,6 @@
 import { MAX_CURVE_POINT } from "dbc-curve-sim";
 import { segmentTone } from "./palette";
+import { PRESETS } from "./presets";
 import "./segments.css";
 
 export interface SegmentEditorProps {
@@ -21,6 +22,13 @@ export function SegmentEditor({ weights, onChange }: SegmentEditorProps) {
           <button type="button" disabled={weights.length <= 1} onClick={() => onChange(weights.slice(0, -1))} aria-label="Remove segment">−</button>
           <button type="button" disabled={weights.length >= MAX_CURVE_POINT} onClick={() => onChange([...weights, weights.at(-1) ?? 1])} aria-label="Add segment">+</button>
         </span>
+      </div>
+      <div className="presets" role="group" aria-label="Shape presets">
+        {PRESETS.map((p) => (
+          <button key={p.name} type="button" title={p.hint} onClick={() => onChange(p.weights(weights.length))}>
+            {p.name}
+          </button>
+        ))}
       </div>
       <ol>
         {weights.map((w, i) => (
