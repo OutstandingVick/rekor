@@ -3,6 +3,9 @@ import { analyze } from "./analysis";
 import { Chart } from "./Chart";
 import { ConfigPanel } from "./ConfigPanel";
 import { DEFAULT_DESIGN, type Design } from "./design";
+import { ExportBar } from "./ExportBar";
+import { configJson } from "./exportConfig";
+import { initScript } from "./initScript";
 import { inspectAt } from "./inspect";
 import { headline } from "./metrics";
 import { Numbers } from "./Numbers";
@@ -69,7 +72,12 @@ export function App() {
           />
         )}
       </aside>
-      <footer className="zone zone-export" />
+      <footer className="zone zone-export">
+        <ExportBar
+          json={analysis.ok ? () => configJson(design, analysis.solved, numbers!) : null}
+          script={analysis.ok ? () => initScript(design, analysis.solved) : null}
+        />
+      </footer>
     </div>
   );
 }

@@ -1,0 +1,6 @@
+.export { display: flex; align-items: center; gap: 8px; padding: 8px 12px; flex-wrap: wrap; }
+.export button { padding: 5px 10px; border: 1px solid var(--line-strong); background: var(--bg); cursor: pointer; }
+.export button:hover:not(:disabled) { border-color: var(--curve); color: var(--curve); }
+.export button:disabled { opacity: 0.35; cursor: default; }
+.export code { font: inherit; color: var(--muted); }
+.export .flash { color: var(--curve); margin-left: 4px; }
