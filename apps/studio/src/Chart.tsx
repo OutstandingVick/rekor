@@ -1,4 +1,4 @@
-import { tokens as fmtTokens, price as fmtPrice } from "./format";
+import { sol, tokens as fmtTokens, price as fmtPrice } from "./format";
 import type { PathPoint } from "./path";
 import { linear } from "./scale";
 import { useSize } from "./useSize";
@@ -6,7 +6,12 @@ import "./chart.css";
 
 const M = { top: 16, right: 20, bottom: 28, left: 64 };
 
-export function Chart({ path }: { path: PathPoint[][] }) {
+export interface ChartProps {
+  path: PathPoint[][];
+  graduationMcSol: number;
+}
+
+export function Chart({ path, graduationMcSol }: ChartProps) {
   const [ref, { width, height }] = useSize<HTMLDivElement>();
   const all = path.flat();
   const maxTokens = all.at(-1)?.tokens ?? 1;
@@ -39,6 +44,12 @@ export function Chart({ path }: { path: PathPoint[][] }) {
             className="curve"
             d={all.map((p, j) => `${j ? "L" : "M"}${x(p.tokens).toFixed(1)},${y(p.price).toFixed(1)}`).join("")}
           />
+          {all.length > 0 && (
+            <g className="graduation" transform={`translate(${x(all.at(-1)!.tokens)},${y(all.at(-1)!.price)})`}>
+              <circle r={4} />
+              <text x={-8} dy="0.32em" textAnchor="end">graduates · {sol(graduationMcSol)} SOL MC</text>
+            </g>
+          )}
           <line className="axis" x1={M.left} x2={width - M.right} y1={y(0)} y2={y(0)} />
         </svg>
       )}
