@@ -14,3 +14,5 @@
 .brand { padding: 14px 16px; border-bottom: 1px solid var(--line); }
 .brand strong { color: var(--curve); font-weight: 600; }
 .brand span { color: var(--muted); margin-left: 6px; }
+.check { display: flex; align-items: center; gap: 8px; color: var(--muted); cursor: pointer; }
+.check input { accent-color: var(--curve); margin: 0; }
