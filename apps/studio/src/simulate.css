@@ -1,0 +1,8 @@
+.sim-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 4px 0 8px; }
+.sim-actions button { padding: 6px 0; border: 1px solid var(--line-strong); background: var(--bg); cursor: pointer; }
+.sim-actions button:hover:not(:disabled) { border-color: var(--curve); }
+.sim-actions button:disabled { opacity: 0.35; cursor: default; }
+.sim-actions .primary { border-color: var(--curve); color: var(--curve); }
+.sim-note { color: var(--actual); font-size: 11px; margin-bottom: 6px; }
+.sim-holding { color: var(--muted); }
+.sim-holding strong { color: var(--text); font-weight: 500; }
