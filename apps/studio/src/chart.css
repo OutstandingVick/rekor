@@ -7,3 +7,5 @@
 .chart .terrain.t1 { fill: #142120; }
 .chart .boundary { stroke: var(--bg); stroke-width: 1; }
 .chart .curve { fill: none; stroke: var(--curve); stroke-width: 1.75; stroke-linejoin: round; }
+.chart .graduation circle { fill: var(--bg); stroke: var(--curve); stroke-width: 2; }
+.chart .graduation text { fill: var(--text); font-size: 11px; }
