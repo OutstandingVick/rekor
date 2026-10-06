@@ -1,0 +1,35 @@
+import { tokens as fmtTokens, price as fmtPrice } from "./format";
+import type { PathPoint } from "./path";
+import { linear } from "./scale";
+import { useSize } from "./useSize";
+import "./chart.css";
+
+const M = { top: 16, right: 20, bottom: 28, left: 64 };
+
+export function Chart({ path }: { path: PathPoint[][] }) {
+  const [ref, { width, height }] = useSize<HTMLDivElement>();
+  const all = path.flat();
+  const maxTokens = all.at(-1)?.tokens ?? 1;
+  const maxPrice = Math.max(...all.map((p) => p.price), 0) * 1.08 || 1;
+  const x = linear([0, maxTokens], [M.left, Math.max(M.left + 1, width - M.right)]);
+  const y = linear([0, maxPrice], [Math.max(M.top + 1, height - M.bottom), M.top]);
+
+  return (
+    <div className="chart" ref={ref}>
+      {width > 0 && (
+        <svg width={width} height={height} role="img" aria-label="Price versus tokens sold">
+          {y.ticks(5).map((t) => (
+            <g key={`y${t}`}>
+              <line className="grid" x1={M.left} x2={width - M.right} y1={y(t)} y2={y(t)} />
+              <text className="tick" x={M.left - 8} y={y(t)} dy="0.32em" textAnchor="end">{fmtPrice(t)}</text>
+            </g>
+          ))}
+          {x.ticks(6).map((t) => (
+            <text key={`x${t}`} className="tick" x={x(t)} y={height - M.bottom + 16} textAnchor="middle">{fmtTokens(t)}</text>
+          ))}
+          <line className="axis" x1={M.left} x2={width - M.right} y1={y(0)} y2={y(0)} />
+        </svg>
+      )}
+    </div>
+  );
+}

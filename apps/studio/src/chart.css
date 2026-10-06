@@ -1,0 +1,5 @@
+.chart { position: relative; flex: 1; min-height: 320px; }
+.chart svg { position: absolute; inset: 0; display: block; }
+.chart .grid { stroke: var(--line); }
+.chart .axis { stroke: var(--line-strong); }
+.chart .tick { fill: var(--faint); font-size: 10px; }
