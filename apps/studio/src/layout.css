@@ -23,3 +23,11 @@
   }
   .zone-config, .zone-side { border: 0; border-top: 1px solid var(--line); }
 }
+
+.stage-error {
+  margin: auto;
+  max-width: 52ch;
+  padding: 16px 20px;
+  border: 1px solid color-mix(in srgb, var(--danger) 40%, transparent);
+  color: var(--danger);
+}

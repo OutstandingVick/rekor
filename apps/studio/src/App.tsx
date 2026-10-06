@@ -14,7 +14,7 @@ export function App() {
     <div className="app">
       <aside className="zone zone-config" aria-label="Curve configuration" />
       <main className="zone zone-stage">
-        <Chart path={path} />
+        {analysis.ok ? <Chart path={path} /> : <div className="stage-error" role="alert">{analysis.error}</div>}
       </main>
       <aside className="zone zone-side" aria-label="Simulate" />
       <footer className="zone zone-export" />
