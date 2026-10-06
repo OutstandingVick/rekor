@@ -4,3 +4,4 @@
 .export button:disabled { opacity: 0.35; cursor: default; }
 .export code { font: inherit; color: var(--muted); }
 .export .flash { color: var(--curve); margin-left: 4px; }
+.export .scope { margin-left: auto; color: var(--faint); }
