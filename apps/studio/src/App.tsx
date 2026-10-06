@@ -6,7 +6,7 @@ import { DEFAULT_DESIGN, type Design } from "./design";
 import { inspectAt } from "./inspect";
 import { headline } from "./metrics";
 import { Numbers } from "./Numbers";
-import { pricePath } from "./path";
+import { pointAt, pricePath } from "./path";
 import { SimulatePanel } from "./SimulatePanel";
 import { startSimulation, step, type Simulation } from "./simulation";
 import "./layout.css";
@@ -42,6 +42,7 @@ export function App() {
           <>
             <Chart path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens}
               probeSol={probeSol}
+              simulated={sim?.trades.map((t) => pointAt(design, analysis.solved, t.result.sqrtPriceAfter)) ?? []}
               inspect={(sp) => inspectAt(analysis.solved, analysis.fees, sp, probeSol)}
             />
             <Numbers h={numbers!} />
