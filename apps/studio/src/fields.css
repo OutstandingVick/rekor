@@ -9,3 +9,8 @@
 .field .unit { padding-right: 8px; color: var(--muted); }
 .field .hint { grid-column: 2; color: var(--faint); font-size: 10px; text-align: right; }
 .field .hint.bad { color: var(--danger); }
+.select { width: 100%; padding: 5px 8px; border: 1px solid var(--line-strong); background: var(--bg); }
+.static { text-align: right; color: var(--muted); padding-right: 8px; }
+.brand { padding: 14px 16px; border-bottom: 1px solid var(--line); }
+.brand strong { color: var(--curve); font-weight: 600; }
+.brand span { color: var(--muted); margin-left: 6px; }
