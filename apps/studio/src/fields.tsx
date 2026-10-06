@@ -27,12 +27,12 @@ interface NumberFieldProps {
  */
 export function NumberField({ label, value, onChange, unit, min = -Infinity, max = Infinity, step, hint }: NumberFieldProps) {
   const id = useId();
-  const [text, setText] = useState(String(value));
+  const [text, setText] = useState(show(value));
   useEffect(() => {
-    if (Number(text) !== value) setText(String(value));
+    if (parse(text) !== value) setText(show(value));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
-  const parsed = text.trim() === "" ? NaN : Number(text);
+  const parsed = parse(text);
   const valid = Number.isFinite(parsed) && parsed >= min && parsed <= max;
   return (
     <div className="field">
@@ -46,8 +46,8 @@ export function NumberField({ label, value, onChange, unit, min = -Infinity, max
           aria-invalid={!valid}
           onChange={(e) => {
             setText(e.target.value);
-            const v = Number(e.target.value);
-            if (e.target.value.trim() !== "" && Number.isFinite(v) && v >= min && v <= max) onChange(v);
+            const v = parse(e.target.value);
+            if (Number.isFinite(v) && v >= min && v <= max) onChange(v);
           }}
         />
         {unit && <span className="unit">{unit}</span>}
@@ -61,4 +61,14 @@ function rangeText(min: number, max: number) {
   if (Number.isFinite(min) && Number.isFinite(max)) return `between ${min} and ${max}`;
   if (Number.isFinite(min)) return `at least ${min}`;
   return `at most ${max}`;
+}
+
+/** 1000000000 -> "1,000,000,000"; small and fractional values as typed */
+function show(v: number): string {
+  return Math.abs(v) >= 10_000 && Number.isInteger(v) ? v.toLocaleString("en-US") : String(v);
+}
+
+function parse(text: string): number {
+  const t = text.replace(/[,_\s]/g, "");
+  return t === "" ? NaN : Number(t);
 }

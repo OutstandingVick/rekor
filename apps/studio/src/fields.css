@@ -16,3 +16,6 @@
 .brand span { color: var(--muted); margin-left: 6px; }
 .check { display: flex; align-items: center; gap: 8px; color: var(--muted); cursor: pointer; }
 .check input { accent-color: var(--curve); margin: 0; }
+@media (max-width: 1100px) {
+  .field { grid-template-columns: 1fr minmax(0, 60%); }
+}
