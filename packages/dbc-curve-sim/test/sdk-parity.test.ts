@@ -18,6 +18,8 @@ import {
   deltaQuote,
   migrationSqrtPrice,
   quoteReserveAt,
+  requiredSupply,
+  solveCurve,
   sell,
   type CurveConfig,
   type FeeConfig,
@@ -209,5 +211,50 @@ describe("fee scheduler", () => {
       const lin = feeNumeratorAt({ cliffFeeNumerator: 500_000_000n, numberOfPeriod: 10, periodFrequency: 1n, reductionFactor: 45_000_000n, mode: "linear" }, BigInt(period));
       expect(lin).toBe(big(sdk.getFeeNumeratorOnLinearFeeScheduler(new BN(500_000_000), new BN(45_000_000), period)));
     }
+  });
+});
+
+describe("solver + supply vs SDK", () => {
+  it("requiredSupply matches the SDK's create_config minimum (DAMM v2, no fee)", () => {
+    for (const f of fixtures) {
+      const sdkMin = big(
+        sdk.getTotalSupplyFromCurve(
+          bn(f.ours.migrationQuoteThreshold),
+          bn(f.ours.sqrtStartPrice),
+          f.sdkConfig.curve,
+          { amountPerPeriod: new BN(0), cliffUnlockAmount: new BN(0), numberOfPeriod: new BN(0) } as any,
+          1,
+          new BN(0),
+          0,
+        ),
+      );
+      expect(requiredSupply(f.ours).required).toBe(sdkMin);
+    }
+  });
+
+  it("16-segment solve agrees with buildCurveWithLiquidityWeights", () => {
+    const weights = Array.from({ length: 16 }, (_, i) => 1.2 ** i);
+    const built: any = sdk.buildCurveWithLiquidityWeights({
+      ...baseParams({ feeBps: 100, collectFeeMode: 0, creatorPct: 0 }),
+      initialMarketCap: 30,
+      migrationMarketCap: 300,
+      liquidityWeights: weights,
+    });
+    const mine = solveCurve({
+      totalSupply: 1_000_000_000n * 10n ** 6n,
+      baseDecimals: 6,
+      quoteDecimals: 9,
+      startPrice: "0.00000003",
+      graduationMarketCap: "300",
+      migrationQuoteThreshold: big(built.migrationQuoteThreshold),
+      weights,
+    });
+    const rel = (a: bigint, b: bigint) => Math.abs(Number(a - b)) / Number(b);
+    expect(rel(mine.config.sqrtStartPrice, big(built.sqrtStartPrice))).toBeLessThan(1e-12);
+    mine.config.curve.forEach((p, i) => {
+      expect(rel(p.sqrtPrice, big(built.curve[i].sqrtPrice))).toBeLessThan(1e-9);
+      expect(rel(p.liquidity, big(built.curve[i].liquidity))).toBeLessThan(1e-6);
+    });
+    expect(mine.errors).toEqual([]);
   });
 });
