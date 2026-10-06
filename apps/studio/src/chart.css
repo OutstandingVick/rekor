@@ -3,8 +3,6 @@
 .chart .grid { stroke: var(--line); }
 .chart .axis { stroke: var(--line-strong); }
 .chart .tick { fill: var(--faint); font-size: 10px; }
-.chart .terrain.t0 { fill: #1a2a28; }
-.chart .terrain.t1 { fill: #142120; }
 .chart .boundary { stroke: var(--bg); stroke-width: 1; }
 .chart .curve { fill: none; stroke: var(--curve); stroke-width: 1.75; stroke-linejoin: round; }
 .chart .graduation circle { fill: var(--bg); stroke: var(--curve); stroke-width: 2; }
