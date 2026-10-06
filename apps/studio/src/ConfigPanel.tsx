@@ -33,6 +33,28 @@ export function ConfigPanel({ design, set, maxThresholdSol }: ConfigPanelProps) 
       <Section title="Curve segments">
         <SegmentEditor weights={design.weights} onChange={(weights) => set({ weights })} />
       </Section>
+      <Section title="Fees">
+        <NumberField
+          label="Trading fee"
+          unit="bps"
+          value={design.feeBps}
+          min={25}
+          max={9900}
+          step={1}
+          onChange={(feeBps) => set({ feeBps: Math.round(feeBps) })}
+          hint={`${(design.feeBps / 100).toFixed(2)}% per trade, 20% of it to protocol`}
+        />
+        <NumberField
+          label="Creator share"
+          unit="%"
+          value={design.creatorPct}
+          min={0}
+          max={100}
+          step={1}
+          onChange={(creatorPct) => set({ creatorPct: Math.round(creatorPct) })}
+          hint={`partner gets ${100 - design.creatorPct}% of trading fees`}
+        />
+      </Section>
       <Section title="Graduation">
         <NumberField label="Start market cap" unit="SOL" value={design.startMcSol} min={0.000001} max={1e9} onChange={(startMcSol) => set({ startMcSol })} />
         <NumberField label="Graduation market cap" unit="SOL" value={design.graduationMcSol} min={0.000001} max={1e9} onChange={(graduationMcSol) => set({ graduationMcSol })} />
