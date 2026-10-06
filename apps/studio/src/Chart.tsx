@@ -27,6 +27,18 @@ export function Chart({ path }: { path: PathPoint[][] }) {
           {x.ticks(6).map((t) => (
             <text key={`x${t}`} className="tick" x={x(t)} y={height - M.bottom + 16} textAnchor="middle">{fmtTokens(t)}</text>
           ))}
+          {path.map((seg, i) => {
+            const line = seg.map((p, j) => `${j ? "L" : "M"}${x(p.tokens).toFixed(1)},${y(p.price).toFixed(1)}`).join("");
+            const area = `${line}L${x(seg.at(-1)!.tokens).toFixed(1)},${y(0)}L${x(seg[0].tokens).toFixed(1)},${y(0)}Z`;
+            return <path key={`a${i}`} className={`terrain t${i % 2}`} d={area} />;
+          })}
+          {path.slice(1).map((seg, i) => (
+            <line key={`b${i}`} className="boundary" x1={x(seg[0].tokens)} x2={x(seg[0].tokens)} y1={y(0)} y2={y(seg[0].price)} />
+          ))}
+          <path
+            className="curve"
+            d={all.map((p, j) => `${j ? "L" : "M"}${x(p.tokens).toFixed(1)},${y(p.price).toFixed(1)}`).join("")}
+          />
           <line className="axis" x1={M.left} x2={width - M.right} y1={y(0)} y2={y(0)} />
         </svg>
       )}
