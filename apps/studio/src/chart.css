@@ -9,3 +9,5 @@
 .chart .curve { fill: none; stroke: var(--curve); stroke-width: 1.75; stroke-linejoin: round; }
 .chart .graduation circle { fill: var(--bg); stroke: var(--curve); stroke-width: 2; }
 .chart .graduation text { fill: var(--text); font-size: 11px; }
+.chart .snipe-band rect { fill: rgba(255, 255, 255, 0.035); }
+.chart .snipe-band text { fill: var(--muted); font-size: 10px; }

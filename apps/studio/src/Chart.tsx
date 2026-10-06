@@ -9,9 +9,10 @@ const M = { top: 16, right: 20, bottom: 28, left: 64 };
 export interface ChartProps {
   path: PathPoint[][];
   graduationMcSol: number;
+  supplyTokens: number;
 }
 
-export function Chart({ path, graduationMcSol }: ChartProps) {
+export function Chart({ path, graduationMcSol, supplyTokens }: ChartProps) {
   const [ref, { width, height }] = useSize<HTMLDivElement>();
   const all = path.flat();
   const maxTokens = all.at(-1)?.tokens ?? 1;
@@ -32,6 +33,15 @@ export function Chart({ path, graduationMcSol }: ChartProps) {
           {x.ticks(6).map((t) => (
             <text key={`x${t}`} className="tick" x={x(t)} y={height - M.bottom + 16} textAnchor="middle">{fmtTokens(t)}</text>
           ))}
+          {(() => {
+            const edge = Math.min(x(supplyTokens * 0.05), width - M.right);
+            return (
+              <g className="snipe-band">
+                <rect x={M.left} y={M.top} width={Math.max(0, edge - M.left)} height={y(0) - M.top} />
+                <text x={M.left + 6} y={M.top + 12}>first 5% of supply</text>
+              </g>
+            );
+          })()}
           {path.map((seg, i) => {
             const line = seg.map((p, j) => `${j ? "L" : "M"}${x(p.tokens).toFixed(1)},${y(p.price).toFixed(1)}`).join("");
             const area = `${line}L${x(seg.at(-1)!.tokens).toFixed(1)},${y(0)}L${x(seg[0].tokens).toFixed(1)},${y(0)}Z`;
