@@ -1,0 +1,25 @@
+.app {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr) 280px;
+  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "config stage side"
+    "export export export";
+  height: 100vh;
+}
+
+.zone { min-width: 0; min-height: 0; overflow: auto; }
+.zone-config { grid-area: config; border-right: 1px solid var(--line); background: var(--panel); }
+.zone-stage { grid-area: stage; display: flex; flex-direction: column; }
+.zone-side { grid-area: side; border-left: 1px solid var(--line); background: var(--panel); }
+.zone-export { grid-area: export; border-top: 1px solid var(--line); background: var(--panel); }
+
+@media (max-width: 1100px) {
+  .app {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: "stage" "config" "side" "export";
+    height: auto;
+  }
+  .zone-config, .zone-side { border: 0; border-top: 1px solid var(--line); }
+}
