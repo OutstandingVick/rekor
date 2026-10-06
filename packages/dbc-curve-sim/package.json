@@ -1,0 +1,29 @@
+{
+  "name": "dbc-curve-sim",
+  "version": "0.1.0",
+  "description": "Headless Meteora Dynamic Bonding Curve math: price path, reserves, swaps, fees. Bigint, no RPC.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@meteora-ag/dynamic-bonding-curve-sdk": "1.5.13",
+    "@types/bn.js": "^5.2.0",
+    "bn.js": "^5.2.5",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.3"
+  }
+}
