@@ -9,3 +9,12 @@
 .chart .graduation text { fill: var(--text); font-size: 11px; }
 .chart .snipe-band rect { fill: rgba(255, 255, 255, 0.035); }
 .chart .snipe-band text { fill: var(--muted); font-size: 10px; }
+.chart .crosshair line { stroke: var(--line-strong); stroke-dasharray: 2 3; }
+.chart .crosshair circle { fill: var(--curve); }
+.chart .tooltip {
+  position: absolute; width: 200px; pointer-events: none;
+  padding: 8px 10px; background: var(--panel); border: 1px solid var(--line-strong);
+  font-variant-numeric: tabular-nums;
+}
+.chart .tooltip div { display: flex; justify-content: space-between; gap: 8px; }
+.chart .tooltip span { color: var(--muted); }

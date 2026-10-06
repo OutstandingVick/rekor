@@ -3,12 +3,14 @@ import { analyze } from "./analysis";
 import { Chart } from "./Chart";
 import { ConfigPanel } from "./ConfigPanel";
 import { DEFAULT_DESIGN, type Design } from "./design";
+import { inspectAt } from "./inspect";
 import { headline } from "./metrics";
 import { Numbers } from "./Numbers";
 import { pricePath } from "./path";
 import "./layout.css";
 
 export function App() {
+  const [probeSol] = useState(1);
   const [design, setDesign] = useState<Design>(DEFAULT_DESIGN);
   const set = (patch: Partial<Design>) => setDesign((d) => ({ ...d, ...patch }));
   const analysis = useMemo(() => analyze(design), [design]);
@@ -27,7 +29,10 @@ export function App() {
       <main className="zone zone-stage">
         {analysis.ok ? (
           <>
-            <Chart path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens} />
+            <Chart path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens}
+              probeSol={probeSol}
+              inspect={(sp) => inspectAt(analysis.solved, analysis.fees, sp, probeSol)}
+            />
             <Numbers h={numbers!} />
           </>
         ) : (
