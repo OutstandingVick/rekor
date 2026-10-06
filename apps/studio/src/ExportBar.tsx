@@ -34,6 +34,9 @@ export function ExportBar({ json, script }: ExportBarProps) {
         <code>{INSTALL}</code>
       </button>
       <span className="flash" role="status">{flash}</span>
+      <span className="scope" title="Out of scope: mainnet deploy, migration execution, DAMM v2 pool management, Token-2022 hooks, rate limiter, non-SOL quote">
+        SOL quote · DAMM v2 migration · devnet only
+      </span>
     </div>
   );
 }
