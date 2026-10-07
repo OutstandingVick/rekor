@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { analyze } from "./analysis";
 import { Chart } from "./Chart";
 import { useDeployment } from "./chain/useDeployment";
+import { useLiveTrades } from "./chain/useLiveTrades";
 import { ConfigPanel } from "./ConfigPanel";
 import { DeployPanel } from "./DeployPanel";
 import { DEFAULT_DESIGN, type Design } from "./design";
@@ -23,6 +24,7 @@ export function App() {
   // once deployed, everything on the page describes the on-chain curve, not later edits
   const deployed = deploy.state.kind === "deployed" ? deploy.state.deployment : null;
   const design = deployed?.design ?? draft;
+  const live = useLiveTrades(deployed?.pool ?? null);
   const set = (patch: Partial<Design>) => setDraft((d) => ({ ...d, ...patch }));
   const analysis = useMemo(() => analyze(design), [design]);
   const numbers = useMemo(() => (analysis.ok ? headline(design, analysis.solved, analysis.fees) : null), [analysis, design]);
@@ -82,6 +84,7 @@ export function App() {
         )}
         <DeployPanel
           analysis={analysis}
+          onLiveTrade={live.add}
           deploy={{
             ...deploy,
             reset: () => {

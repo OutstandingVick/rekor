@@ -8,12 +8,20 @@ import { useBalance } from "./chain/useBalance";
 import type { useDeployment } from "./chain/useDeployment";
 import { useWalletSigner } from "./chain/useWalletSigner";
 import { Section } from "./fields";
+import type { LiveTrade } from "./chain/trade";
+import { LiveTradeBox } from "./LiveTradeBox";
 import "./deploy.css";
 
 const MIN_DEPLOY_SOL = 0.05;
 const short = (k: string) => `${k.slice(0, 4)}…${k.slice(-4)}`;
 
-export function DeployPanel({ analysis, deploy }: { analysis: Analysis; deploy: ReturnType<typeof useDeployment> }) {
+export interface DeployPanelProps {
+  analysis: Analysis;
+  deploy: ReturnType<typeof useDeployment>;
+  onLiveTrade: (t: LiveTrade) => void;
+}
+
+export function DeployPanel({ analysis, deploy, onLiveTrade }: DeployPanelProps) {
   const signer = useWalletSigner();
   const { lamports, refresh } = useBalance(signer?.publicKey ?? null);
   const { state } = deploy;
@@ -41,6 +49,8 @@ export function DeployPanel({ analysis, deploy }: { analysis: Analysis; deploy: 
           <dt>config</dt><dd><a href={explorer("address", d.config)} target="_blank" rel="noreferrer">{short(d.config)}</a></dd>
           <dt>token</dt><dd><a href={explorer("address", d.baseMint)} target="_blank" rel="noreferrer">{short(d.baseMint)}</a></dd>
         </dl>
+        {!signer && <ConnectWallet />}
+        <LiveTradeBox analysis={analysis} deployment={d} signer={signer} onTrade={onLiveTrade} onSettled={() => void refresh()} />
         <div className="deploy">
           <button type="button" onClick={deploy.reset}>design a new curve</button>
         </div>

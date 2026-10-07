@@ -18,3 +18,4 @@
 .deployed dt { color: var(--muted); }
 .deployed dd { margin: 0; }
 .deployed a { color: var(--text); }
+.deploy .go.actual { border-color: var(--actual); color: var(--actual); }
