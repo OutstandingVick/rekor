@@ -9,3 +9,12 @@
 .wallet-row button { padding: 2px 8px; color: var(--muted); }
 .wallet-list button:hover:not(:disabled), .wallet-row button:hover, .deploy button:hover:not(:disabled) { border-color: var(--curve); }
 .deploy button:disabled, .wallet-list button:disabled { opacity: 0.4; cursor: default; }
+.deploy { display: grid; gap: 8px; margin-top: 8px; }
+.deploy .go { border-color: var(--curve); color: var(--curve); padding: 8px; }
+.deploy .balance { color: var(--muted); }
+.deploy .warn, .deploy .error { color: var(--danger); }
+.deploy .error { margin: 0; }
+.deployed { display: grid; grid-template-columns: 56px 1fr; gap: 3px 8px; margin: 0; }
+.deployed dt { color: var(--muted); }
+.deployed dd { margin: 0; }
+.deployed a { color: var(--text); }

@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { analyze } from "./analysis";
 import { Chart } from "./Chart";
+import { useDeployment } from "./chain/useDeployment";
 import { ConfigPanel } from "./ConfigPanel";
+import { DeployPanel } from "./DeployPanel";
 import { DEFAULT_DESIGN, type Design } from "./design";
 import { ExportBar } from "./ExportBar";
 import { configJson } from "./exportConfig";
@@ -17,6 +19,7 @@ import "./layout.css";
 export function App() {
   const [probeSol, setProbeSol] = useState(1);
   const [design, setDesign] = useState<Design>(DEFAULT_DESIGN);
+  const deploy = useDeployment();
   const set = (patch: Partial<Design>) => setDesign((d) => ({ ...d, ...patch }));
   const analysis = useMemo(() => analyze(design), [design]);
   const numbers = useMemo(() => (analysis.ok ? headline(design, analysis.solved, analysis.fees) : null), [analysis, design]);
@@ -71,6 +74,7 @@ export function App() {
             onReset={() => setSim(fresh())}
           />
         )}
+        <DeployPanel analysis={analysis} deploy={deploy} />
       </aside>
       <footer className="zone zone-export">
         <ExportBar
