@@ -20,3 +20,11 @@
 .chart .tooltip span { color: var(--muted); }
 .chart .sim-dot { fill: var(--bg); stroke: var(--curve); stroke-width: 1.5; }
 .chart .actual-dot { fill: var(--actual); stroke: var(--bg); stroke-width: 1; }
+.readout {
+  position: absolute; left: 76px; top: 34px; padding: 6px 10px;
+  background: var(--panel); border: 1px solid var(--line-strong);
+  color: var(--muted); text-decoration: none; font-variant-numeric: tabular-nums;
+}
+.readout b { color: var(--curve); font-weight: 500; }
+.readout b.act { color: var(--actual); }
+.readout.off { border-color: var(--danger); }
