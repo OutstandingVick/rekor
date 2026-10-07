@@ -19,9 +19,11 @@ export interface ChartProps {
   simulated?: PathPoint[];
   /** real devnet fills, at the pool's measured post-trade price */
   actual?: PathPoint[];
+  /** overlay content, e.g. the predicted-vs-actual readout */
+  children?: React.ReactNode;
 }
 
-export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, simulated = [], actual = [] }: ChartProps) {
+export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, simulated = [], actual = [], children }: ChartProps) {
   const [ref, { width, height }] = useSize<HTMLDivElement>();
   const all = path.flat();
   const maxTokens = all.at(-1)?.tokens ?? 1;
@@ -95,6 +97,7 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
           <line className="axis" x1={M.left} x2={width - M.right} y1={y(0)} y2={y(0)} />
         </svg>
       )}
+      {children}
       {hover && info && (
         <div className="tooltip" style={{ left: Math.min(x(hover.tokens) + 12, width - 210), top: M.top + 8 }}>
           <div><span>price</span>{fmtPrice(hover.price)} SOL</div>

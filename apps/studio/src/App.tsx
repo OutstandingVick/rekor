@@ -13,6 +13,7 @@ import { inspectAt } from "./inspect";
 import { headline } from "./metrics";
 import { Numbers } from "./Numbers";
 import { pointAt, pricePath } from "./path";
+import { Readout } from "./Readout";
 import { SimulatePanel } from "./SimulatePanel";
 import { startSimulation, step, type Simulation } from "./simulation";
 import "./layout.css";
@@ -64,7 +65,9 @@ export function App() {
               actual={analysis.ok ? live.trades.map((t) => pointAt(design, analysis.solved, t.actualSqrtPrice)) : []}
               simulated={sim?.trades.map((t) => pointAt(design, analysis.solved, t.result.sqrtPriceAfter)) ?? []}
               inspect={(sp) => inspectAt(analysis.solved, analysis.fees, sp, probeSol)}
-            />
+            >
+              {live.trades.length > 0 && <Readout trade={live.trades.at(-1)!} baseDecimals={design.baseDecimals} />}
+            </Chart>
             <Numbers h={numbers!} />
           </>
         ) : (
