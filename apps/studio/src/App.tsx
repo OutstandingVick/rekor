@@ -18,9 +18,12 @@ import "./layout.css";
 
 export function App() {
   const [probeSol, setProbeSol] = useState(1);
-  const [design, setDesign] = useState<Design>(DEFAULT_DESIGN);
+  const [draft, setDraft] = useState<Design>(DEFAULT_DESIGN);
   const deploy = useDeployment();
-  const set = (patch: Partial<Design>) => setDesign((d) => ({ ...d, ...patch }));
+  // once deployed, everything on the page describes the on-chain curve, not later edits
+  const deployed = deploy.state.kind === "deployed" ? deploy.state.deployment : null;
+  const design = deployed?.design ?? draft;
+  const set = (patch: Partial<Design>) => setDraft((d) => ({ ...d, ...patch }));
   const analysis = useMemo(() => analyze(design), [design]);
   const numbers = useMemo(() => (analysis.ok ? headline(design, analysis.solved, analysis.fees) : null), [analysis, design]);
   const maxThresholdSol = useMemo(() => {
@@ -46,7 +49,10 @@ export function App() {
   return (
     <div className="app">
       <aside className="zone zone-config" aria-label="Curve configuration">
-        <ConfigPanel design={design} set={set} maxThresholdSol={maxThresholdSol} />
+        <fieldset className="lock" disabled={deployed !== null}>
+          <ConfigPanel design={design} set={set} maxThresholdSol={maxThresholdSol} />
+        </fieldset>
+        {deployed && <p className="locked-note">Locked to the deployed curve. “Design a new curve” to edit again.</p>}
       </aside>
       <main className="zone zone-stage">
         {analysis.ok ? (
@@ -74,7 +80,16 @@ export function App() {
             onReset={() => setSim(fresh())}
           />
         )}
-        <DeployPanel analysis={analysis} deploy={deploy} />
+        <DeployPanel
+          analysis={analysis}
+          deploy={{
+            ...deploy,
+            reset: () => {
+              if (deployed) setDraft(deployed.design);
+              deploy.reset();
+            },
+          }}
+        />
       </aside>
       <footer className="zone zone-export">
         <ExportBar
