@@ -89,6 +89,7 @@ export function App() {
         <DeployPanel
           analysis={analysis}
           onLiveTrade={live.add}
+          liveTrades={live.trades}
           deploy={{
             ...deploy,
             reset: () => {

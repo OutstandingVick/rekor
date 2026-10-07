@@ -9,6 +9,7 @@ import type { useDeployment } from "./chain/useDeployment";
 import { useWalletSigner } from "./chain/useWalletSigner";
 import { Section } from "./fields";
 import type { LiveTrade } from "./chain/trade";
+import { LiveLog } from "./LiveLog";
 import { LiveTradeBox } from "./LiveTradeBox";
 import "./deploy.css";
 
@@ -19,9 +20,10 @@ export interface DeployPanelProps {
   analysis: Analysis;
   deploy: ReturnType<typeof useDeployment>;
   onLiveTrade: (t: LiveTrade) => void;
+  liveTrades: LiveTrade[];
 }
 
-export function DeployPanel({ analysis, deploy, onLiveTrade }: DeployPanelProps) {
+export function DeployPanel({ analysis, deploy, onLiveTrade, liveTrades }: DeployPanelProps) {
   const signer = useWalletSigner();
   const { lamports, refresh } = useBalance(signer?.publicKey ?? null);
   const { state } = deploy;
@@ -51,6 +53,7 @@ export function DeployPanel({ analysis, deploy, onLiveTrade }: DeployPanelProps)
         </dl>
         {!signer && <ConnectWallet />}
         <LiveTradeBox analysis={analysis} deployment={d} signer={signer} onTrade={onLiveTrade} onSettled={() => void refresh()} />
+        <LiveLog trades={liveTrades} baseDecimals={d.design.baseDecimals} />
         <div className="deploy">
           <button type="button" onClick={deploy.reset}>design a new curve</button>
         </div>
