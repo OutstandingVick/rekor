@@ -33,10 +33,12 @@ export function App() {
     const a = analyze({ ...design, thresholdSol: null });
     return a.ok ? Number(a.solved.config.migrationQuoteThreshold) / 1e9 : null;
   }, [design]);
-  const fresh = (): Simulation | null => (analysis.ok ? startSimulation(analysis.solved) : null);
+  // with a live pool, "what if" questions start from where the pool actually is
+  const livePrice = live.trades.at(-1)?.actualSqrtPrice;
+  const fresh = (): Simulation | null => (analysis.ok ? startSimulation(analysis.solved, livePrice) : null);
   const [sim, setSim] = useState<Simulation | null>(fresh);
   // any design change invalidates the simulated pool
-  useEffect(() => setSim(fresh()), [analysis]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => setSim(fresh()), [analysis, livePrice]); // eslint-disable-line react-hooks/exhaustive-deps
   const buyNow = () => {
     if (!analysis.ok || !sim) return;
     setSim(step(sim, analysis.solved, analysis.fees, { kind: "buy", quote: BigInt(Math.round(probeSol * 1e9)) }));
