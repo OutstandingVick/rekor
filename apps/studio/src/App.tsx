@@ -61,6 +61,7 @@ export function App() {
           <>
             <Chart path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens}
               probeSol={probeSol}
+              actual={analysis.ok ? live.trades.map((t) => pointAt(design, analysis.solved, t.actualSqrtPrice)) : []}
               simulated={sim?.trades.map((t) => pointAt(design, analysis.solved, t.result.sqrtPriceAfter)) ?? []}
               inspect={(sp) => inspectAt(analysis.solved, analysis.fees, sp, probeSol)}
             />

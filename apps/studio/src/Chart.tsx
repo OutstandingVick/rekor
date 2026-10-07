@@ -17,9 +17,11 @@ export interface ChartProps {
   probeSol: number;
   /** simulated trades, in order, as positions on the curve */
   simulated?: PathPoint[];
+  /** real devnet fills, at the pool's measured post-trade price */
+  actual?: PathPoint[];
 }
 
-export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, simulated = [] }: ChartProps) {
+export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, simulated = [], actual = [] }: ChartProps) {
   const [ref, { width, height }] = useSize<HTMLDivElement>();
   const all = path.flat();
   const maxTokens = all.at(-1)?.tokens ?? 1;
@@ -80,6 +82,9 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
           )}
           {simulated.map((p, i) => (
             <circle key={`s${i}`} className="sim-dot" cx={x(p.tokens)} cy={y(p.price)} r={i === simulated.length - 1 ? 4.5 : 3} />
+          ))}
+          {actual.map((p, i) => (
+            <circle key={`r${i}`} className="actual-dot" cx={x(p.tokens)} cy={y(p.price)} r={i === actual.length - 1 ? 5 : 3.5} />
           ))}
           {hover && (
             <g className="crosshair">
