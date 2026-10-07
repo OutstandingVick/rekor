@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit -p tsconfig.json && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "e2e": "tsx scripts/e2e-devnet.ts"
   },
   "dependencies": {
     "@meteora-ag/dynamic-bonding-curve-sdk": "1.5.13",
@@ -24,6 +25,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
+    "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "vite": "^8.3.2"
   }
