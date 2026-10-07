@@ -13,6 +13,7 @@ import { deployDesign } from "../src/chain/deploy";
 import { devnet, explorer } from "../src/chain/network";
 import { keypairSigner } from "../src/chain/signer";
 import { liveBuy } from "../src/chain/trade";
+import { verifyDeployment } from "../src/chain/verify";
 import type { Design } from "../src/design";
 
 // Small enough for a faucet wallet to walk across segments.
@@ -37,7 +38,9 @@ const d = await deployDesign(connection, signer, design, a.solved, (s) => consol
 console.log("config", explorer("address", d.config));
 console.log("pool  ", explorer("address", d.pool));
 
-let failed = false;
+const v = await verifyDeployment(connection, d, a.solved);
+console.log("verify", JSON.stringify(v));
+let failed = v.kind !== "match";
 for (const lamports of [30_000_000n, 120_000_000n]) {
   const t = await liveBuy(connection, signer, d, a.solved, a.fees, lamports);
   const ok = t.actualOut === t.predictedOut && t.actualSqrtPrice === t.predictedSqrtPrice;
