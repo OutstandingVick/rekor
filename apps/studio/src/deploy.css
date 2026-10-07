@@ -23,3 +23,6 @@
 .live-log .match { color: var(--curve); }
 .live-log .diff { color: var(--danger); }
 .live-log a { color: var(--faint); }
+.verify { margin: 8px 0 0; color: var(--muted); }
+.verify.match { color: var(--curve); }
+.verify.mismatch, .verify.missing { color: var(--danger); }

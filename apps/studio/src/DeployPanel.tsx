@@ -1,4 +1,6 @@
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { useEffect, useState } from "react";
+import { verifyDeployment, type Verification } from "./chain/verify";
 import type { Analysis } from "./analysis";
 import { ConnectWallet } from "./chain/ConnectWallet";
 import { deployDesign } from "./chain/deploy";
@@ -27,6 +29,20 @@ export function DeployPanel({ analysis, deploy, onLiveTrade, liveTrades }: Deplo
   const signer = useWalletSigner();
   const { lamports, refresh } = useBalance(signer?.publicKey ?? null);
   const { state } = deploy;
+  const [check, setCheck] = useState<Verification | "checking" | null>(null);
+  const deployedNow = state.kind === "deployed" ? state.deployment : null;
+  useEffect(() => {
+    if (!deployedNow || !analysis.ok) return setCheck(null);
+    setCheck("checking");
+    let alive = true;
+    devnet()
+      .then((c) => verifyDeployment(c, deployedNow, analysis.solved))
+      .then((v) => alive && setCheck(v))
+      .catch(() => alive && setCheck(null));
+    return () => {
+      alive = false;
+    };
+  }, [deployedNow, analysis]);
   const sol = lamports === null ? null : lamports / LAMPORTS_PER_SOL;
   const short_ = sol !== null && sol < MIN_DEPLOY_SOL;
 
@@ -51,6 +67,12 @@ export function DeployPanel({ analysis, deploy, onLiveTrade, liveTrades }: Deplo
           <dt>config</dt><dd><a href={explorer("address", d.config)} target="_blank" rel="noreferrer">{short(d.config)}</a></dd>
           <dt>token</dt><dd><a href={explorer("address", d.baseMint)} target="_blank" rel="noreferrer">{short(d.baseMint)}</a></dd>
         </dl>
+        <p className={`verify ${check && check !== "checking" ? check.kind : ""}`}>
+          {check === "checking" && "reading config back from chain…"}
+          {check !== null && check !== "checking" && check.kind === "match" && `✓ on-chain config matches the design exactly (${check.segments} segments)`}
+          {check !== null && check !== "checking" && check.kind === "mismatch" && `✗ on-chain differs: ${check.fields.join(", ")}`}
+          {check !== null && check !== "checking" && check.kind === "missing" && "pool not found on devnet (devnet may have been reset) — design a new curve"}
+        </p>
         {!signer && <ConnectWallet />}
         <LiveTradeBox analysis={analysis} deployment={d} signer={signer} onTrade={onLiveTrade} onSettled={() => void refresh()} />
         <LiveLog trades={liveTrades} baseDecimals={d.design.baseDecimals} />
