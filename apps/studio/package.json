@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit -p tsconfig.json && vite build",
+    "build": "pnpm --filter dbc-curve-sim build && tsc --noEmit -p tsconfig.json && vite build",
     "preview": "vite preview",
     "e2e": "tsx scripts/e2e-devnet.ts"
   },

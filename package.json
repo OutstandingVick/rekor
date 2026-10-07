@@ -4,5 +4,6 @@
   "scripts": {
     "build": "pnpm --filter dbc-curve-sim build",
     "test": "pnpm build && pnpm -r test"
-  }
+  },
+  "packageManager": "pnpm@10.28.0"
 }
