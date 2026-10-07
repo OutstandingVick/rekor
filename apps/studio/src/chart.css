@@ -19,3 +19,4 @@
 .chart .tooltip div { display: flex; justify-content: space-between; gap: 8px; }
 .chart .tooltip span { color: var(--muted); }
 .chart .sim-dot { fill: var(--bg); stroke: var(--curve); stroke-width: 1.5; }
+.chart .actual-dot { fill: var(--actual); stroke: var(--bg); stroke-width: 1; }
