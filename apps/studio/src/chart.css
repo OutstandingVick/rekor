@@ -21,7 +21,7 @@
 .chart .sim-dot { fill: var(--bg); stroke: var(--curve); stroke-width: 1.5; }
 .chart .actual-dot { fill: var(--actual); stroke: var(--bg); stroke-width: 1; }
 .readout {
-  position: absolute; left: 76px; top: 34px; padding: 6px 10px;
+  position: absolute; left: 50%; transform: translateX(-50%); top: 44px; padding: 6px 10px; white-space: nowrap;
   background: var(--panel); border: 1px solid var(--line-strong);
   color: var(--muted); text-decoration: none; font-variant-numeric: tabular-nums;
 }
