@@ -15,8 +15,9 @@ export interface Simulation {
   note: string | null;
 }
 
-export function startSimulation(solved: SolveResult): Simulation {
-  return { sqrtPrice: solved.config.sqrtStartPrice, holding: 0n, trades: [], note: null };
+/** Start from the opening price, or from a live pool's current price when one exists. */
+export function startSimulation(solved: SolveResult, from?: bigint): Simulation {
+  return { sqrtPrice: from ?? solved.config.sqrtStartPrice, holding: 0n, trades: [], note: null };
 }
 
 export type SimAction = { kind: "buy"; quote: bigint } | { kind: "sell"; base: bigint };
