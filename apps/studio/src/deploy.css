@@ -19,3 +19,7 @@
 .deployed dd { margin: 0; }
 .deployed a { color: var(--text); }
 .deploy .go.actual { border-color: var(--actual); color: var(--actual); }
+.live-log .side.live { color: var(--actual); }
+.live-log .match { color: var(--curve); }
+.live-log .diff { color: var(--danger); }
+.live-log a { color: var(--faint); }
