@@ -70,3 +70,5 @@
 .chart .terrain.dim { opacity: 0.55; }
 .chart .seg-label { fill: var(--faint); font-size: 10px; font-family: var(--mono); pointer-events: none; }
 .chart .seg-label.active { fill: var(--text); }
+.chart .preview path { fill: none; stroke: var(--text); stroke-width: 3; stroke-opacity: 0.35; stroke-linecap: round; }
+.chart .preview circle { fill: none; stroke: var(--text); stroke-width: 1.5; stroke-dasharray: 2 2; }
