@@ -16,6 +16,7 @@ import { inspectAt } from "./inspect";
 import { headline } from "./metrics";
 import { Numbers } from "./Numbers";
 import { pointAt, pricePath } from "./path";
+import { segmentStats } from "./segmentStats";
 import { Readout } from "./Readout";
 import { SimulatePanel } from "./SimulatePanel";
 import { startSimulation, step, type Simulation } from "./simulation";
@@ -62,6 +63,7 @@ export function App() {
     setSim(step(sim, analysis.solved, analysis.fees, { kind: "sell", base: (sim.holding * percent) / 100n }));
   };
 
+  const stats = useMemo(() => (analysis.ok ? segmentStats(design, analysis.solved) : []), [analysis, design]);
   const path = useMemo(() => (analysis.ok ? pricePath(design, analysis.solved) : []), [analysis, design]);
 
   return (
@@ -82,7 +84,7 @@ export function App() {
                 counts={{ actual: live.trades.length, trades: sim?.trades.length ?? 0, segments: design.weights.length }}
               />
             </ChartToolbar>
-            <Chart show={overlays} activeSegment={activeSegment} onSegment={setActiveSegment} path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens}
+            <Chart show={overlays} activeSegment={activeSegment} onSegment={setActiveSegment} stats={stats} path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens}
               probeSol={probeSol}
               actual={analysis.ok ? live.trades.map((t) => pointAt(design, analysis.solved, t.actualSqrtPrice)) : []}
               simulated={sim?.trades.map((t) => pointAt(design, analysis.solved, t.result.sqrtPriceAfter)) ?? []}
