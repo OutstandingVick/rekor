@@ -8,3 +8,7 @@
 .export code { font: inherit; color: var(--muted); }
 .export .flash { color: var(--curve); margin-left: 4px; }
 .export .scope { margin-left: auto; color: var(--faint); }
+.export button { display: inline-flex; align-items: center; gap: 6px; }
+.export .ex-label { margin-right: var(--s1); color: var(--faint); font-size: var(--fs-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+.export .install { font-family: var(--mono); font-size: var(--fs-xs); background: var(--surface-2); }
+.export .prompt { color: var(--curve); }
