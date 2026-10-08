@@ -33,7 +33,7 @@
 }
 .wallet-chip:hover { border-color: var(--curve); }
 .wallet-chip.on { border-color: transparent; }
-.wallet-chip .mono { font-size: var(--fs-sm); }
+.wallet-chip .mono { font-size: var(--fs-sm); max-width: 14ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 @media (max-width: 1100px) {
   .topbar { flex-wrap: wrap; height: auto; padding: var(--s2) var(--s3); row-gap: var(--s2); }
   .topbar .brand-sub { display: none; }

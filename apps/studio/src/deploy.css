@@ -10,7 +10,8 @@
   padding: 0 var(--s3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface-3); cursor: pointer;
   font-weight: 500;
 }
-.wallet-list button { justify-content: flex-start; }
+.wallet-list button { justify-content: flex-start; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wallet-row > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .wallet-row button { height: 24px; padding: 0 var(--s2); color: var(--muted); background: transparent; font-weight: 400; font-size: var(--fs-xs); }
 .wallet-list button:hover:not(:disabled), .wallet-row button:hover, .deploy button:hover:not(:disabled) { border-color: var(--curve); }
 .deploy button:disabled, .wallet-list button:disabled { opacity: 0.4; cursor: default; }
