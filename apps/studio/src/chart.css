@@ -59,3 +59,6 @@
 .chart .axis-title { fill: var(--faint); font-size: 10px; letter-spacing: 0.04em; }
 .chart .start-point circle { fill: var(--curve); }
 .chart .start-point text { fill: var(--muted); font-size: 10px; font-family: var(--mono); }
+.chart .terrain { transition: opacity 0.12s, filter 0.12s; }
+.chart .terrain.active { filter: brightness(1.45); }
+.chart .terrain.dim { opacity: 0.55; }
