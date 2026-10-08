@@ -1,0 +1,9 @@
+.topbar {
+  display: flex; align-items: center; gap: var(--s4);
+  height: 48px; padding: 0 var(--s4);
+  background: var(--surface-1); border-bottom: 1px solid var(--line);
+}
+.topbar .brand { display: flex; align-items: center; gap: var(--s2); white-space: nowrap; }
+.topbar .brand-mark { width: 18px; height: 18px; color: var(--curve); }
+.topbar .brand strong { font-size: var(--fs-lg); font-weight: 600; letter-spacing: -0.01em; }
+.topbar .brand-sub { color: var(--muted); font-size: var(--fs-sm); }
