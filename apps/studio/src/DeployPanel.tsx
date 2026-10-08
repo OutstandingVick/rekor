@@ -90,9 +90,14 @@ export function DeployPanel({ analysis, deploy, onLiveTrade, liveTrades, check }
       {signer && (
         <div className="deploy">
           <div className="balance">
-            balance {sol === null ? "…" : `${sol.toFixed(3)} SOL`}
-            {short_ && <span className="warn"> · need ≥ {MIN_DEPLOY_SOL} — <a href="https://faucet.solana.com" target="_blank" rel="noreferrer">faucet</a></span>}
+            <span>Devnet balance</span>
+            <strong className={short_ ? "warn" : ""}>{sol === null ? "…" : `${sol.toFixed(3)} SOL`}</strong>
           </div>
+          {short_ && (
+            <p className="warn-note">
+              Need at least {MIN_DEPLOY_SOL} SOL — <a href="https://faucet.solana.com" target="_blank" rel="noreferrer">faucet</a>
+            </p>
+          )}
           <button type="button" className="go" disabled={!analysis.ok || state.kind === "deploying" || short_} onClick={run}>
             {state.kind === "deploying" ? (state.step === "config" ? "1/2 creating config…" : "2/2 creating pool…") : "deploy this curve"}
           </button>

@@ -16,7 +16,11 @@
 .deploy button:disabled, .wallet-list button:disabled { opacity: 0.4; cursor: default; }
 .deploy { display: grid; gap: 8px; margin-top: 8px; }
 .deploy .go { border-color: var(--curve); color: var(--curve); padding: 8px; }
-.deploy .balance { color: var(--muted); }
+.deploy .balance { display: flex; justify-content: space-between; color: var(--muted); font-size: var(--fs-sm); }
+.deploy .balance strong { color: var(--text); font-family: var(--mono); font-weight: 500; }
+.deploy .balance strong.warn { color: var(--danger); }
+.warn-note { margin: 0; padding: 6px var(--s2); border-radius: var(--radius-sm); background: var(--danger-bg); color: var(--danger); font-size: var(--fs-xs); }
+.warn-note a { color: inherit; }
 .deploy .warn, .deploy .error { color: var(--danger); }
 .deploy .error { margin: 0; }
 .deployed { display: grid; grid-template-columns: 56px 1fr; gap: 3px 8px; margin: 0; }
