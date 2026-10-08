@@ -20,9 +20,10 @@ export interface SimulatePanelProps {
   /** result of buying `sizeSol` from the current simulated price, if anything would fill */
   quote?: SwapResult | null;
   supplyTokens: number;
+  onShowAll?: () => void;
 }
 
-export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSell, onReset, quote = null, supplyTokens }: SimulatePanelProps) {
+export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSell, onReset, quote = null, supplyTokens, onShowAll }: SimulatePanelProps) {
   const [side, setSide] = useState<"buy" | "sell">("buy");
   return (
     <Section title="Simulate">
@@ -54,7 +55,16 @@ export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSel
         <div><span>Spent</span><strong>{sol(toUi(sim.trades.reduce((a, t) => a + (t.result.side === "buy" ? t.result.amountIn - t.result.amountLeft : 0n), 0n), QUOTE_DECIMALS))} SOL</strong></div>
         <div><span>Trades</span><strong>{sim.trades.length}</strong></div>
       </div>
-      <TradeLog trades={sim.trades} baseDecimals={baseDecimals} />
+      {sim.trades.length > 0 ? (
+        <>
+          <TradeLog trades={sim.trades.slice(-3)} baseDecimals={baseDecimals} />
+          {onShowAll && sim.trades.length > 3 && (
+            <button type="button" className="text-btn" onClick={onShowAll}>All {sim.trades.length} trades in the Simulation tab ↓</button>
+          )}
+        </>
+      ) : (
+        <TradeLog trades={sim.trades} baseDecimals={baseDecimals} />
+      )}
     </Section>
   );
 }
