@@ -26,3 +26,11 @@
   border-radius: 999px; background: var(--surface-2); color: var(--muted); font-size: var(--fs-xs); font-weight: 500;
 }
 .net-badge i { width: 6px; height: 6px; border-radius: 50%; background: var(--pending); }
+.wallet-chip {
+  display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px;
+  border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface-2);
+  font-size: var(--fs-sm); cursor: pointer;
+}
+.wallet-chip:hover { border-color: var(--curve); }
+.wallet-chip.on { border-color: transparent; }
+.wallet-chip .mono { font-size: var(--fs-sm); }
