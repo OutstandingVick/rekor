@@ -5,6 +5,7 @@ import type { LiveTrade } from "./chain/trade";
 import type { Verification } from "./chain/verify";
 import { Section } from "./fields";
 import { CompareTable, compareRows } from "./CompareTable";
+import { explorer } from "./chain/network";
 import "./verify.css";
 
 export interface VerifyPanelProps {
@@ -13,10 +14,11 @@ export interface VerifyPanelProps {
   trades: LiveTrade[];
   check: Verification | "checking" | null;
   onGo: (where: "deploy") => void;
+  onShowFields?: () => void;
 }
 
 /** Predicted vs actual, from real devnet evidence. Only shows what Rekor measured. */
-export function VerifyPanel({ deployment, trades, onGo }: VerifyPanelProps) {
+export function VerifyPanel({ deployment, trades, check, onGo, onShowFields }: VerifyPanelProps) {
   const design = deployment?.design;
   const [pick, setPick] = useState<number | null>(null);
   // follow the newest fill unless the user picked an older one
@@ -62,6 +64,30 @@ export function VerifyPanel({ deployment, trades, onGo }: VerifyPanelProps) {
           </div>
         )}
         <CompareTable rows={rows} />
+      </Section>
+      <Section title="Evidence">
+        <dl className="evidence">
+          <div>
+            <dt>Transaction</dt>
+            <dd><a href={explorer("tx", t.signature)} target="_blank" rel="noreferrer">{t.signature.slice(0, 8)}…{t.signature.slice(-6)} ↗</a></dd>
+          </div>
+          <div>
+            <dt>Pool</dt>
+            <dd><a href={explorer("address", deployment.pool)} target="_blank" rel="noreferrer">{deployment.pool.slice(0, 6)}…{deployment.pool.slice(-4)} ↗</a></dd>
+          </div>
+          <div>
+            <dt>On-chain config</dt>
+            <dd>
+              {check === "checking" && "reading…"}
+              {check && check !== "checking" && check.kind !== "missing" && (
+                <button type="button" className={`linkish ${check.kind === "match" ? "ok" : "off"}`} onClick={onShowFields}>
+                  {check.checks.filter((c) => c.equal).length}/{check.checks.length} fields exact
+                </button>
+              )}
+              {check && check !== "checking" && check.kind === "missing" && <span className="off">pool not found</span>}
+            </dd>
+          </div>
+        </dl>
       </Section>
     </>
   );

@@ -164,7 +164,7 @@ export function App() {
             action={<button type="button" className="cta" disabled={!analysis.ok} onClick={() => goto("deploy")}>Continue to Deploy</button>}
           />
         )}
-        {mode === "verify" && <VerifyPanel analysis={analysis} deployment={deployed} trades={live.trades} check={check} onGo={goto} />}
+        {mode === "verify" && <VerifyPanel analysis={analysis} deployment={deployed} trades={live.trades} check={check} onGo={goto} onShowFields={() => setLowerTab("verification")} />}
         {mode === "deploy" && (
         <DeployPanel
           analysis={analysis}
