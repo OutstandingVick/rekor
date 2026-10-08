@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import type { Analysis } from "./analysis";
 import type { Deployment } from "./chain/deploy";
 import type { LiveTrade } from "./chain/trade";
@@ -17,6 +18,9 @@ export interface VerifyPanelProps {
 /** Predicted vs actual, from real devnet evidence. Only shows what Rekor measured. */
 export function VerifyPanel({ deployment, trades, onGo }: VerifyPanelProps) {
   const design = deployment?.design;
+  const [pick, setPick] = useState<number | null>(null);
+  // follow the newest fill unless the user picked an older one
+  useEffect(() => setPick(null), [trades.length]);
   if (!deployment) {
     return (
       <Section title="Nothing to verify yet">
@@ -33,7 +37,8 @@ export function VerifyPanel({ deployment, trades, onGo }: VerifyPanelProps) {
       </Section>
     );
   }
-  const t = trades.at(-1)!;
+  const idx = pick ?? trades.length - 1;
+  const t = trades[idx];
   const rows = compareRows(t, design!.baseDecimals, design!.supplyTokens);
   const exact = rows.every((r) => r.exact);
   return (
@@ -46,7 +51,16 @@ export function VerifyPanel({ deployment, trades, onGo }: VerifyPanelProps) {
             : "The on-chain result differs from the prediction. The rows below show exactly where."}
         </span>
       </div>
-      <Section title={`Latest fill · #${trades.length}`}>
+      <Section title={idx === trades.length - 1 ? `Latest fill · #${idx + 1}` : `Fill #${idx + 1}`}>
+        {trades.length > 1 && (
+          <div className="fill-pick" role="group" aria-label="Choose fill">
+            {trades.map((tr, i) => (
+              <button key={tr.signature} type="button" className={`${i === idx ? "on" : ""} ${tr.actualOut === tr.predictedOut ? "ok" : "off"}`} onClick={() => setPick(i)}>
+                #{i + 1}
+              </button>
+            ))}
+          </div>
+        )}
         <CompareTable rows={rows} />
       </Section>
     </>
