@@ -8,7 +8,7 @@ import { linear } from "./scale";
 import { useSize } from "./useSize";
 import "./chart.css";
 
-const M = { top: 16, right: 20, bottom: 28, left: 64 };
+const M = { top: 28, right: 28, bottom: 40, left: 72 };
 
 export interface ChartProps {
   path: PathPoint[][];
@@ -97,6 +97,8 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
             </g>
           )}
           <line className="axis" x1={M.left} x2={width - M.right} y1={y(0)} y2={y(0)} />
+          <text className="axis-title" x={width - M.right} y={height - 6} textAnchor="end">tokens sold →</text>
+          <text className="axis-title" x={12} y={M.top - 12}>SOL / token</text>
         </svg>
       )}
       {children}
