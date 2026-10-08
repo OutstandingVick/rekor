@@ -68,3 +68,5 @@
 .chart .terrain { transition: opacity 0.12s, filter 0.12s; }
 .chart .terrain.active { filter: brightness(1.45); }
 .chart .terrain.dim { opacity: 0.55; }
+.chart .seg-label { fill: var(--faint); font-size: 10px; font-family: var(--mono); pointer-events: none; }
+.chart .seg-label.active { fill: var(--text); }
