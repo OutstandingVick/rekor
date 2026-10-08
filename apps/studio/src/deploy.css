@@ -29,7 +29,11 @@
 .deployed dd { margin: 0; font-family: var(--mono); font-size: var(--fs-sm); }
 .deployed a { color: var(--text); text-decoration: none; }
 .deployed a:hover { color: var(--curve); }
-.deploy .go.actual { border-color: var(--actual); color: var(--actual); }
+.live { margin-top: var(--s4); padding-top: var(--s3); border-top: 1px solid var(--line); }
+.live-head { display: flex; justify-content: space-between; align-items: center; }
+.live-head strong { font-size: var(--fs-sm); font-weight: 600; }
+.deploy .exec.live-exec { border: 0; background: var(--actual); color: #3a2603; }
+.deploy .exec.live-exec:disabled { background: var(--surface-3); color: var(--faint); }
 .live-log .side.live { color: var(--actual); }
 .live-log .match { color: var(--curve); }
 .live-log .diff { color: var(--danger); }
