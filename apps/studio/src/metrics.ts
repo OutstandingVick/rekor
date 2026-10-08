@@ -3,6 +3,11 @@ import { QUOTE_DECIMALS, type Design } from "./design";
 
 export interface Headline {
   graduationMcSol: number;
+  /** SOL per token at graduation (the migration price) */
+  graduationPrice: number;
+  /** quote to buy the first 1% of supply, fee included */
+  acquire1Sol: number;
+  acquire1Capped: boolean;
   snipe5Sol: number;
   /** true when 5% of supply can't be bought before graduation */
   snipe5Capped: boolean;
@@ -18,6 +23,7 @@ export interface Headline {
 export function headline(design: Design, solved: SolveResult, fees: FeeConfig): Headline {
   const price = sqrtPriceQ64ToPrice(solved.migrationSqrtPrice, design.baseDecimals, QUOTE_DECIMALS);
   const snipe = costToAcquirePercent(solved.config, solved.supply.total, 500n, fees);
+  const one = costToAcquirePercent(solved.config, solved.supply.total, 100n, fees);
 
   const threshold = solved.config.migrationQuoteThreshold;
   const num = feeNumeratorAt(fees.baseFee);
@@ -28,6 +34,9 @@ export function headline(design: Design, solved: SolveResult, fees: FeeConfig): 
 
   return {
     graduationMcSol: price * design.supplyTokens,
+    graduationPrice: price,
+    acquire1Sol: toUi(one.quoteIn, QUOTE_DECIMALS),
+    acquire1Capped: one.capped,
     snipe5Sol: toUi(snipe.quoteIn, QUOTE_DECIMALS),
     snipe5Capped: snipe.capped,
     creatorFeesSol: toUi(creator, QUOTE_DECIMALS),
