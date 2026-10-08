@@ -7,6 +7,7 @@ export function ChartToolbar({ children }: { children?: ReactNode }) {
       <div className="chart-title">
         <strong>Price</strong>
         <span>vs tokens sold · SOL per token</span>
+        <span className="hint-inline">hover to inspect a segment</span>
       </div>
       <div className="chart-tools">{children}</div>
     </div>

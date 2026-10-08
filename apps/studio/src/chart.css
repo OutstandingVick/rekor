@@ -90,3 +90,5 @@
   .legend { flex-wrap: nowrap; overflow-x: auto; width: 100%; }
   .legend-item { flex: none; }
 }
+.chart-title .hint-inline { color: var(--faint); font-size: var(--fs-xs); }
+@media (max-width: 1280px) { .chart-title .hint-inline { display: none; } }
