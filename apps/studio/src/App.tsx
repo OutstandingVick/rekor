@@ -92,7 +92,7 @@ export function App() {
   return (
     <div className="app">
       <Header>
-        <Stepper mode={mode} onMode={goto} done={{ design: analysis.ok, simulate: (sim?.trades.length ?? 0) > 0, deploy: deployed !== null, verify: live.trades.length > 0 }} />
+        <Stepper mode={mode} onMode={goto} done={{ design: analysis.ok, simulate: (sim?.trades.length ?? 0) > 0, deploy: deployed !== null, verify: live.trades.length > 0 && live.trades.every((t) => t.actualOut === t.predictedOut && t.actualSqrtPrice === t.predictedSqrtPrice) }} />
         <span className="spacer" />
         <NetworkBadge />
         <WalletChip onOpen={() => goto("deploy")} />
