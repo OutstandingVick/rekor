@@ -42,6 +42,9 @@ import "./layout.css";
 
 export function App() {
   const [mode, setMode] = useState<Mode>("design");
+  useEffect(() => {
+    document.title = `Rekor · ${mode[0].toUpperCase()}${mode.slice(1)}`;
+  }, [mode]);
   const [overlays, setOverlays] = usePref<Overlays>("overlays", DEFAULT_OVERLAYS);
   const [lowerTab, setLowerTab] = useState<LowerTab>("segments");
   const [{ collapsed: lowerCollapsed }, setPanel] = usePref("panel", { collapsed: false });
