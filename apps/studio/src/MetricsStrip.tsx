@@ -30,6 +30,7 @@ export function MetricsStrip({ h }: { h: Headline }) {
             {c.value}
             {c.unit && <span className="m-unit"> {c.unit}</span>}
           </div>
+          {c.note && <div className="m-note">{c.note}</div>}
         </div>
       ))}
     </section>
