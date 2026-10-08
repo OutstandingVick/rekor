@@ -63,3 +63,15 @@
 }
 .cta:hover:not(:disabled) { filter: brightness(1.08); }
 .cta:disabled { background: var(--surface-3); color: var(--faint); cursor: default; }
+
+.market-head { display: flex; align-items: center; gap: var(--s5); padding: var(--s2) var(--s4); border-bottom: 1px solid var(--line); background: var(--surface-1); overflow-x: auto; }
+.mh-token { display: flex; align-items: center; gap: var(--s2); white-space: nowrap; }
+.mh-icon { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--curve-bg); color: var(--curve); font-weight: 700; font-size: var(--fs-sm); }
+.mh-token strong { display: block; font-size: var(--fs-md); font-weight: 600; }
+.mh-sym { color: var(--muted); font-size: var(--fs-xs); }
+.mh-live { margin-left: var(--s2); padding: 2px 8px; border-radius: 999px; background: var(--ok-bg); color: var(--ok); font-size: var(--fs-xs); text-decoration: none; }
+.mh-draft { margin-left: var(--s2); padding: 2px 8px; border-radius: 999px; background: var(--surface-3); color: var(--muted); font-size: var(--fs-xs); }
+.mh-stats { display: flex; gap: var(--s5); margin: 0; }
+.mh-stats div { white-space: nowrap; }
+.mh-stats dt { color: var(--faint); font-size: var(--fs-xs); }
+.mh-stats dd { margin: 0; font-family: var(--mono); font-size: var(--fs-sm); }

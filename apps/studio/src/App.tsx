@@ -17,6 +17,7 @@ import { initScript } from "./initScript";
 import { inspectAt } from "./inspect";
 import { headline } from "./metrics";
 import { MetricsStrip } from "./MetricsStrip";
+import { MarketHeader } from "./MarketHeader";
 import { LowerPanel, type LowerTab } from "./lower/LowerPanel";
 import { SegmentsTable } from "./lower/SegmentsTable";
 import { SimulationTable } from "./lower/SimulationTable";
@@ -98,6 +99,7 @@ export function App() {
         <WalletChip onOpen={() => goto("deploy")} />
       </Header>
       <main className="zone zone-stage">
+        <MarketHeader design={design} deployment={deployed} thresholdSol={numbers?.thresholdSol ?? null} />
         {analysis.ok ? (
           <>
             <ChartToolbar>
