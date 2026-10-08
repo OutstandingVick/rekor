@@ -127,7 +127,13 @@ export function App() {
             </LowerPanel>
           </>
         ) : (
-          <div className="stage-error" role="alert">{analysis.error}</div>
+          <div className="stage-error" role="alert">
+            <strong>This design can’t be built</strong>
+            <span>{analysis.error}</span>
+            {mode !== "design" && (
+              <button type="button" className="cta" onClick={() => goto("design")}>Fix in Design</button>
+            )}
+          </div>
         )}
       </main>
       <aside className="zone zone-side" aria-label="Workflow panel">
