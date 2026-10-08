@@ -140,6 +140,9 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
           {show.trades && simulated.map((p, i) => (
             <circle key={`s${i}`} className="sim-dot" cx={x(p.tokens)} cy={y(p.price)} r={i === simulated.length - 1 ? 4.5 : 3} />
           ))}
+          {show.actual && actual.length > 0 && (
+            <circle className="actual-halo" cx={x(actual.at(-1)!.tokens)} cy={y(actual.at(-1)!.price)} r={11} />
+          )}
           {show.actual && actual.map((p, i) => (
             <circle key={`r${i}`} className="actual-dot" cx={x(p.tokens)} cy={y(p.price)} r={i === actual.length - 1 ? 5 : 3.5} />
           ))}
