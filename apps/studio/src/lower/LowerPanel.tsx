@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { arrowNav } from "../useArrowNav";
 import "./lower.css";
 
 export type LowerTab = "segments" | "simulation" | "fills" | "transactions" | "verification";
@@ -22,9 +23,9 @@ export interface LowerPanelProps {
 export function LowerPanel({ tab, onTab, counts = {}, children }: LowerPanelProps) {
   return (
     <section className="lower" aria-label="Data">
-      <div className="lower-tabs" role="tablist">
+      <div className="lower-tabs" role="tablist" onKeyDown={arrowNav}>
         {LOWER_TABS.map((t) => (
-          <button key={t.id} type="button" role="tab" aria-selected={tab === t.id} className={tab === t.id ? "on" : ""} onClick={() => onTab(t.id)}>
+          <button key={t.id} type="button" role="tab" aria-selected={tab === t.id} tabIndex={tab === t.id ? 0 : -1} className={tab === t.id ? "on" : ""} onClick={() => onTab(t.id)}>
             {t.label}
             {counts[t.id] ? <span className="cnt">{counts[t.id]}</span> : null}
           </button>
