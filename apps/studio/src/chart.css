@@ -54,3 +54,4 @@
 .legend .sw.graduation { border-radius: 50%; border: 2px solid var(--curve); background: var(--bg); }
 .legend .sw.snipe { background: rgba(255, 255, 255, 0.12); }
 .legend .cnt { color: var(--muted); font-family: var(--mono); }
+.chart .axis-title { fill: var(--faint); font-size: 10px; letter-spacing: 0.04em; }
