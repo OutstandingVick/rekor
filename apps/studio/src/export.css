@@ -1,6 +1,9 @@
-.export { display: flex; align-items: center; gap: 8px; padding: 8px 12px; flex-wrap: wrap; }
-.export button { padding: 5px 10px; border: 1px solid var(--line-strong); background: var(--bg); cursor: pointer; }
-.export button:hover:not(:disabled) { border-color: var(--curve); color: var(--curve); }
+.export { display: flex; align-items: center; gap: var(--s1); height: 36px; padding: 0 var(--s3); flex-wrap: wrap; }
+.export button {
+  height: 26px; padding: 0 var(--s2); border: 0; border-radius: var(--radius-sm);
+  background: transparent; color: var(--muted); font-size: var(--fs-sm); cursor: pointer;
+}
+.export button:hover:not(:disabled) { background: var(--surface-2); color: var(--text); }
 .export button:disabled { opacity: 0.35; cursor: default; }
 .export code { font: inherit; color: var(--muted); }
 .export .flash { color: var(--curve); margin-left: 4px; }
