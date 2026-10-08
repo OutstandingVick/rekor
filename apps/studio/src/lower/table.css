@@ -1,0 +1,28 @@
+.dtable { width: 100%; border-collapse: separate; border-spacing: 0; font-size: var(--fs-sm); }
+.dtable th {
+  position: sticky; top: 0; z-index: 1; height: 30px; padding: 0 var(--s3);
+  background: var(--surface-1); border-bottom: 1px solid var(--line);
+  color: var(--faint); font-size: var(--fs-xs); font-weight: 500; text-align: right; white-space: nowrap;
+}
+.dtable td {
+  height: 32px; padding: 0 var(--s3); border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+  text-align: right; white-space: nowrap; font-family: var(--mono); font-variant-numeric: tabular-nums;
+}
+.dtable th:first-child, .dtable td:first-child { text-align: left; padding-left: var(--s4); }
+.dtable th.l, .dtable td.l { text-align: left; }
+.dtable tbody tr { transition: background 0.1s; }
+.dtable tbody tr:hover { background: var(--surface-2); }
+.dtable tbody tr.selected { background: var(--surface-3); }
+.dtable .dim { color: var(--muted); }
+.dtable .up { color: var(--ok); }
+.dtable .down { color: var(--danger); }
+.dtable a { color: var(--text); text-decoration: none; border-bottom: 1px dotted var(--faint); }
+.dtable a:hover { border-color: var(--text); }
+.tag {
+  display: inline-block; padding: 1px 6px; border-radius: 999px; margin-left: 6px;
+  font-family: var(--sans); font-size: 10px; font-weight: 500; background: var(--surface-3); color: var(--muted);
+}
+.tag.ok { background: var(--ok-bg); color: var(--ok); }
+.tag.curve { background: var(--curve-bg); color: var(--curve); }
+.tag.actual { background: var(--actual-bg); color: var(--actual); }
+.tag.bad { background: var(--danger-bg); color: var(--danger); }
