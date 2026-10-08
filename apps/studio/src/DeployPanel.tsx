@@ -55,10 +55,11 @@ export function DeployPanel({ analysis, deploy, onLiveTrade, liveTrades, check }
     const d = state.deployment;
     return (
       <Section title="Deployed · devnet">
+        <div className="deploy-status"><StatusPill status="confirmed" detail={new Date(d.deployedAt).toLocaleString()} /></div>
         <dl className="deployed">
-          <dt>pool</dt><dd><a href={explorer("address", d.pool)} target="_blank" rel="noreferrer">{short(d.pool)}</a></dd>
-          <dt>config</dt><dd><a href={explorer("address", d.config)} target="_blank" rel="noreferrer">{short(d.config)}</a></dd>
-          <dt>token</dt><dd><a href={explorer("address", d.baseMint)} target="_blank" rel="noreferrer">{short(d.baseMint)}</a></dd>
+          <div><dt>Pool</dt><dd><a href={explorer("address", d.pool)} target="_blank" rel="noreferrer">{short(d.pool)} ↗</a></dd></div>
+          <div><dt>Config</dt><dd><a href={explorer("address", d.config)} target="_blank" rel="noreferrer">{short(d.config)} ↗</a></dd></div>
+          <div><dt>Token</dt><dd><a href={explorer("address", d.baseMint)} target="_blank" rel="noreferrer">{short(d.baseMint)} ↗</a></dd></div>
         </dl>
         <p className={`verify ${check && check !== "checking" ? check.kind : ""}`}>
           {check === "checking" && "reading config back from chain…"}

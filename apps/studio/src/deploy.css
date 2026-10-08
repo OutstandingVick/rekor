@@ -23,10 +23,12 @@
 .warn-note a { color: inherit; }
 .deploy .warn, .deploy .error { color: var(--danger); }
 .deploy .error { margin: 0; }
-.deployed { display: grid; grid-template-columns: 56px 1fr; gap: 3px 8px; margin: 0; }
-.deployed dt { color: var(--muted); }
-.deployed dd { margin: 0; }
-.deployed a { color: var(--text); }
+.deployed { margin: var(--s2) 0 0; padding: var(--s1) var(--s3); border-radius: var(--radius); background: var(--surface-1); }
+.deployed div { display: flex; justify-content: space-between; line-height: 2; }
+.deployed dt { color: var(--muted); font-size: var(--fs-sm); }
+.deployed dd { margin: 0; font-family: var(--mono); font-size: var(--fs-sm); }
+.deployed a { color: var(--text); text-decoration: none; }
+.deployed a:hover { color: var(--curve); }
 .deploy .go.actual { border-color: var(--actual); color: var(--actual); }
 .live-log .side.live { color: var(--actual); }
 .live-log .match { color: var(--curve); }
