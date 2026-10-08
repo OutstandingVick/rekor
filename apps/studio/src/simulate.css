@@ -1,5 +1,5 @@
 .sim-actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); }
-.sim-note { color: var(--actual); font-size: 11px; margin-bottom: 6px; }
+.sim-note { margin: var(--s2) 0; padding: 6px var(--s2); border-radius: var(--radius-sm); background: var(--actual-bg); color: var(--actual); font-size: var(--fs-xs); }
 .position { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: var(--s3); border-radius: var(--radius); overflow: hidden; background: var(--line); }
 .position div { display: grid; gap: 2px; padding: var(--s2) var(--s3); background: var(--surface-1); }
 .position span { color: var(--faint); font-size: var(--fs-xs); }

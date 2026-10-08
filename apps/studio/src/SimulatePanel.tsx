@@ -26,7 +26,7 @@ export interface SimulatePanelProps {
 export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSell, onReset, quote = null, supplyTokens, onShowAll }: SimulatePanelProps) {
   const [side, setSide] = useState<"buy" | "sell">("buy");
   return (
-    <Section title="Simulate">
+    <Section title="Order">
       <div className="side-switch" role="tablist" aria-label="Trade side">
         <button type="button" role="tab" aria-selected={side === "buy"} className={`buy ${side === "buy" ? "on" : ""}`} onClick={() => setSide("buy")}>Buy</button>
         <button type="button" role="tab" aria-selected={side === "sell"} className={`sell ${side === "sell" ? "on" : ""}`} onClick={() => setSide("sell")}>Sell</button>
