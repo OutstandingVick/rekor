@@ -5,6 +5,8 @@ import { price, sol, tokens } from "./format";
 
 export interface CompareRow {
   metric: string;
+  /** raw integer rows are shown as wrapped blocks, not table cells */
+  raw?: boolean;
   predicted: string;
   actual: string;
   delta: string;
@@ -25,11 +27,12 @@ export function compareRows(t: LiveTrade, baseDecimals: number, supplyTokens: nu
       metric: "Tokens received",
       predicted: tokens(toUi(t.predictedOut, baseDecimals)),
       actual: tokens(toUi(t.actualOut, baseDecimals)),
-      delta: `${tokDelta === 0n ? "0" : toUi(tokDelta, baseDecimals).toLocaleString("en-US")} (${pctOf(tokDelta, t.predictedOut).toFixed(4)}%)`,
+      delta: tokDelta === 0n ? "0" : `${pctOf(tokDelta, t.predictedOut).toFixed(4)}%`,
       exact: tokDelta === 0n,
     },
     {
       metric: "Token atoms",
+      raw: true,
       predicted: t.predictedOut.toString(),
       actual: t.actualOut.toString(),
       delta: tokDelta.toString(),
@@ -39,7 +42,7 @@ export function compareRows(t: LiveTrade, baseDecimals: number, supplyTokens: nu
       metric: "Price after",
       predicted: `${price(px(t.predictedSqrtPrice))} SOL`,
       actual: `${price(px(t.actualSqrtPrice))} SOL`,
-      delta: `${pctOf(spDelta, t.predictedSqrtPrice).toFixed(4)}%`,
+      delta: spDelta === 0n ? "0" : `${pctOf(spDelta, t.predictedSqrtPrice).toFixed(4)}%`,
       exact: spDelta === 0n,
     },
     {
@@ -51,6 +54,7 @@ export function compareRows(t: LiveTrade, baseDecimals: number, supplyTokens: nu
     },
     {
       metric: "√P after (Q64.64)",
+      raw: true,
       predicted: t.predictedSqrtPrice.toString(),
       actual: t.actualSqrtPrice.toString(),
       delta: spDelta.toString(),
@@ -60,7 +64,9 @@ export function compareRows(t: LiveTrade, baseDecimals: number, supplyTokens: nu
 }
 
 export function CompareTable({ rows }: { rows: CompareRow[] }) {
+  const raw = rows.filter((r) => r.raw);
   return (
+    <>
     <table className="compare">
       <thead>
         <tr>
@@ -71,7 +77,7 @@ export function CompareTable({ rows }: { rows: CompareRow[] }) {
         </tr>
       </thead>
       <tbody>
-        {rows.map((r) => (
+        {rows.filter((r) => !r.raw).map((r) => (
           <tr key={r.metric} className={r.exact ? "exact" : "off"}>
             <td>{r.metric}</td>
             <td className="pred">{r.predicted}</td>
@@ -81,5 +87,16 @@ export function CompareTable({ rows }: { rows: CompareRow[] }) {
         ))}
       </tbody>
     </table>
+    <div className="raw-ints">
+      <div className="raw-title">Exact integers</div>
+      {raw.map((r) => (
+        <div key={r.metric} className={`raw ${r.exact ? "exact" : "off"}`}>
+          <div className="raw-k">{r.metric}<span>Δ {r.delta}</span></div>
+          <div className="raw-v"><i>pred</i>{r.predicted}</div>
+          <div className="raw-v act"><i>act</i>{r.actual}</div>
+        </div>
+      ))}
+    </div>
+    </>
   );
 }

@@ -30,3 +30,14 @@
 .linkish { padding: 0; border: 0; background: none; font: inherit; cursor: pointer; text-decoration: underline dotted; }
 .linkish.ok, .evidence .ok { color: var(--ok); }
 .linkish.off, .evidence .off { color: var(--danger); }
+.compare th:first-child { width: 38%; }
+.compare th:last-child { width: 16%; }
+.raw-ints { margin-top: var(--s3); }
+.raw-title { color: var(--faint); font-size: var(--fs-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--s1); }
+.raw { padding: 6px 0; border-top: 1px solid var(--line); }
+.raw-k { display: flex; justify-content: space-between; color: var(--muted); font-size: var(--fs-sm); }
+.raw.exact .raw-k span { color: var(--ok); font-family: var(--mono); }
+.raw.off .raw-k span { color: var(--danger); font-family: var(--mono); font-weight: 600; }
+.raw-v { font-family: var(--mono); font-size: 11px; word-break: break-all; color: var(--curve); line-height: 1.5; }
+.raw-v.act { color: var(--actual); }
+.raw-v i { display: inline-block; width: 34px; color: var(--faint); font-style: normal; }
