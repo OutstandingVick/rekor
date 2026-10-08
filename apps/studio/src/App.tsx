@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { analyze } from "./analysis";
 import { Chart } from "./Chart";
+import { ChartToolbar } from "./ChartToolbar";
 import { useDeployment } from "./chain/useDeployment";
 import { useLiveTrades } from "./chain/useLiveTrades";
 import { ConfigPanel } from "./ConfigPanel";
@@ -70,6 +71,7 @@ export function App() {
       <main className="zone zone-stage">
         {analysis.ok ? (
           <>
+            <ChartToolbar />
             <Chart path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens}
               probeSol={probeSol}
               actual={analysis.ok ? live.trades.map((t) => pointAt(design, analysis.solved, t.actualSqrtPrice)) : []}
