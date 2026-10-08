@@ -4,7 +4,7 @@
   background: var(--surface-1); border-bottom: 1px solid var(--line);
 }
 .topbar .brand { display: flex; align-items: center; gap: var(--s2); white-space: nowrap; }
-.topbar .brand-mark { width: 18px; height: 18px; color: var(--curve); }
+.topbar .brand-mark { width: 24px; height: 24px; display: block; }
 .topbar .brand strong { font-size: var(--fs-lg); font-weight: 600; letter-spacing: -0.01em; }
 .topbar .brand-sub { color: var(--muted); font-size: var(--fs-sm); }
 .stepper { display: flex; gap: 2px; padding: 2px; background: var(--surface-2); border-radius: var(--radius); }
