@@ -16,9 +16,15 @@ import { pointAt, pricePath } from "./path";
 import { Readout } from "./Readout";
 import { SimulatePanel } from "./SimulatePanel";
 import { startSimulation, step, type Simulation } from "./simulation";
+import { Header } from "./shell/Header";
+import { NetworkBadge } from "./shell/NetworkBadge";
+import { Stepper } from "./shell/Stepper";
+import { WalletChip } from "./shell/WalletChip";
+import type { Mode } from "./shell/workflow";
 import "./layout.css";
 
 export function App() {
+  const [mode, setMode] = useState<Mode>("design");
   const [probeSol, setProbeSol] = useState(1);
   const [draft, setDraft] = useState<Design>(DEFAULT_DESIGN);
   const deploy = useDeployment();
@@ -53,12 +59,12 @@ export function App() {
 
   return (
     <div className="app">
-      <aside className="zone zone-config" aria-label="Curve configuration">
-        <fieldset className="lock" disabled={deployed !== null}>
-          <ConfigPanel design={design} set={set} maxThresholdSol={maxThresholdSol} />
-        </fieldset>
-        {deployed && <p className="locked-note">Locked to the deployed curve. “Design a new curve” to edit again.</p>}
-      </aside>
+      <Header>
+        <Stepper mode={mode} onMode={setMode} done={{ design: analysis.ok, simulate: (sim?.trades.length ?? 0) > 0, deploy: deployed !== null, verify: live.trades.length > 0 }} />
+        <span className="spacer" />
+        <NetworkBadge />
+        <WalletChip onOpen={() => setMode("deploy")} />
+      </Header>
       <main className="zone zone-stage">
         {analysis.ok ? (
           <>
@@ -76,8 +82,16 @@ export function App() {
           <div className="stage-error" role="alert">{analysis.error}</div>
         )}
       </main>
-      <aside className="zone zone-side" aria-label="Simulate">
-        {sim && (
+      <aside className="zone zone-side" aria-label="Workflow panel">
+        {mode === "design" && (
+          <>
+            <fieldset className="lock" disabled={deployed !== null}>
+              <ConfigPanel design={design} set={set} maxThresholdSol={maxThresholdSol} />
+            </fieldset>
+            {deployed && <p className="locked-note">Locked to the deployed curve. “Design a new curve” to edit again.</p>}
+          </>
+        )}
+        {mode === "simulate" && sim && (
           <SimulatePanel
             sim={sim}
             baseDecimals={design.baseDecimals}
@@ -88,6 +102,7 @@ export function App() {
             onReset={() => setSim(fresh())}
           />
         )}
+        {(mode === "deploy" || mode === "verify") && (
         <DeployPanel
           analysis={analysis}
           onLiveTrade={live.add}
@@ -100,6 +115,7 @@ export function App() {
             },
           }}
         />
+        )}
       </aside>
       <footer className="zone zone-export">
         <ExportBar
