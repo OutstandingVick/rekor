@@ -9,6 +9,7 @@ import { useLiveTrades } from "./chain/useLiveTrades";
 import { useVerification } from "./chain/useVerification";
 import { ConfigPanel } from "./ConfigPanel";
 import { DeployPanel } from "./DeployPanel";
+import { VerifyPanel } from "./VerifyPanel";
 import { DEFAULT_DESIGN, type Design } from "./design";
 import { ExportBar } from "./ExportBar";
 import { configJson } from "./exportConfig";
@@ -163,7 +164,8 @@ export function App() {
             action={<button type="button" className="cta" disabled={!analysis.ok} onClick={() => goto("deploy")}>Continue to Deploy</button>}
           />
         )}
-        {(mode === "deploy" || mode === "verify") && (
+        {mode === "verify" && <VerifyPanel analysis={analysis} deployment={deployed} trades={live.trades} check={check} onGo={goto} />}
+        {mode === "deploy" && (
         <DeployPanel
           analysis={analysis}
           onLiveTrade={live.add}
