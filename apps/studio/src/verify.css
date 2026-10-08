@@ -9,3 +9,10 @@
 .compare td.act { color: var(--actual); }
 .compare tr.exact td.d { color: var(--ok); }
 .compare tr.off td.d { color: var(--danger); font-weight: 600; }
+.v-verdict { display: grid; gap: 4px; margin: var(--s4) var(--s4) 0; padding: var(--s3); border-radius: var(--radius); }
+.v-verdict strong { font-size: var(--fs-lg); font-weight: 600; }
+.v-verdict span { color: var(--muted); font-size: var(--fs-sm); line-height: 1.5; }
+.v-verdict.ok { background: var(--ok-bg); border: 1px solid color-mix(in srgb, var(--ok) 25%, transparent); }
+.v-verdict.ok strong { color: var(--ok); }
+.v-verdict.off { background: var(--danger-bg); border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent); }
+.v-verdict.off strong { color: var(--danger); }
