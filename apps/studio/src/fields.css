@@ -1,5 +1,9 @@
-.section { padding: 14px 16px; border-bottom: 1px solid var(--line); }
-.section h2 { margin: 0 0 10px; font-size: 10px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.section { padding: var(--s4); border-bottom: 1px solid var(--line); }
+.section:last-child { border-bottom: 0; }
+.section h2 {
+  margin: 0 0 var(--s3); font-size: var(--fs-xs); font-weight: 600; color: var(--faint);
+  text-transform: uppercase; letter-spacing: 0.09em;
+}
 .field { display: grid; grid-template-columns: 1fr 140px; align-items: center; gap: 2px 10px; margin-bottom: 8px; }
 .field label { color: var(--text); }
 .field .input { display: flex; align-items: center; border: 1px solid var(--line-strong); background: var(--bg); }
