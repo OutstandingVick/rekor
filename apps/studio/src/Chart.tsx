@@ -23,9 +23,12 @@ export interface ChartProps {
   /** overlay content, e.g. the predicted-vs-actual readout */
   children?: React.ReactNode;
   show?: Overlays;
+  /** segment to emphasise (from hover here or a table row elsewhere) */
+  activeSegment?: number | null;
+  onSegment?: (index: number | null) => void;
 }
 
-export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, simulated = [], actual = [], children, show = DEFAULT_OVERLAYS }: ChartProps) {
+export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, simulated = [], actual = [], children, show = DEFAULT_OVERLAYS, activeSegment = null, onSegment }: ChartProps) {
   const [ref, { width, height }] = useSize<HTMLDivElement>();
   const all = path.flat();
   const maxTokens = all.at(-1)?.tokens ?? 1;
@@ -36,18 +39,25 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
 
   const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
     const px = e.clientX - e.currentTarget.getBoundingClientRect().left;
-    if (px < M.left || px > width - M.right || all.length === 0) return setHover(null);
+    if (px < M.left || px > width - M.right || all.length === 0) {
+      onSegment?.(null);
+      return setHover(null);
+    }
     const t = x.invert(px);
     let best = all[0];
     for (const p of all) if (Math.abs(p.tokens - t) < Math.abs(best.tokens - t)) best = p;
     setHover(best);
+    onSegment?.(best.segment);
   };
   const info = hover ? inspect(hover.sqrtPrice) : null;
 
   return (
     <div className="chart" ref={ref}>
       {width > 0 && (
-        <svg width={width} height={height} role="img" aria-label="Price versus tokens sold" onMouseMove={onMove} onMouseLeave={() => setHover(null)}>
+        <svg width={width} height={height} role="img" aria-label="Price versus tokens sold" onMouseMove={onMove} onMouseLeave={() => {
+          setHover(null);
+          onSegment?.(null);
+        }}>
           {y.ticks(5).map((t) => (
             <g key={`y${t}`}>
               <line className="grid" x1={M.left} x2={width - M.right} y1={y(t)} y2={y(t)} />
@@ -69,7 +79,15 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
           {path.map((seg, i) => {
             const line = seg.map((p, j) => `${j ? "L" : "M"}${x(p.tokens).toFixed(1)},${y(p.price).toFixed(1)}`).join("");
             const area = `${line}L${x(seg.at(-1)!.tokens).toFixed(1)},${y(0)}L${x(seg[0].tokens).toFixed(1)},${y(0)}Z`;
-            return <path key={`a${i}`} className="terrain" d={area} fill={show.segments ? segmentTone(seg[0].segment) : "var(--curve-bg)"} />;
+            const active = activeSegment === seg[0].segment;
+            return (
+              <path
+                key={`a${i}`}
+                className={`terrain ${active ? "active" : ""} ${activeSegment !== null && !active ? "dim" : ""}`}
+                d={area}
+                fill={show.segments ? segmentTone(seg[0].segment) : "var(--curve-bg)"}
+              />
+            );
           })}
           {show.segments && path.slice(1).map((seg, i) => (
             <line key={`b${i}`} className="boundary" x1={x(seg[0].tokens)} x2={x(seg[0].tokens)} y1={y(0)} y2={y(seg[0].price)} />

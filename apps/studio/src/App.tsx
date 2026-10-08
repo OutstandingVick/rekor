@@ -31,6 +31,7 @@ import "./layout.css";
 export function App() {
   const [mode, setMode] = useState<Mode>("design");
   const [overlays, setOverlays] = useState<Overlays>(DEFAULT_OVERLAYS);
+  const [activeSegment, setActiveSegment] = useState<number | null>(null);
   const [probeSol, setProbeSol] = useState(1);
   const [draft, setDraft] = useState<Design>(DEFAULT_DESIGN);
   const deploy = useDeployment();
@@ -81,7 +82,7 @@ export function App() {
                 counts={{ actual: live.trades.length, trades: sim?.trades.length ?? 0, segments: design.weights.length }}
               />
             </ChartToolbar>
-            <Chart show={overlays} path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens}
+            <Chart show={overlays} activeSegment={activeSegment} onSegment={setActiveSegment} path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens}
               probeSol={probeSol}
               actual={analysis.ok ? live.trades.map((t) => pointAt(design, analysis.solved, t.actualSqrtPrice)) : []}
               simulated={sim?.trades.map((t) => pointAt(design, analysis.solved, t.result.sqrtPriceAfter)) ?? []}
