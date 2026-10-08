@@ -13,9 +13,6 @@ export interface ConfigPanelProps {
 export function ConfigPanel({ design, set, maxThresholdSol }: ConfigPanelProps) {
   return (
     <>
-      <header className="brand">
-        <strong>rekor</strong> <span>DBC curve studio</span>
-      </header>
       <Section title="Supply & quote">
         <NumberField label="Total supply" unit="tokens" value={design.supplyTokens} min={1000} max={1e12} onChange={(supplyTokens) => set({ supplyTokens })} />
         <div className="field">
