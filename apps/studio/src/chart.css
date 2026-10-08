@@ -30,10 +30,13 @@
 .chart .actual-dot { fill: var(--actual); stroke: var(--surface-1); stroke-width: 1.5; }
 .chart .actual-halo { fill: var(--actual); opacity: 0.18; }
 .readout {
-  position: absolute; left: 50%; transform: translateX(-50%); top: 44px; padding: 6px 10px; white-space: nowrap;
-  background: var(--panel); border: 1px solid var(--line-strong);
-  color: var(--muted); text-decoration: none; font-variant-numeric: tabular-nums;
+  position: absolute; left: 50%; transform: translateX(-50%); top: 44px; padding: 7px 12px; white-space: nowrap;
+  border-radius: 999px; background: rgba(19, 22, 26, 0.94); border: 1px solid var(--line-strong);
+  color: var(--muted); text-decoration: none; font-family: var(--mono); font-size: 11.5px; font-variant-numeric: tabular-nums;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
 }
+.readout:hover { border-color: var(--text); }
+.readout.exact { border-color: color-mix(in srgb, var(--ok) 45%, transparent); }
 .readout b { color: var(--curve); font-weight: 500; }
 .readout b.act { color: var(--actual); }
 .readout.off { border-color: var(--danger); }
