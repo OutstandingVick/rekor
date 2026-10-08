@@ -1,6 +1,7 @@
 import { toUi } from "dbc-curve-sim";
 import { QUOTE_DECIMALS } from "./design";
 import { useState } from "react";
+import { arrowNav } from "./useArrowNav";
 import { NumberField, Section } from "./fields";
 import { sol, tokens } from "./format";
 import type { Simulation } from "./simulation";
@@ -27,7 +28,7 @@ export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSel
   const [side, setSide] = useState<"buy" | "sell">("buy");
   return (
     <Section title="Order">
-      <div className="side-switch" role="tablist" aria-label="Trade side">
+      <div className="side-switch" role="tablist" aria-label="Trade side" onKeyDown={arrowNav}>
         <button type="button" role="tab" aria-selected={side === "buy"} className={`buy ${side === "buy" ? "on" : ""}`} onClick={() => setSide("buy")}>Buy</button>
         <button type="button" role="tab" aria-selected={side === "sell"} className={`sell ${side === "sell" ? "on" : ""}`} onClick={() => setSide("sell")}>Sell</button>
       </div>
