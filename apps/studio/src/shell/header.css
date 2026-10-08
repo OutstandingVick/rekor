@@ -21,3 +21,8 @@
 }
 .stepper .step.active .step-n { background: var(--curve); color: var(--bg); }
 .stepper .step.done .step-n { background: var(--curve-bg); color: var(--curve); }
+.net-badge {
+  display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px;
+  border-radius: 999px; background: var(--surface-2); color: var(--muted); font-size: var(--fs-xs); font-weight: 500;
+}
+.net-badge i { width: 6px; height: 6px; border-radius: 50%; background: var(--pending); }
