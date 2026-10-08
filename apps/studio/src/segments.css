@@ -9,6 +9,12 @@
 .segments .idx { color: var(--faint); text-align: right; }
 .segments .share { color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
 .segments input[type="range"] { width: 100%; accent-color: var(--curve); margin: 0; }
-.segments .presets { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
-.segments .presets button { width: auto; padding: 0 8px; color: var(--muted); }
-.segments .presets button:hover { color: var(--text); }
+.segments .presets {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; padding: 2px; margin-bottom: var(--s3);
+  background: var(--surface-1); border-radius: var(--radius);
+}
+.segments .presets button {
+  width: auto; height: 26px; padding: 0 6px; border: 0; border-radius: var(--radius-sm);
+  background: transparent; color: var(--muted); font-size: var(--fs-xs); font-weight: 500;
+}
+.segments .presets button:hover { background: var(--surface-3); color: var(--text); }
