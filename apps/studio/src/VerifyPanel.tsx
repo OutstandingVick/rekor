@@ -3,6 +3,7 @@ import type { Deployment } from "./chain/deploy";
 import type { LiveTrade } from "./chain/trade";
 import type { Verification } from "./chain/verify";
 import { Section } from "./fields";
+import { CompareTable, compareRows } from "./CompareTable";
 import "./verify.css";
 
 export interface VerifyPanelProps {
@@ -15,6 +16,7 @@ export interface VerifyPanelProps {
 
 /** Predicted vs actual, from real devnet evidence. Only shows what Rekor measured. */
 export function VerifyPanel({ deployment, trades, onGo }: VerifyPanelProps) {
+  const design = deployment?.design;
   if (!deployment) {
     return (
       <Section title="Nothing to verify yet">
@@ -31,5 +33,10 @@ export function VerifyPanel({ deployment, trades, onGo }: VerifyPanelProps) {
       </Section>
     );
   }
-  return null;
+  const t = trades.at(-1)!;
+  return (
+    <Section title={`Latest fill · #${trades.length}`}>
+      <CompareTable rows={compareRows(t, design!.baseDecimals, design!.supplyTokens)} />
+    </Section>
+  );
 }
