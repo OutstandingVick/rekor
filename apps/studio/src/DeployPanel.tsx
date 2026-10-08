@@ -1,6 +1,5 @@
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { useEffect, useState } from "react";
-import { verifyDeployment, type Verification } from "./chain/verify";
+import type { Verification } from "./chain/verify";
 import type { Analysis } from "./analysis";
 import { ConnectWallet } from "./chain/ConnectWallet";
 import { deployDesign } from "./chain/deploy";
@@ -23,26 +22,13 @@ export interface DeployPanelProps {
   deploy: ReturnType<typeof useDeployment>;
   onLiveTrade: (t: LiveTrade) => void;
   liveTrades: LiveTrade[];
+  check: Verification | "checking" | null;
 }
 
-export function DeployPanel({ analysis, deploy, onLiveTrade, liveTrades }: DeployPanelProps) {
+export function DeployPanel({ analysis, deploy, onLiveTrade, liveTrades, check }: DeployPanelProps) {
   const signer = useWalletSigner();
   const { lamports, refresh } = useBalance(signer?.publicKey ?? null);
   const { state } = deploy;
-  const [check, setCheck] = useState<Verification | "checking" | null>(null);
-  const deployedNow = state.kind === "deployed" ? state.deployment : null;
-  useEffect(() => {
-    if (!deployedNow || !analysis.ok) return setCheck(null);
-    setCheck("checking");
-    let alive = true;
-    devnet()
-      .then((c) => verifyDeployment(c, deployedNow, analysis.solved))
-      .then((v) => alive && setCheck(v))
-      .catch(() => alive && setCheck(null));
-    return () => {
-      alive = false;
-    };
-  }, [deployedNow, analysis]);
   const sol = lamports === null ? null : lamports / LAMPORTS_PER_SOL;
   const short_ = sol !== null && sol < MIN_DEPLOY_SOL;
 
