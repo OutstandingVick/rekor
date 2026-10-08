@@ -6,7 +6,12 @@
 .export button:hover:not(:disabled) { background: var(--surface-2); color: var(--text); }
 .export button:disabled { opacity: 0.35; cursor: default; }
 .export code { font: inherit; color: var(--muted); }
-.export .flash { color: var(--curve); margin-left: 4px; }
+.export .flash:not(:empty) {
+  margin-left: var(--s2); padding: 2px 8px; border-radius: 999px; background: var(--curve-bg); color: var(--curve); font-size: var(--fs-xs);
+  animation: flash-in 0.15s ease-out;
+}
+@keyframes flash-in { from { opacity: 0; transform: translateY(2px); } }
+@media (prefers-reduced-motion: reduce) { .export .flash:not(:empty) { animation: none; } }
 .export .scope { margin-left: auto; color: var(--faint); }
 .export button { display: inline-flex; align-items: center; gap: 6px; }
 .export .ex-label { margin-right: var(--s1); color: var(--faint); font-size: var(--fs-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
