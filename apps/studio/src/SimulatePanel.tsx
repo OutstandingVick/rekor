@@ -1,5 +1,6 @@
 import { toUi } from "dbc-curve-sim";
 import { QUOTE_DECIMALS } from "./design";
+import { useState } from "react";
 import { NumberField, Section } from "./fields";
 import { sol, tokens } from "./format";
 import type { Simulation } from "./simulation";
@@ -17,8 +18,13 @@ export interface SimulatePanelProps {
 }
 
 export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSell, onReset }: SimulatePanelProps) {
+  const [side, setSide] = useState<"buy" | "sell">("buy");
   return (
     <Section title="Simulate">
+      <div className="side-switch" role="tablist" aria-label="Trade side">
+        <button type="button" role="tab" aria-selected={side === "buy"} className={`buy ${side === "buy" ? "on" : ""}`} onClick={() => setSide("buy")}>Buy</button>
+        <button type="button" role="tab" aria-selected={side === "sell"} className={`sell ${side === "sell" ? "on" : ""}`} onClick={() => setSide("sell")}>Sell</button>
+      </div>
       <NumberField label="Size" unit="SOL" value={sizeSol} min={0.000001} max={1e6} onChange={onSize} />
       <div className="sim-actions">
         <button type="button" className="primary" onClick={onBuy}>Buy</button>

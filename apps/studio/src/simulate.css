@@ -17,3 +17,7 @@
 .log-steps span { display: inline-flex; align-items: center; gap: 3px; }
 .log-steps i { width: 8px; height: 8px; display: inline-block; }
 .log-steps .fee { margin-left: auto; }
+.side-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 2px; margin-bottom: var(--s3); background: var(--surface-1); border-radius: var(--radius); }
+.side-switch button { height: 30px; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--muted); font-weight: 600; cursor: pointer; }
+.side-switch button.buy.on { background: var(--ok-bg); color: var(--ok); }
+.side-switch button.sell.on { background: var(--danger-bg); color: var(--danger); }
