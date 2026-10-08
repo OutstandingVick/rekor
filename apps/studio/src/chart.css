@@ -55,3 +55,5 @@
 .legend .sw.snipe { background: rgba(255, 255, 255, 0.12); }
 .legend .cnt { color: var(--muted); font-family: var(--mono); }
 .chart .axis-title { fill: var(--faint); font-size: 10px; letter-spacing: 0.04em; }
+.chart .start-point circle { fill: var(--curve); }
+.chart .start-point text { fill: var(--muted); font-size: 10px; font-family: var(--mono); }

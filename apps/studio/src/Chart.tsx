@@ -78,6 +78,12 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
             className="curve"
             d={all.map((p, j) => `${j ? "L" : "M"}${x(p.tokens).toFixed(1)},${y(p.price).toFixed(1)}`).join("")}
           />
+          {all.length > 0 && (
+            <g className="start-point" transform={`translate(${x(all[0].tokens)},${y(all[0].price)})`}>
+              <circle r={3.5} />
+              <text x={8} y={-8}>start · {fmtPrice(all[0].price)}</text>
+            </g>
+          )}
           {show.graduation && all.length > 0 && (
             <g className="graduation" transform={`translate(${x(all.at(-1)!.tokens)},${y(all.at(-1)!.price)})`}>
               <circle r={4} />
