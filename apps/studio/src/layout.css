@@ -89,3 +89,4 @@
 .stage-error .cta { justify-self: start; padding: 0 var(--s4); }
 .mh-progress { display: block; width: 100%; height: 3px; margin-top: 3px; border-radius: 2px; background: var(--surface-3); overflow: hidden; }
 .mh-progress i { display: block; height: 100%; background: var(--actual); }
+.panel-loading { padding: var(--s4); color: var(--faint); font-size: var(--fs-sm); }
