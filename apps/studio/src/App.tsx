@@ -137,7 +137,12 @@ export function App() {
             <fieldset className="lock" disabled={deployed !== null}>
               <ConfigPanel design={design} set={set} maxThresholdSol={maxThresholdSol} />
             </fieldset>
-            {deployed && <p className="locked-note">Locked to the deployed curve. “Design a new curve” to edit again.</p>}
+            {deployed && (
+              <div className="locked-note" role="note">
+                <strong>Locked to the deployed curve.</strong> “Design a new curve” to edit again.
+                <button type="button" className="text-btn" onClick={() => goto("deploy")}>Open Deploy</button>
+              </div>
+            )}
             <PanelFooter
               tone={analysis.ok ? "ok" : "bad"}
               status={analysis.ok ? `Curve solved · ${design.weights.length} segments · ${numbers!.thresholdSol} SOL raise` : "Design is infeasible — see the chart"}
