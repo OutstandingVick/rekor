@@ -1,27 +1,31 @@
 .app {
   display: grid;
-  grid-template-columns: 320px minmax(0, 1fr) 280px;
-  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   grid-template-areas:
-    "config stage side"
-    "export export export";
+    "top top"
+    "work side"
+    "status status";
   height: 100vh;
+  background: var(--bg);
 }
+.app > .topbar { grid-area: top; }
 
 .zone { min-width: 0; min-height: 0; overflow: auto; }
-.zone-config { grid-area: config; border-right: 1px solid var(--line); background: var(--panel); }
-.zone-stage { grid-area: stage; display: flex; flex-direction: column; }
-.zone-side { grid-area: side; border-left: 1px solid var(--line); background: var(--panel); }
-.zone-export { grid-area: export; border-top: 1px solid var(--line); background: var(--panel); }
+.zone-stage { grid-area: work; display: flex; flex-direction: column; background: var(--surface-1); }
+.zone-side { grid-area: side; border-left: 1px solid var(--line); background: var(--surface-2); }
+.zone-export { grid-area: status; border-top: 1px solid var(--line); background: var(--surface-1); }
+
+.topbar .spacer { flex: 1; }
 
 @media (max-width: 1100px) {
   .app {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto;
-    grid-template-areas: "stage" "config" "side" "export";
+    grid-template-areas: "top" "work" "side" "status";
     height: auto;
   }
-  .zone-config, .zone-side { border: 0; border-top: 1px solid var(--line); }
+  .zone-side { border: 0; border-top: 1px solid var(--line); }
 }
 
 .stage-error {
@@ -29,7 +33,9 @@
   max-width: 52ch;
   padding: 16px 20px;
   border: 1px solid color-mix(in srgb, var(--danger) 40%, transparent);
+  border-radius: var(--radius);
   color: var(--danger);
+  background: var(--danger-bg);
 }
 
 .lock { border: 0; margin: 0; padding: 0; min-width: 0; }
