@@ -49,9 +49,10 @@ export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSel
       )}
       <button type="button" className="text-btn" onClick={onReset} disabled={sim.trades.length === 0}>Reset simulation</button>
       {sim.note && <div className="sim-note">{sim.note}</div>}
-      <div className="sim-holding">
-        holding <strong>{tokens(toUi(sim.holding, baseDecimals))}</strong>
-        <span> · spent {sol(toUi(sim.trades.reduce((a, t) => a + (t.result.side === "buy" ? t.result.amountIn - t.result.amountLeft : 0n), 0n), QUOTE_DECIMALS))} SOL</span>
+      <div className="position">
+        <div><span>Holding</span><strong>{tokens(toUi(sim.holding, baseDecimals))}</strong></div>
+        <div><span>Spent</span><strong>{sol(toUi(sim.trades.reduce((a, t) => a + (t.result.side === "buy" ? t.result.amountIn - t.result.amountLeft : 0n), 0n), QUOTE_DECIMALS))} SOL</strong></div>
+        <div><span>Trades</span><strong>{sim.trades.length}</strong></div>
       </div>
       <TradeLog trades={sim.trades} baseDecimals={baseDecimals} />
     </Section>
