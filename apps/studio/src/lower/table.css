@@ -29,3 +29,4 @@
 .swatch-inline { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 8px; vertical-align: 0; }
 .seg-chip { display: inline-flex; align-items: center; gap: 3px; margin-right: 6px; color: var(--muted); font-size: 11px; }
 .seg-chip i { width: 7px; height: 7px; border-radius: 2px; }
+.lower-body .dtable { min-width: 760px; }
