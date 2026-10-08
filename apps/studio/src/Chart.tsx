@@ -121,9 +121,9 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
               <line className="grad-rule" x1={0} x2={0} y1={0} y2={y(0) - y(all.at(-1)!.price)} />
               <line className="grad-rule" x1={0} x2={M.left - x(all.at(-1)!.tokens)} y1={0} y2={0} />
               <circle r={5} />
-              <g transform="translate(-10,-4)">
-                <rect className="grad-pill" x={-178} y={-12} width={178} height={20} rx={4} />
-                <text x={-8} y={2} textAnchor="end">graduates · {sol(graduationMcSol)} SOL MC</text>
+              <g transform={`translate(-10,${y(all.at(-1)!.price) < M.top + 40 ? 22 : -4})`}>
+                <rect className="grad-pill" x={width < 600 ? -128 : -178} y={-12} width={width < 600 ? 128 : 178} height={20} rx={4} />
+                <text x={-8} y={2} textAnchor="end">{width < 600 ? `grad · ${sol(graduationMcSol)} SOL` : `graduates · ${sol(graduationMcSol)} SOL MC`}</text>
               </g>
             </g>
           )}
