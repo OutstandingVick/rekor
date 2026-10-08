@@ -36,3 +36,21 @@
 .chart-title strong { font-weight: 600; font-size: var(--fs-md); }
 .chart-title span { color: var(--muted); font-size: var(--fs-sm); }
 .chart-tools { display: flex; align-items: center; gap: var(--s2); flex-wrap: wrap; justify-content: flex-end; }
+.legend { display: flex; gap: 2px; flex-wrap: wrap; }
+.legend-item {
+  display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px;
+  border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--faint);
+  font-size: var(--fs-xs); font-weight: 500; cursor: pointer;
+}
+.legend-item.on, .legend-item.fixed { color: var(--text); }
+.legend-item.fixed { cursor: default; }
+.legend-item:hover:not(.fixed) { background: var(--surface-2); }
+.legend-item:not(.on):not(.fixed) .sw { opacity: 0.3; }
+.legend .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
+.legend .sw.predicted { height: 2px; background: var(--curve); }
+.legend .sw.actual { border-radius: 50%; background: var(--actual); }
+.legend .sw.trades { border-radius: 50%; border: 1.5px solid var(--curve); }
+.legend .sw.segments { background: linear-gradient(90deg, hsl(170 22% 14%) 50%, hsl(170 22% 22%) 50%); }
+.legend .sw.graduation { border-radius: 50%; border: 2px solid var(--curve); background: var(--bg); }
+.legend .sw.snipe { background: rgba(255, 255, 255, 0.12); }
+.legend .cnt { color: var(--muted); font-family: var(--mono); }

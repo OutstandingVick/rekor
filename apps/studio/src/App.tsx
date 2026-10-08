@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { analyze } from "./analysis";
 import { Chart } from "./Chart";
 import { ChartToolbar } from "./ChartToolbar";
+import { Legend } from "./Legend";
+import { DEFAULT_OVERLAYS, type Overlays } from "./overlays";
 import { useDeployment } from "./chain/useDeployment";
 import { useLiveTrades } from "./chain/useLiveTrades";
 import { ConfigPanel } from "./ConfigPanel";
@@ -28,6 +30,7 @@ import "./layout.css";
 
 export function App() {
   const [mode, setMode] = useState<Mode>("design");
+  const [overlays, setOverlays] = useState<Overlays>(DEFAULT_OVERLAYS);
   const [probeSol, setProbeSol] = useState(1);
   const [draft, setDraft] = useState<Design>(DEFAULT_DESIGN);
   const deploy = useDeployment();
@@ -71,8 +74,14 @@ export function App() {
       <main className="zone zone-stage">
         {analysis.ok ? (
           <>
-            <ChartToolbar />
-            <Chart path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens}
+            <ChartToolbar>
+              <Legend
+                overlays={overlays}
+                onToggle={(k) => setOverlays((o) => ({ ...o, [k]: !o[k] }))}
+                counts={{ actual: live.trades.length, trades: sim?.trades.length ?? 0, segments: design.weights.length }}
+              />
+            </ChartToolbar>
+            <Chart show={overlays} path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens}
               probeSol={probeSol}
               actual={analysis.ok ? live.trades.map((t) => pointAt(design, analysis.solved, t.actualSqrtPrice)) : []}
               simulated={sim?.trades.map((t) => pointAt(design, analysis.solved, t.result.sqrtPriceAfter)) ?? []}
