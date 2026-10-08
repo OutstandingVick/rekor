@@ -34,9 +34,21 @@ export function VerifyPanel({ deployment, trades, onGo }: VerifyPanelProps) {
     );
   }
   const t = trades.at(-1)!;
+  const rows = compareRows(t, design!.baseDecimals, design!.supplyTokens);
+  const exact = rows.every((r) => r.exact);
   return (
-    <Section title={`Latest fill · #${trades.length}`}>
-      <CompareTable rows={compareRows(t, design!.baseDecimals, design!.supplyTokens)} />
-    </Section>
+    <>
+      <div className={`v-verdict ${exact ? "ok" : "off"}`}>
+        <strong>{exact ? "Exact match" : "Prediction differs"}</strong>
+        <span>
+          {exact
+            ? "Rekor predicted this fill, the transaction executed, and the result is identical to the last token atom."
+            : "The on-chain result differs from the prediction. The rows below show exactly where."}
+        </span>
+      </div>
+      <Section title={`Latest fill · #${trades.length}`}>
+        <CompareTable rows={rows} />
+      </Section>
+    </>
   );
 }
