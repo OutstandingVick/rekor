@@ -156,6 +156,13 @@ export function App() {
             onShowAll={() => setLowerTab("simulation")}
           />
         )}
+        {mode === "simulate" && (
+          <PanelFooter
+            tone={sim && sim.trades.length > 0 ? "ok" : "neutral"}
+            status={sim && sim.trades.length > 0 ? `${sim.trades.length} simulated trade${sim.trades.length === 1 ? "" : "s"} · local only` : "Nothing is sent on chain in Simulate"}
+            action={<button type="button" className="cta" disabled={!analysis.ok} onClick={() => goto("deploy")}>Continue to Deploy</button>}
+          />
+        )}
         {(mode === "deploy" || mode === "verify") && (
         <DeployPanel
           analysis={analysis}
