@@ -30,6 +30,8 @@
     height: auto;
   }
   .zone-side { border: 0; border-top: 1px solid var(--line); }
+  .zone-stage .chart { min-height: 340px; }
+  .panel-foot { position: static; }
 }
 
 .stage-error {

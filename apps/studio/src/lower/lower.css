@@ -12,3 +12,7 @@
 .lower-empty { padding: var(--s5) var(--s4); color: var(--faint); }
 .lower.collapsed { height: auto; }
 .lower-tabs .collapse { margin-left: auto; color: var(--faint); font-size: 10px; }
+@media (max-width: 1100px) {
+  .lower { height: auto; max-height: 420px; }
+  .lower-body { overflow: auto; -webkit-overflow-scrolling: touch; }
+}
