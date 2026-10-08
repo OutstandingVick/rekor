@@ -4,6 +4,7 @@ import { Chart } from "./Chart";
 import { ChartToolbar } from "./ChartToolbar";
 import { Legend } from "./Legend";
 import { DEFAULT_OVERLAYS, type Overlays } from "./overlays";
+import { usePref } from "./usePref";
 import { useDeployment } from "./chain/useDeployment";
 import { useLiveTrades } from "./chain/useLiveTrades";
 import { useVerification } from "./chain/useVerification";
@@ -41,9 +42,10 @@ import "./layout.css";
 
 export function App() {
   const [mode, setMode] = useState<Mode>("design");
-  const [overlays, setOverlays] = useState<Overlays>(DEFAULT_OVERLAYS);
+  const [overlays, setOverlays] = usePref<Overlays>("overlays", DEFAULT_OVERLAYS);
   const [lowerTab, setLowerTab] = useState<LowerTab>("segments");
-  const [lowerCollapsed, setLowerCollapsed] = useState(false);
+  const [{ collapsed: lowerCollapsed }, setPanel] = usePref("panel", { collapsed: false });
+  const setLowerCollapsed = (collapsed: boolean) => setPanel({ collapsed });
   // entering a stage brings up its data; the user can still pick any tab
   const goto = (m: Mode) => {
     setMode(m);
