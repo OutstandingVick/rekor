@@ -18,6 +18,10 @@
 
 .topbar .spacer { flex: 1; }
 
+@media (max-width: 1360px) {
+  .app { grid-template-columns: minmax(0, 1fr) 312px; }
+}
+
 @media (max-width: 1100px) {
   .app {
     grid-template-columns: minmax(0, 1fr);
