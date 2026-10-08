@@ -5,6 +5,8 @@ import { NumberField, Section } from "./fields";
 import { sol, tokens } from "./format";
 import type { Simulation } from "./simulation";
 import { TradeLog } from "./TradeLog";
+import { QuoteSummary } from "./QuoteSummary";
+import type { SwapResult } from "dbc-curve-sim";
 import "./simulate.css";
 
 export interface SimulatePanelProps {
@@ -15,9 +17,12 @@ export interface SimulatePanelProps {
   onBuy: () => void;
   onSell: (fraction: bigint) => void;
   onReset: () => void;
+  /** result of buying `sizeSol` from the current simulated price, if anything would fill */
+  quote?: SwapResult | null;
+  supplyTokens: number;
 }
 
-export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSell, onReset }: SimulatePanelProps) {
+export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSell, onReset, quote = null, supplyTokens }: SimulatePanelProps) {
   const [side, setSide] = useState<"buy" | "sell">("buy");
   return (
     <Section title="Simulate">
@@ -33,6 +38,7 @@ export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSel
               <button key={v} type="button" className={sizeSol === v ? "on" : ""} onClick={() => onSize(v)}>{v} SOL</button>
             ))}
           </div>
+          {quote && <QuoteSummary r={quote} baseDecimals={baseDecimals} supplyTokens={supplyTokens} />}
           <button type="button" className="exec buy" onClick={onBuy}>Buy {sizeSol} SOL</button>
         </>
       ) : (
