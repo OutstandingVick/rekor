@@ -151,6 +151,8 @@ export function App() {
             onBuy={buyNow}
             onSell={sellNow}
             onReset={() => setSim(fresh())}
+            quote={preview?.result ?? null}
+            supplyTokens={design.supplyTokens}
           />
         )}
         {(mode === "deploy" || mode === "verify") && (
