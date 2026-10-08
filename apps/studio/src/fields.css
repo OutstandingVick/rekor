@@ -4,13 +4,21 @@
   margin: 0 0 var(--s3); font-size: var(--fs-xs); font-weight: 600; color: var(--faint);
   text-transform: uppercase; letter-spacing: 0.09em;
 }
-.field { display: grid; grid-template-columns: 1fr 140px; align-items: center; gap: 2px 10px; margin-bottom: 8px; }
-.field label { color: var(--text); }
-.field .input { display: flex; align-items: center; border: 1px solid var(--line-strong); background: var(--bg); }
+.field { display: grid; grid-template-columns: 1fr 150px; align-items: center; gap: 3px 10px; margin-bottom: var(--s2); }
+.field label, .field > span:first-child { color: var(--muted); font-size: var(--fs-sm); }
+.field .input {
+  display: flex; align-items: center; height: 30px;
+  border: 1px solid transparent; border-radius: var(--radius-sm); background: var(--surface-3);
+  transition: border-color 0.12s;
+}
+.field .input:hover { border-color: var(--line-strong); }
 .field .input:focus-within { border-color: var(--curve); }
-.field .input.invalid { border-color: var(--danger); }
-.field input { width: 100%; min-width: 0; padding: 5px 8px; border: 0; background: transparent; outline: none; text-align: right; font-variant-numeric: tabular-nums; }
-.field .unit { padding-right: 8px; color: var(--muted); }
+.field .input.invalid { border-color: var(--danger); background: var(--danger-bg); }
+.field input {
+  width: 100%; min-width: 0; padding: 0 8px; border: 0; background: transparent; outline: none;
+  text-align: right; font-family: var(--mono); font-size: var(--fs-sm); font-variant-numeric: tabular-nums;
+}
+.field .unit { padding-right: 8px; color: var(--faint); font-size: var(--fs-xs); }
 .field .hint { grid-column: 2; color: var(--faint); font-size: 10px; text-align: right; }
 .field .hint.bad { color: var(--danger); }
 .select { width: 100%; padding: 5px 8px; border: 1px solid var(--line-strong); background: var(--bg); }
