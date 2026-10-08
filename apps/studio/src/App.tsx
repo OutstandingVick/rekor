@@ -18,6 +18,7 @@ import { SimulatePanel } from "./SimulatePanel";
 import { startSimulation, step, type Simulation } from "./simulation";
 import { Header } from "./shell/Header";
 import { NetworkBadge } from "./shell/NetworkBadge";
+import { PanelFooter } from "./shell/PanelFooter";
 import { PanelHeader } from "./shell/PanelHeader";
 import { Stepper } from "./shell/Stepper";
 import { WalletChip } from "./shell/WalletChip";
@@ -91,6 +92,11 @@ export function App() {
               <ConfigPanel design={design} set={set} maxThresholdSol={maxThresholdSol} />
             </fieldset>
             {deployed && <p className="locked-note">Locked to the deployed curve. “Design a new curve” to edit again.</p>}
+            <PanelFooter
+              tone={analysis.ok ? "ok" : "bad"}
+              status={analysis.ok ? `Curve solved · ${design.weights.length} segments · ${numbers!.thresholdSol} SOL raise` : "Design is infeasible — see the chart"}
+              action={<button type="button" className="cta" disabled={!analysis.ok} onClick={() => setMode("simulate")}>Continue to Simulate</button>}
+            />
           </>
         )}
         {mode === "simulate" && sim && (
