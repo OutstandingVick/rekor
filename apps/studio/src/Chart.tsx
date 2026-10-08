@@ -92,6 +92,15 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
               />
             );
           })}
+          {show.segments && path.map((seg) => {
+            const x0 = x(seg[0].tokens), x1 = x(seg.at(-1)!.tokens);
+            if (x1 - x0 < 22) return null;
+            return (
+              <text key={`l${seg[0].segment}`} className={`seg-label ${activeSegment === seg[0].segment ? "active" : ""}`} x={(x0 + x1) / 2} y={y(0) - 8} textAnchor="middle">
+                S{seg[0].segment + 1}
+              </text>
+            );
+          })}
           {show.segments && path.slice(1).map((seg, i) => (
             <line key={`b${i}`} className="boundary" x1={x(seg[0].tokens)} x2={x(seg[0].tokens)} y1={y(0)} y2={y(seg[0].price)} />
           ))}
