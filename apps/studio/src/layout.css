@@ -90,3 +90,8 @@
 .mh-progress { display: block; width: 100%; height: 3px; margin-top: 3px; border-radius: 2px; background: var(--surface-3); overflow: hidden; }
 .mh-progress i { display: block; height: 100%; background: var(--actual); }
 .panel-loading { padding: var(--s4); color: var(--faint); font-size: var(--fs-sm); }
+
+/* fixed rows of the workspace never shrink; the chart absorbs the space */
+.zone-stage > .market-head,
+.zone-stage > .chart-toolbar,
+.zone-stage > .metrics-strip { flex: none; }
