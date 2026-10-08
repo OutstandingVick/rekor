@@ -45,3 +45,21 @@
 .panel-head { padding: var(--s4) var(--s4) var(--s3); border-bottom: 1px solid var(--line); }
 .panel-head h1 { margin: 0; font-size: var(--fs-lg); font-weight: 600; letter-spacing: -0.01em; }
 .panel-head p { margin: 2px 0 0; color: var(--muted); font-size: var(--fs-sm); }
+
+.zone-side { display: flex; flex-direction: column; }
+.panel-foot {
+  position: sticky; bottom: 0; margin-top: auto;
+  display: grid; gap: var(--s2); padding: var(--s3) var(--s4);
+  background: var(--surface-2); border-top: 1px solid var(--line);
+}
+.panel-status { display: flex; align-items: center; gap: 6px; font-size: var(--fs-sm); color: var(--muted); }
+.panel-status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--faint); flex: none; }
+.panel-status.ok::before { background: var(--ok); }
+.panel-status.bad { color: var(--danger); }
+.panel-status.bad::before { background: var(--danger); }
+.cta {
+  height: 36px; border: 0; border-radius: var(--radius); cursor: pointer;
+  background: var(--curve); color: #062320; font-weight: 600; font-size: var(--fs-md);
+}
+.cta:hover:not(:disabled) { filter: brightness(1.08); }
+.cta:disabled { background: var(--surface-3); color: var(--faint); cursor: default; }
