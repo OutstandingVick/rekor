@@ -168,7 +168,10 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
       )}
       {children}
       {hover && info && (
-        <div className="tooltip" style={{ left: Math.min(x(hover.tokens) + 14, width - 236), top: M.top + 8 }}>
+        <div
+          className="tooltip"
+          style={{ left: x(hover.tokens) + 14 + 224 > width - 8 ? x(hover.tokens) - 14 - 224 : x(hover.tokens) + 14, top: M.top + 8 }}
+        >
           <div className="tt-head">At cursor</div>
           <div><span>price</span>{fmtPrice(hover.price)} SOL</div>
           <div><span>sold</span>{fmtTokens(hover.tokens)}</div>
