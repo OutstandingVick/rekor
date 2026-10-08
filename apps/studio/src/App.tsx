@@ -153,6 +153,7 @@ export function App() {
             onReset={() => setSim(fresh())}
             quote={preview?.result ?? null}
             supplyTokens={design.supplyTokens}
+            onShowAll={() => setLowerTab("simulation")}
           />
         )}
         {(mode === "deploy" || mode === "verify") && (
