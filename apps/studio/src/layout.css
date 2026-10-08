@@ -41,3 +41,7 @@
 .lock { border: 0; margin: 0; padding: 0; min-width: 0; }
 .lock:disabled { opacity: 0.55; }
 .locked-note { margin: 0; padding: 10px 16px; color: var(--muted); }
+
+.panel-head { padding: var(--s4) var(--s4) var(--s3); border-bottom: 1px solid var(--line); }
+.panel-head h1 { margin: 0; font-size: var(--fs-lg); font-weight: 600; letter-spacing: -0.01em; }
+.panel-head p { margin: 2px 0 0; color: var(--muted); font-size: var(--fs-sm); }

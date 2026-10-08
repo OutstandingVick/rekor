@@ -18,6 +18,7 @@ import { SimulatePanel } from "./SimulatePanel";
 import { startSimulation, step, type Simulation } from "./simulation";
 import { Header } from "./shell/Header";
 import { NetworkBadge } from "./shell/NetworkBadge";
+import { PanelHeader } from "./shell/PanelHeader";
 import { Stepper } from "./shell/Stepper";
 import { WalletChip } from "./shell/WalletChip";
 import type { Mode } from "./shell/workflow";
@@ -83,6 +84,7 @@ export function App() {
         )}
       </main>
       <aside className="zone zone-side" aria-label="Workflow panel">
+        <PanelHeader mode={mode} />
         {mode === "design" && (
           <>
             <fieldset className="lock" disabled={deployed !== null}>
