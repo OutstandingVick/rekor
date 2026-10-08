@@ -18,3 +18,15 @@
   background: transparent; color: var(--muted); font-size: var(--fs-xs); font-weight: 500;
 }
 .segments .presets button:hover { background: var(--surface-3); color: var(--text); }
+
+/* depth sliders: thin track, small thumb */
+.segments input[type="range"] { -webkit-appearance: none; appearance: none; height: 16px; background: transparent; cursor: pointer; }
+.segments input[type="range"]::-webkit-slider-runnable-track { height: 3px; border-radius: 2px; background: var(--surface-3); }
+.segments input[type="range"]::-moz-range-track { height: 3px; border-radius: 2px; background: var(--surface-3); }
+.segments input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 12px; height: 12px; margin-top: -4.5px; border-radius: 50%;
+  background: var(--text); border: 2px solid var(--surface-2);
+}
+.segments input[type="range"]::-moz-range-thumb { width: 10px; height: 10px; border-radius: 50%; background: var(--text); border: 2px solid var(--surface-2); }
+.segments input[type="range"]:hover::-webkit-slider-thumb { background: var(--curve); }
+.segments li:hover .idx { color: var(--text); }
