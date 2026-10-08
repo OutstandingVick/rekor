@@ -35,7 +35,7 @@ export function VerificationTable({ solved, check }: { solved: SolveResult; chec
             <tr key={r.field}>
               <td className="l">{r.field}</td>
               <td>{r.predicted}</td>
-              <td className={c ? "" : "dim"}>{c ? c.onChain : check === "checking" ? "reading…" : "not deployed"}</td>
+              <td className={c ? "" : "dim"}>{c ? c.onChain : check === "checking" ? <span className="skeleton" aria-label="reading from chain" /> : "not deployed"}</td>
               <td className="l">{c ? (c.equal ? <span className="tag ok">exact</span> : <span className="tag bad">differs</span>) : <span className="dim">—</span>}</td>
             </tr>
           );
