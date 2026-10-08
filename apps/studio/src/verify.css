@@ -21,3 +21,12 @@
 .fill-pick button.ok::after { content: " ✓"; color: var(--ok); }
 .fill-pick button.off::after { content: " ✗"; color: var(--danger); }
 .fill-pick button.on { border-color: var(--actual); color: var(--text); }
+.evidence { margin: 0; }
+.evidence div { display: flex; justify-content: space-between; gap: var(--s2); line-height: 2; font-size: var(--fs-sm); }
+.evidence dt { color: var(--muted); }
+.evidence dd { margin: 0; font-family: var(--mono); }
+.evidence a { color: var(--text); text-decoration: none; }
+.evidence a:hover { color: var(--curve); }
+.linkish { padding: 0; border: 0; background: none; font: inherit; cursor: pointer; text-decoration: underline dotted; }
+.linkish.ok, .evidence .ok { color: var(--ok); }
+.linkish.off, .evidence .off { color: var(--danger); }
