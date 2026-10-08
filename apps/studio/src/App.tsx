@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { analyze } from "./analysis";
 import { Chart } from "./Chart";
 import { ChartToolbar } from "./ChartToolbar";
@@ -9,7 +9,6 @@ import { useDeployment } from "./chain/useDeployment";
 import { useLiveTrades } from "./chain/useLiveTrades";
 import { useVerification } from "./chain/useVerification";
 import { ConfigPanel } from "./ConfigPanel";
-import { DeployPanel } from "./DeployPanel";
 import { VerifyPanel } from "./VerifyPanel";
 import { DEFAULT_DESIGN, type Design } from "./design";
 import { ExportBar } from "./ExportBar";
@@ -39,6 +38,9 @@ import { Stepper } from "./shell/Stepper";
 import { WalletChip } from "./shell/WalletChip";
 import type { Mode } from "./shell/workflow";
 import "./layout.css";
+
+// deploy/trade pull in the Meteora SDK; fetch them when the Deploy stage is first opened
+const DeployPanel = lazy(() => import("./DeployPanel").then((m) => ({ default: m.DeployPanel })));
 
 export function App() {
   const [mode, setMode] = useState<Mode>("design");
@@ -197,6 +199,7 @@ export function App() {
           />
         )}
         {mode === "deploy" && (
+        <Suspense fallback={<p className="panel-loading">Loading deploy tools…</p>}>
         <DeployPanel
           analysis={analysis}
           onLiveTrade={live.add}
@@ -210,6 +213,7 @@ export function App() {
             },
           }}
         />
+        </Suspense>
         )}
       </aside>
       <footer className="zone zone-export">
