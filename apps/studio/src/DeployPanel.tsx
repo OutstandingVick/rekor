@@ -70,8 +70,9 @@ export function DeployPanel({ analysis, deploy, onLiveTrade, liveTrades, check }
         {!signer && <ConnectWallet />}
         <LiveTradeBox analysis={analysis} deployment={d} signer={signer} onTrade={onLiveTrade} onSettled={() => void refresh()} />
         <LiveLog trades={liveTrades} baseDecimals={d.design.baseDecimals} />
-        <div className="deploy">
-          <button type="button" onClick={deploy.reset}>design a new curve</button>
+        <div className="deploy reset-row">
+          <button type="button" className="secondary" onClick={deploy.reset}>design a new curve</button>
+          <span className="fine">Unlocks editing. The deployed pool stays on devnet.</span>
         </div>
       </Section>
     );
