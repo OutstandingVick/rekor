@@ -6,6 +6,7 @@ import { Legend } from "./Legend";
 import { DEFAULT_OVERLAYS, type Overlays } from "./overlays";
 import { useDeployment } from "./chain/useDeployment";
 import { useLiveTrades } from "./chain/useLiveTrades";
+import { useVerification } from "./chain/useVerification";
 import { ConfigPanel } from "./ConfigPanel";
 import { DeployPanel } from "./DeployPanel";
 import { DEFAULT_DESIGN, type Design } from "./design";
@@ -49,6 +50,7 @@ export function App() {
   const live = useLiveTrades(deployed?.pool ?? null);
   const set = (patch: Partial<Design>) => setDraft((d) => ({ ...d, ...patch }));
   const analysis = useMemo(() => analyze(design), [design]);
+  const check = useVerification(deployed, analysis);
   const numbers = useMemo(() => (analysis.ok ? headline(design, analysis.solved, analysis.fees) : null), [analysis, design]);
   const maxThresholdSol = useMemo(() => {
     const a = analyze({ ...design, thresholdSol: null });
@@ -149,6 +151,7 @@ export function App() {
           analysis={analysis}
           onLiveTrade={live.add}
           liveTrades={live.trades}
+          check={check}
           deploy={{
             ...deploy,
             reset: () => {
