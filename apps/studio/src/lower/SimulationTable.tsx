@@ -1,6 +1,6 @@
 import { toUi } from "dbc-curve-sim";
 import { QUOTE_DECIMALS } from "../design";
-import { pct, price, sol, tokens } from "../format";
+import { pct, price, solFixed as sol, tokens } from "../format";
 import { segmentTone } from "../palette";
 import type { SimTrade } from "../simulation";
 import "./table.ts";
@@ -37,7 +37,7 @@ export function SimulationTable({ trades, baseDecimals }: { trades: SimTrade[]; 
               <td>{tokens(tok)}</td>
               <td>{tok > 0 ? price(solAmt / tok) : "—"}</td>
               <td className={r.side === "buy" ? "up" : "down"}>{r.side === "buy" ? "+" : "−"}{pct(Number(r.priceImpactBps) / 10_000, 2)}</td>
-              <td className="dim">{sol(q(r.fee.total))}</td>
+              <td className="dim">{sol(q(r.fee.total), 4)}</td>
               <td className="l">
                 {r.steps.map((s) => (
                   <span key={s.segment} className="seg-chip">

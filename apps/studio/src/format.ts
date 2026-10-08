@@ -26,3 +26,10 @@ export function price(x: number): string {
 export function pct(x: number, digits = 1): string {
   return `${(x * 100).toFixed(digits)}%`;
 }
+
+/** SOL with a fixed number of decimals, for table columns where figures must align. */
+export function solFixed(x: number, digits = 2): string {
+  if (!Number.isFinite(x)) return "—";
+  if (x !== 0 && Math.abs(x) < 10 ** -digits) return x.toPrecision(2);
+  return x.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+}

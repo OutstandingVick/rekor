@@ -2,7 +2,7 @@ import { sqrtPriceQ64ToPrice, toUi } from "dbc-curve-sim";
 import { explorer } from "../chain/network";
 import type { LiveTrade } from "../chain/trade";
 import { QUOTE_DECIMALS } from "../design";
-import { price, sol, tokens } from "../format";
+import { price, solFixed as sol, tokens } from "../format";
 import "./table.ts";
 
 /** Real devnet fills against the deployed pool, newest first. */
