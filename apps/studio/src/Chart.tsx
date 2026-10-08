@@ -28,9 +28,11 @@ export interface ChartProps {
   activeSegment?: number | null;
   onSegment?: (index: number | null) => void;
   stats?: SegmentStat[];
+  /** where the next simulated buy would move the pool, from → to */
+  preview?: { from: PathPoint; to: PathPoint } | null;
 }
 
-export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, simulated = [], actual = [], children, show = DEFAULT_OVERLAYS, activeSegment = null, onSegment, stats = [] }: ChartProps) {
+export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, simulated = [], actual = [], children, show = DEFAULT_OVERLAYS, activeSegment = null, onSegment, stats = [], preview = null }: ChartProps) {
   const [ref, { width, height }] = useSize<HTMLDivElement>();
   const all = path.flat();
   const maxTokens = all.at(-1)?.tokens ?? 1;
@@ -125,6 +127,16 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
               </g>
             </g>
           )}
+          {preview && (() => {
+            const seg = all.filter((p) => p.tokens >= preview.from.tokens && p.tokens <= preview.to.tokens);
+            const pts = [preview.from, ...seg, preview.to];
+            return (
+              <g className="preview">
+                <path d={pts.map((p, j) => `${j ? "L" : "M"}${x(p.tokens).toFixed(1)},${y(p.price).toFixed(1)}`).join("")} />
+                <circle cx={x(preview.to.tokens)} cy={y(preview.to.price)} r={4} />
+              </g>
+            );
+          })()}
           {show.trades && simulated.map((p, i) => (
             <circle key={`s${i}`} className="sim-dot" cx={x(p.tokens)} cy={y(p.price)} r={i === simulated.length - 1 ? 4.5 : 3} />
           ))}

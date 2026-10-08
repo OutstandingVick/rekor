@@ -20,6 +20,7 @@ import { segmentStats } from "./segmentStats";
 import { Readout } from "./Readout";
 import { SimulatePanel } from "./SimulatePanel";
 import { startSimulation, step, type Simulation } from "./simulation";
+import { buy } from "dbc-curve-sim";
 import { Header } from "./shell/Header";
 import { NetworkBadge } from "./shell/NetworkBadge";
 import { PanelFooter } from "./shell/PanelFooter";
@@ -63,6 +64,13 @@ export function App() {
     setSim(step(sim, analysis.solved, analysis.fees, { kind: "sell", base: (sim.holding * percent) / 100n }));
   };
 
+  // before executing: where would a buy of the current size land from the simulated pool?
+  const preview = useMemo(() => {
+    if (mode !== "simulate" || !analysis.ok || !sim) return null;
+    const r = buy(analysis.solved.config, { sqrtPrice: sim.sqrtPrice }, BigInt(Math.round(probeSol * 1e9)), analysis.fees);
+    if (r.steps.length === 0) return null;
+    return { from: pointAt(design, analysis.solved, sim.sqrtPrice), to: pointAt(design, analysis.solved, r.sqrtPriceAfter), result: r };
+  }, [mode, analysis, sim, probeSol, design]);
   const stats = useMemo(() => (analysis.ok ? segmentStats(design, analysis.solved) : []), [analysis, design]);
   const path = useMemo(() => (analysis.ok ? pricePath(design, analysis.solved) : []), [analysis, design]);
 
@@ -84,7 +92,7 @@ export function App() {
                 counts={{ actual: live.trades.length, trades: sim?.trades.length ?? 0, segments: design.weights.length }}
               />
             </ChartToolbar>
-            <Chart show={overlays} activeSegment={activeSegment} onSegment={setActiveSegment} stats={stats} path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens}
+            <Chart show={overlays} activeSegment={activeSegment} onSegment={setActiveSegment} stats={stats} preview={preview} path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens}
               probeSol={probeSol}
               actual={analysis.ok ? live.trades.map((t) => pointAt(design, analysis.solved, t.actualSqrtPrice)) : []}
               simulated={sim?.trades.map((t) => pointAt(design, analysis.solved, t.result.sqrtPriceAfter)) ?? []}
