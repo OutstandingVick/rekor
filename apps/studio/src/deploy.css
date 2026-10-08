@@ -1,12 +1,17 @@
-.muted { color: var(--muted); margin: 0; }
+.muted { color: var(--muted); margin: 0; font-size: var(--fs-sm); line-height: 1.5; }
 .muted a { color: var(--text); }
-.wallet-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.wallet-list { display: grid; gap: 6px; }
-.wallet-list button, .wallet-row button, .deploy button {
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  padding: 6px 10px; border: 1px solid var(--line-strong); background: var(--bg); cursor: pointer;
+.wallet-row {
+  display: flex; justify-content: space-between; align-items: center; gap: var(--s2);
+  padding: var(--s2) var(--s3); border-radius: var(--radius); background: var(--surface-1); font-size: var(--fs-sm);
 }
-.wallet-row button { padding: 2px 8px; color: var(--muted); }
+.wallet-list { display: grid; gap: var(--s1); }
+.wallet-list button, .wallet-row button, .deploy button {
+  display: flex; align-items: center; justify-content: center; gap: 6px; height: 34px;
+  padding: 0 var(--s3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface-3); cursor: pointer;
+  font-weight: 500;
+}
+.wallet-list button { justify-content: flex-start; }
+.wallet-row button { height: 24px; padding: 0 var(--s2); color: var(--muted); background: transparent; font-weight: 400; font-size: var(--fs-xs); }
 .wallet-list button:hover:not(:disabled), .wallet-row button:hover, .deploy button:hover:not(:disabled) { border-color: var(--curve); }
 .deploy button:disabled, .wallet-list button:disabled { opacity: 0.4; cursor: default; }
 .deploy { display: grid; gap: 8px; margin-top: 8px; }
