@@ -4,6 +4,7 @@ import type { Inspection } from "./inspect";
 import { DEFAULT_OVERLAYS, type Overlays } from "./overlays";
 import { segmentTone } from "./palette";
 import type { PathPoint } from "./path";
+import type { SegmentStat } from "./segmentStats";
 import { linear } from "./scale";
 import { useSize } from "./useSize";
 import "./chart.css";
@@ -26,9 +27,10 @@ export interface ChartProps {
   /** segment to emphasise (from hover here or a table row elsewhere) */
   activeSegment?: number | null;
   onSegment?: (index: number | null) => void;
+  stats?: SegmentStat[];
 }
 
-export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, simulated = [], actual = [], children, show = DEFAULT_OVERLAYS, activeSegment = null, onSegment }: ChartProps) {
+export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, simulated = [], actual = [], children, show = DEFAULT_OVERLAYS, activeSegment = null, onSegment, stats = [] }: ChartProps) {
   const [ref, { width, height }] = useSize<HTMLDivElement>();
   const all = path.flat();
   const maxTokens = all.at(-1)?.tokens ?? 1;
@@ -50,6 +52,7 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
     onSegment?.(best.segment);
   };
   const info = hover ? inspect(hover.sqrtPrice) : null;
+  const seg = hover ? stats.find((st) => st.index === hover.segment) : undefined;
 
   return (
     <div className="chart" ref={ref}>
@@ -132,12 +135,23 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
       )}
       {children}
       {hover && info && (
-        <div className="tooltip" style={{ left: Math.min(x(hover.tokens) + 12, width - 210), top: M.top + 8 }}>
+        <div className="tooltip" style={{ left: Math.min(x(hover.tokens) + 14, width - 236), top: M.top + 8 }}>
+          <div className="tt-head">At cursor</div>
           <div><span>price</span>{fmtPrice(hover.price)} SOL</div>
           <div><span>sold</span>{fmtTokens(hover.tokens)}</div>
           <div><span>raised</span>{sol(info.raisedSol)} SOL</div>
           <div><span>{probeSol} SOL buy</span>{info.graduates ? "graduates" : `+${pct(info.impact, 2)}`}</div>
-          <div><span>segment</span>{hover.segment + 1}</div>
+          {seg && (
+            <>
+              <div className="tt-head">Segment {seg.index + 1}{seg.graduates ? " · graduates here" : ""}</div>
+              <div><span>supply</span>{fmtTokens(seg.fromTokens)} – {fmtTokens(seg.toTokens)}</div>
+              <div><span>price</span>{fmtPrice(seg.startPrice)} – {fmtPrice(seg.endPrice)}</div>
+              <div><span>price Δ</span>+{pct(seg.priceChange, 1)}</div>
+              <div><span>SOL in segment</span>{sol(seg.segmentSol)}</div>
+              <div><span>cumulative SOL</span>{sol(seg.cumulativeSol)}</div>
+              <div><span>liquidity</span>{Number(seg.liquidity).toExponential(2)}</div>
+            </>
+          )}
         </div>
       )}
     </div>
