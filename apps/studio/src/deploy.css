@@ -26,3 +26,17 @@
 .verify { margin: 8px 0 0; color: var(--muted); }
 .verify.match { color: var(--curve); }
 .verify.mismatch, .verify.missing { color: var(--danger); }
+.status-pill {
+  display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 8px; border-radius: 999px;
+  background: var(--surface-3); color: var(--muted); font-size: var(--fs-xs); font-weight: 600;
+}
+.status-pill i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.status-pill.s-ready { background: var(--curve-bg); color: var(--curve); }
+.status-pill.s-wallet { background: var(--surface-3); color: var(--muted); }
+.status-pill.s-broadcasting { background: rgba(147, 197, 253, 0.1); color: var(--pending); }
+.status-pill.s-broadcasting i { animation: pulse 1s ease-in-out infinite; }
+.status-pill.s-confirmed { background: var(--ok-bg); color: var(--ok); }
+.status-pill.s-failed { background: var(--danger-bg); color: var(--danger); }
+.status-detail { font-weight: 400; opacity: 0.8; }
+@keyframes pulse { 50% { opacity: 0.3; } }
+@media (prefers-reduced-motion: reduce) { .status-pill.s-broadcasting i { animation: none; } }
