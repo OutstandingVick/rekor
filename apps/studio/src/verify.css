@@ -1,2 +1,11 @@
 .v-empty { margin: 0 0 var(--s3); color: var(--muted); font-size: var(--fs-sm); line-height: 1.55; }
 .v-go { width: 100%; }
+.compare { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); table-layout: fixed; }
+.compare th { padding: 0 0 6px; color: var(--faint); font-size: var(--fs-xs); font-weight: 500; text-align: right; }
+.compare th:first-child { text-align: left; width: 34%; }
+.compare td { padding: 7px 0; border-top: 1px solid var(--line); text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.compare td:first-child { text-align: left; font-family: var(--sans); color: var(--muted); }
+.compare td.pred { color: var(--curve); }
+.compare td.act { color: var(--actual); }
+.compare tr.exact td.d { color: var(--ok); }
+.compare tr.off td.d { color: var(--danger); font-weight: 600; }
