@@ -15,6 +15,7 @@ import { initScript } from "./initScript";
 import { inspectAt } from "./inspect";
 import { headline } from "./metrics";
 import { MetricsStrip } from "./MetricsStrip";
+import { LowerPanel, type LowerTab } from "./lower/LowerPanel";
 import { pointAt, pricePath } from "./path";
 import { segmentStats } from "./segmentStats";
 import { Readout } from "./Readout";
@@ -33,6 +34,7 @@ import "./layout.css";
 export function App() {
   const [mode, setMode] = useState<Mode>("design");
   const [overlays, setOverlays] = useState<Overlays>(DEFAULT_OVERLAYS);
+  const [lowerTab, setLowerTab] = useState<LowerTab>("segments");
   const [activeSegment, setActiveSegment] = useState<number | null>(null);
   const [probeSol, setProbeSol] = useState(1);
   const [draft, setDraft] = useState<Design>(DEFAULT_DESIGN);
@@ -101,6 +103,9 @@ export function App() {
               {live.trades.length > 0 && <Readout trade={live.trades.at(-1)!} baseDecimals={design.baseDecimals} />}
             </Chart>
             <MetricsStrip h={numbers!} />
+            <LowerPanel tab={lowerTab} onTab={setLowerTab} counts={{ segments: stats.length, simulation: sim?.trades.length, fills: live.trades.length }}>
+              <p className="lower-empty">Coming up.</p>
+            </LowerPanel>
           </>
         ) : (
           <div className="stage-error" role="alert">{analysis.error}</div>
