@@ -16,6 +16,7 @@ import { inspectAt } from "./inspect";
 import { headline } from "./metrics";
 import { MetricsStrip } from "./MetricsStrip";
 import { LowerPanel, type LowerTab } from "./lower/LowerPanel";
+import { SegmentsTable } from "./lower/SegmentsTable";
 import { pointAt, pricePath } from "./path";
 import { segmentStats } from "./segmentStats";
 import { Readout } from "./Readout";
@@ -104,7 +105,7 @@ export function App() {
             </Chart>
             <MetricsStrip h={numbers!} />
             <LowerPanel tab={lowerTab} onTab={setLowerTab} counts={{ segments: stats.length, simulation: sim?.trades.length, fills: live.trades.length }}>
-              <p className="lower-empty">Coming up.</p>
+              {lowerTab === "segments" && <SegmentsTable stats={stats} active={activeSegment} onActive={setActiveSegment} />}
             </LowerPanel>
           </>
         ) : (

@@ -26,3 +26,4 @@
 .tag.curve { background: var(--curve-bg); color: var(--curve); }
 .tag.actual { background: var(--actual-bg); color: var(--actual); }
 .tag.bad { background: var(--danger-bg); color: var(--danger); }
+.swatch-inline { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 8px; vertical-align: 0; }
