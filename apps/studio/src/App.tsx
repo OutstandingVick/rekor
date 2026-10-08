@@ -41,6 +41,11 @@ export function App() {
   const [mode, setMode] = useState<Mode>("design");
   const [overlays, setOverlays] = useState<Overlays>(DEFAULT_OVERLAYS);
   const [lowerTab, setLowerTab] = useState<LowerTab>("segments");
+  // entering a stage brings up its data; the user can still pick any tab
+  const goto = (m: Mode) => {
+    setMode(m);
+    setLowerTab(({ design: "segments", simulate: "simulation", deploy: "transactions", verify: "verification" } as const)[m]);
+  };
   const [activeSegment, setActiveSegment] = useState<number | null>(null);
   const [probeSol, setProbeSol] = useState(1);
   const [draft, setDraft] = useState<Design>(DEFAULT_DESIGN);
@@ -86,10 +91,10 @@ export function App() {
   return (
     <div className="app">
       <Header>
-        <Stepper mode={mode} onMode={setMode} done={{ design: analysis.ok, simulate: (sim?.trades.length ?? 0) > 0, deploy: deployed !== null, verify: live.trades.length > 0 }} />
+        <Stepper mode={mode} onMode={goto} done={{ design: analysis.ok, simulate: (sim?.trades.length ?? 0) > 0, deploy: deployed !== null, verify: live.trades.length > 0 }} />
         <span className="spacer" />
         <NetworkBadge />
-        <WalletChip onOpen={() => setMode("deploy")} />
+        <WalletChip onOpen={() => goto("deploy")} />
       </Header>
       <main className="zone zone-stage">
         {analysis.ok ? (
@@ -110,7 +115,7 @@ export function App() {
               {live.trades.length > 0 && <Readout trade={live.trades.at(-1)!} baseDecimals={design.baseDecimals} />}
             </Chart>
             <MetricsStrip h={numbers!} />
-            <LowerPanel tab={lowerTab} onTab={setLowerTab} counts={{ segments: stats.length, simulation: sim?.trades.length, fills: live.trades.length }}>
+            <LowerPanel tab={lowerTab} onTab={setLowerTab} counts={{ segments: stats.length, simulation: sim?.trades.length, fills: live.trades.length, transactions: deployed ? 2 + live.trades.length : 0 }}>
               {lowerTab === "segments" && <SegmentsTable stats={stats} active={activeSegment} onActive={setActiveSegment} />}
               {lowerTab === "verification" && <VerificationTable solved={analysis.solved} check={check} />}
               {lowerTab === "transactions" && <TransactionsTable deployment={deployed} trades={live.trades} />}
@@ -133,7 +138,7 @@ export function App() {
             <PanelFooter
               tone={analysis.ok ? "ok" : "bad"}
               status={analysis.ok ? `Curve solved · ${design.weights.length} segments · ${numbers!.thresholdSol} SOL raise` : "Design is infeasible — see the chart"}
-              action={<button type="button" className="cta" disabled={!analysis.ok} onClick={() => setMode("simulate")}>Continue to Simulate</button>}
+              action={<button type="button" className="cta" disabled={!analysis.ok} onClick={() => goto("simulate")}>Continue to Simulate</button>}
             />
           </>
         )}
