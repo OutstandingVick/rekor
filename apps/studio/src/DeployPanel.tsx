@@ -12,6 +12,7 @@ import { Section } from "./fields";
 import type { LiveTrade } from "./chain/trade";
 import { LiveLog } from "./LiveLog";
 import { LiveTradeBox } from "./LiveTradeBox";
+import { ConfigSummary } from "./ConfigSummary";
 import "./deploy.css";
 
 const MIN_DEPLOY_SOL = 0.05;
@@ -70,6 +71,12 @@ export function DeployPanel({ analysis, deploy, onLiveTrade, liveTrades, check }
   }
 
   return (
+    <>
+    {analysis.ok && (
+      <Section title="Configuration">
+        <ConfigSummary design={analysis.design} thresholdSol={Number(analysis.solved.config.migrationQuoteThreshold) / 1e9} />
+      </Section>
+    )}
     <Section title="Deploy to devnet">
       <ConnectWallet />
       {signer && (
@@ -86,5 +93,6 @@ export function DeployPanel({ analysis, deploy, onLiveTrade, liveTrades, check }
         </div>
       )}
     </Section>
+    </>
   );
 }

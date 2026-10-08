@@ -40,3 +40,7 @@
 .status-detail { font-weight: 400; opacity: 0.8; }
 @keyframes pulse { 50% { opacity: 0.3; } }
 @media (prefers-reduced-motion: reduce) { .status-pill.s-broadcasting i { animation: none; } }
+.cfg-summary { margin: 0; padding: var(--s2) var(--s3); border-radius: var(--radius); background: var(--surface-1); }
+.cfg-summary div { display: flex; justify-content: space-between; gap: var(--s2); line-height: 1.85; }
+.cfg-summary dt { color: var(--muted); font-size: var(--fs-sm); }
+.cfg-summary dd { margin: 0; font-family: var(--mono); font-size: var(--fs-sm); text-align: right; }
