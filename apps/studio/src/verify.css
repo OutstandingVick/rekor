@@ -16,3 +16,8 @@
 .v-verdict.ok strong { color: var(--ok); }
 .v-verdict.off { background: var(--danger-bg); border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent); }
 .v-verdict.off strong { color: var(--danger); }
+.fill-pick { display: flex; flex-wrap: wrap; gap: var(--s1); margin-bottom: var(--s3); }
+.fill-pick button { height: 24px; min-width: 34px; padding: 0 6px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: transparent; color: var(--muted); font-family: var(--mono); font-size: var(--fs-xs); cursor: pointer; }
+.fill-pick button.ok::after { content: " ✓"; color: var(--ok); }
+.fill-pick button.off::after { content: " ✗"; color: var(--danger); }
+.fill-pick button.on { border-color: var(--actual); color: var(--text); }
