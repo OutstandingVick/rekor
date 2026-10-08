@@ -30,7 +30,7 @@ import { segmentStats } from "./segmentStats";
 import { Readout } from "./Readout";
 import { SimulatePanel } from "./SimulatePanel";
 import { startSimulation, step, type Simulation } from "./simulation";
-import { buy } from "dbc-curve-sim";
+import { buy, quoteReserveAt } from "dbc-curve-sim";
 import { Header } from "./shell/Header";
 import { NetworkBadge } from "./shell/NetworkBadge";
 import { PanelFooter } from "./shell/PanelFooter";
@@ -90,6 +90,11 @@ export function App() {
     if (r.steps.length === 0) return null;
     return { from: pointAt(design, analysis.solved, sim.sqrtPrice), to: pointAt(design, analysis.solved, r.sqrtPriceAfter), result: r };
   }, [mode, analysis, sim, probeSol, design]);
+  // SOL actually in the live pool, from the last measured on-chain price
+  const raisedLive = useMemo(
+    () => (deployed && analysis.ok && livePrice !== undefined ? Number(quoteReserveAt(analysis.solved.config, livePrice)) / 1e9 : null),
+    [deployed, analysis, livePrice],
+  );
   const stats = useMemo(() => (analysis.ok ? segmentStats(design, analysis.solved) : []), [analysis, design]);
   const path = useMemo(() => (analysis.ok ? pricePath(design, analysis.solved) : []), [analysis, design]);
 
@@ -102,7 +107,7 @@ export function App() {
         <WalletChip onOpen={() => goto("deploy")} />
       </Header>
       <main className="zone zone-stage">
-        <MarketHeader design={design} deployment={deployed} thresholdSol={numbers?.thresholdSol ?? null} />
+        <MarketHeader design={design} deployment={deployed} thresholdSol={numbers?.thresholdSol ?? null} raisedSol={raisedLive} />
         {analysis.ok ? (
           <>
             <ChartToolbar>
