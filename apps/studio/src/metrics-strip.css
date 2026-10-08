@@ -9,3 +9,13 @@
 .metric.em .m-value { font-size: var(--fs-xl); line-height: 1.15; }
 .m-unit { color: var(--faint); font-size: var(--fs-xs); }
 .m-note { color: var(--faint); font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 1280px) {
+  .metrics-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .metric:nth-child(5) { border-left: 0; }
+  .metric:nth-child(n + 5) { border-top: 1px solid var(--line); }
+}
+@media (max-width: 640px) {
+  .metrics-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .metric:nth-child(odd) { border-left: 0; }
+  .metric:nth-child(n + 3) { border-top: 1px solid var(--line); }
+}
