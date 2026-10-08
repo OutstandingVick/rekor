@@ -1,3 +1,4 @@
+import { arrowNav } from "../useArrowNav";
 import { MODES, type Mode } from "./workflow";
 
 export interface StepperProps {
@@ -10,7 +11,7 @@ export interface StepperProps {
 /** Design → Simulate → Deploy → Verify, as a segmented control. */
 export function Stepper({ mode, onMode, done }: StepperProps) {
   return (
-    <nav className="stepper" aria-label="Workflow">
+    <nav className="stepper" aria-label="Workflow" onKeyDown={arrowNav}>
       {MODES.map((m, i) => (
         <button
           key={m.id}
