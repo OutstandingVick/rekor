@@ -1,0 +1,10 @@
+.metrics-strip {
+  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-top: 1px solid var(--line); background: var(--surface-1);
+}
+.metric { padding: 10px var(--s4); border-left: 1px solid var(--line); min-width: 0; }
+.metric:first-child { border-left: 0; }
+.m-label { color: var(--muted); font-size: var(--fs-xs); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.m-value { margin-top: 2px; font-family: var(--mono); font-size: var(--fs-lg); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.metric.em .m-value { font-size: var(--fs-xl); line-height: 1.15; }
+.m-unit { color: var(--faint); font-size: var(--fs-xs); }

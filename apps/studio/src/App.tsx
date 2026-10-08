@@ -14,7 +14,7 @@ import { configJson } from "./exportConfig";
 import { initScript } from "./initScript";
 import { inspectAt } from "./inspect";
 import { headline } from "./metrics";
-import { Numbers } from "./Numbers";
+import { MetricsStrip } from "./MetricsStrip";
 import { pointAt, pricePath } from "./path";
 import { segmentStats } from "./segmentStats";
 import { Readout } from "./Readout";
@@ -100,7 +100,7 @@ export function App() {
             >
               {live.trades.length > 0 && <Readout trade={live.trades.at(-1)!} baseDecimals={design.baseDecimals} />}
             </Chart>
-            <Numbers h={numbers!} />
+            <MetricsStrip h={numbers!} />
           </>
         ) : (
           <div className="stage-error" role="alert">{analysis.error}</div>
