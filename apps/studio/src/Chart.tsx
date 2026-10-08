@@ -149,7 +149,16 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
           {hover && (
             <g className="crosshair">
               <line x1={x(hover.tokens)} x2={x(hover.tokens)} y1={M.top} y2={y(0)} />
+              <line x1={M.left} x2={x(hover.tokens)} y1={y(hover.price)} y2={y(hover.price)} />
               <circle cx={x(hover.tokens)} cy={y(hover.price)} r={3} />
+              <g className="axis-tag" transform={`translate(${M.left - 2},${y(hover.price)})`}>
+                <rect x={-66} y={-9} width={64} height={18} rx={3} />
+                <text x={-6} dy="0.32em" textAnchor="end">{fmtPrice(hover.price)}</text>
+              </g>
+              <g className="axis-tag" transform={`translate(${x(hover.tokens)},${y(0) + 2})`}>
+                <rect x={-30} y={0} width={60} height={18} rx={3} />
+                <text y={9} dy="0.32em" textAnchor="middle">{fmtTokens(hover.tokens)}</text>
+              </g>
             </g>
           )}
           <line className="axis" x1={M.left} x2={width - M.right} y1={y(0)} y2={y(0)} />

@@ -76,3 +76,5 @@
 .chart .seg-label.active { fill: var(--text); }
 .chart .preview path { fill: none; stroke: var(--text); stroke-width: 3; stroke-opacity: 0.35; stroke-linecap: round; }
 .chart .preview circle { fill: none; stroke: var(--text); stroke-width: 1.5; stroke-dasharray: 2 2; }
+.chart .axis-tag rect { fill: var(--text); }
+.chart .axis-tag text { fill: var(--bg); font-size: 10px; font-family: var(--mono); font-weight: 500; }
