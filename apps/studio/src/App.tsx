@@ -43,6 +43,7 @@ export function App() {
   const [mode, setMode] = useState<Mode>("design");
   const [overlays, setOverlays] = useState<Overlays>(DEFAULT_OVERLAYS);
   const [lowerTab, setLowerTab] = useState<LowerTab>("segments");
+  const [lowerCollapsed, setLowerCollapsed] = useState(false);
   // entering a stage brings up its data; the user can still pick any tab
   const goto = (m: Mode) => {
     setMode(m);
@@ -118,7 +119,7 @@ export function App() {
               {live.trades.length > 0 && <Readout trade={live.trades.at(-1)!} baseDecimals={design.baseDecimals} />}
             </Chart>
             <MetricsStrip h={numbers!} />
-            <LowerPanel tab={lowerTab} onTab={setLowerTab} counts={{ segments: stats.length, simulation: sim?.trades.length, fills: live.trades.length, transactions: deployed ? 2 + live.trades.length : 0 }}>
+            <LowerPanel tab={lowerTab} onTab={setLowerTab} collapsed={lowerCollapsed} onCollapse={setLowerCollapsed} counts={{ segments: stats.length, simulation: sim?.trades.length, fills: live.trades.length, transactions: deployed ? 2 + live.trades.length : 0 }}>
               {lowerTab === "segments" && <SegmentsTable stats={stats} active={activeSegment} onActive={setActiveSegment} />}
               {lowerTab === "verification" && <VerificationTable solved={analysis.solved} check={check} />}
               {lowerTab === "transactions" && <TransactionsTable deployment={deployed} trades={live.trades} />}

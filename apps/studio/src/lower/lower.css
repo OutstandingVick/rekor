@@ -10,3 +10,5 @@
 .lower-tabs .cnt { padding: 0 5px; border-radius: 999px; background: var(--surface-3); color: var(--muted); font-family: var(--mono); font-size: 10px; }
 .lower-body { flex: 1; min-height: 0; overflow: auto; }
 .lower-empty { padding: var(--s5) var(--s4); color: var(--faint); }
+.lower.collapsed { height: auto; }
+.lower-tabs .collapse { margin-left: auto; color: var(--faint); font-size: 10px; }
