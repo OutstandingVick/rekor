@@ -19,6 +19,7 @@ import { LowerPanel, type LowerTab } from "./lower/LowerPanel";
 import { SegmentsTable } from "./lower/SegmentsTable";
 import { SimulationTable } from "./lower/SimulationTable";
 import { FillsTable } from "./lower/FillsTable";
+import { TransactionsTable } from "./lower/TransactionsTable";
 import { pointAt, pricePath } from "./path";
 import { segmentStats } from "./segmentStats";
 import { Readout } from "./Readout";
@@ -108,6 +109,7 @@ export function App() {
             <MetricsStrip h={numbers!} />
             <LowerPanel tab={lowerTab} onTab={setLowerTab} counts={{ segments: stats.length, simulation: sim?.trades.length, fills: live.trades.length }}>
               {lowerTab === "segments" && <SegmentsTable stats={stats} active={activeSegment} onActive={setActiveSegment} />}
+              {lowerTab === "transactions" && <TransactionsTable deployment={deployed} trades={live.trades} />}
               {lowerTab === "fills" && <FillsTable trades={live.trades} baseDecimals={design.baseDecimals} />}
               {lowerTab === "simulation" && <SimulationTable trades={sim?.trades ?? []} baseDecimals={design.baseDecimals} />}
             </LowerPanel>
