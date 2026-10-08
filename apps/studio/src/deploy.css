@@ -65,3 +65,10 @@
 .deploy-steps .ds-done .ds-n { background: var(--ok-bg); color: var(--ok); }
 .deploy-steps .ds-failed .ds-n { background: var(--danger-bg); color: var(--danger); }
 .deploy-status { margin-bottom: var(--s1); }
+.deploy .deploy-cta { height: 40px; border: 0; color: #062320; background: var(--curve); }
+.deploy .deploy-cta:hover:not(:disabled) { border: 0; filter: brightness(1.08); }
+.deploy .deploy-cta:disabled { background: var(--surface-3); color: var(--faint); }
+.fine { margin: 0; color: var(--faint); font-size: var(--fs-xs); text-align: center; }
+.err-box { display: grid; gap: 2px; padding: var(--s2) var(--s3); border-radius: var(--radius); background: var(--danger-bg); border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent); }
+.err-box strong { color: var(--danger); font-size: var(--fs-sm); font-weight: 600; }
+.err-box span { color: var(--text); font-size: var(--fs-sm); }

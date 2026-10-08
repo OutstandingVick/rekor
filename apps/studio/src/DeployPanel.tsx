@@ -98,11 +98,17 @@ export function DeployPanel({ analysis, deploy, onLiveTrade, liveTrades, check }
               Need at least {MIN_DEPLOY_SOL} SOL — <a href="https://faucet.solana.com" target="_blank" rel="noreferrer">faucet</a>
             </p>
           )}
-          <button type="button" className="go" disabled={!analysis.ok || state.kind === "deploying" || short_} onClick={run}>
-            {state.kind === "deploying" ? (state.step === "config" ? "1/2 creating config…" : "2/2 creating pool…") : "deploy this curve"}
+          <button type="button" className="cta deploy-cta" disabled={!analysis.ok || state.kind === "deploying" || short_} onClick={run}>
+            {state.kind === "deploying" ? (state.step === "config" ? "1/2 creating config…" : "2/2 creating pool…") : state.kind === "error" ? "retry deploy" : "deploy this curve"}
           </button>
+          <p className="fine">Two transactions, signed in your wallet. Devnet only — no real funds.</p>
           {!analysis.ok && <p className="muted">Fix the design first.</p>}
-          {state.kind === "error" && <p className="error" role="alert">{state.message}</p>}
+          {state.kind === "error" && (
+            <div className="err-box" role="alert">
+              <strong>Deploy failed</strong>
+              <span>{state.message}</span>
+            </div>
+          )}
         </div>
       )}
     </Section>
