@@ -34,9 +34,9 @@
 .live-log .match { color: var(--curve); }
 .live-log .diff { color: var(--danger); }
 .live-log a { color: var(--faint); }
-.verify { margin: 8px 0 0; color: var(--muted); }
-.verify.match { color: var(--curve); }
-.verify.mismatch, .verify.missing { color: var(--danger); }
+.verify-line { margin: var(--s2) 0 0; padding: 6px var(--s2); border-radius: var(--radius-sm); background: var(--surface-1); color: var(--muted); font-size: var(--fs-sm); }
+.verify-line.match { background: var(--ok-bg); color: var(--ok); }
+.verify-line.mismatch, .verify-line.missing { background: var(--danger-bg); color: var(--danger); }
 .status-pill {
   display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 8px; border-radius: 999px;
   background: var(--surface-3); color: var(--muted); font-size: var(--fs-xs); font-weight: 600;

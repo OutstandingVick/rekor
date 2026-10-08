@@ -61,7 +61,7 @@ export function DeployPanel({ analysis, deploy, onLiveTrade, liveTrades, check }
           <div><dt>Config</dt><dd><a href={explorer("address", d.config)} target="_blank" rel="noreferrer">{short(d.config)} ↗</a></dd></div>
           <div><dt>Token</dt><dd><a href={explorer("address", d.baseMint)} target="_blank" rel="noreferrer">{short(d.baseMint)} ↗</a></dd></div>
         </dl>
-        <p className={`verify ${check && check !== "checking" ? check.kind : ""}`}>
+        <p className={`verify-line ${check && check !== "checking" ? check.kind : ""}`}>
           {check === "checking" && "reading config back from chain…"}
           {check !== null && check !== "checking" && check.kind === "match" && `✓ on-chain config matches the design exactly (${check.segments} segments)`}
           {check !== null && check !== "checking" && check.kind === "mismatch" && `✗ on-chain differs: ${check.fields.join(", ")}`}
