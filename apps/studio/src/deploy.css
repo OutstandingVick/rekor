@@ -15,7 +15,6 @@
 .wallet-list button:hover:not(:disabled), .wallet-row button:hover, .deploy button:hover:not(:disabled) { border-color: var(--curve); }
 .deploy button:disabled, .wallet-list button:disabled { opacity: 0.4; cursor: default; }
 .deploy { display: grid; gap: 8px; margin-top: 8px; }
-.deploy .go { border-color: var(--curve); color: var(--curve); padding: 8px; }
 .deploy .balance { display: flex; justify-content: space-between; color: var(--muted); font-size: var(--fs-sm); }
 .deploy .balance strong { color: var(--text); font-family: var(--mono); font-weight: 500; }
 .deploy .balance strong.warn { color: var(--danger); }
