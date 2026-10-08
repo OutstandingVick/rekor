@@ -41,7 +41,9 @@ export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSel
             ))}
           </div>
           {quote && <QuoteSummary r={quote} baseDecimals={baseDecimals} supplyTokens={supplyTokens} />}
-          <button type="button" className="exec buy" onClick={onBuy}>Buy {sizeSol} SOL</button>
+          <button type="button" className="exec buy" onClick={onBuy}>
+            {quote && quote.amountLeft > 0n ? `Buy to graduation · ${(Number(quote.amountIn - quote.amountLeft) / 1e9).toFixed(3)} SOL` : `Buy ${sizeSol} SOL`}
+          </button>
         </>
       ) : (
         <div className="sim-actions">
