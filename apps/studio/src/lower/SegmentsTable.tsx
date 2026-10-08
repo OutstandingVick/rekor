@@ -1,4 +1,4 @@
-import { pct, price, sol, tokens } from "../format";
+import { pct, price, solFixed as sol, tokens } from "../format";
 import { segmentTone } from "../palette";
 import type { SegmentStat } from "../segmentStats";
 import "./table.ts";
