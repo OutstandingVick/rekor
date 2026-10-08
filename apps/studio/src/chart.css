@@ -28,3 +28,11 @@
 .readout b { color: var(--curve); font-weight: 500; }
 .readout b.act { color: var(--actual); }
 .readout.off { border-color: var(--danger); }
+.chart-toolbar {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s3);
+  padding: var(--s2) var(--s4); border-bottom: 1px solid var(--line); min-height: 40px;
+}
+.chart-title { display: flex; align-items: baseline; gap: var(--s2); white-space: nowrap; }
+.chart-title strong { font-weight: 600; font-size: var(--fs-md); }
+.chart-title span { color: var(--muted); font-size: var(--fs-sm); }
+.chart-tools { display: flex; align-items: center; gap: var(--s2); flex-wrap: wrap; justify-content: flex-end; }
