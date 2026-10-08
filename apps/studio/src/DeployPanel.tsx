@@ -13,6 +13,8 @@ import type { LiveTrade } from "./chain/trade";
 import { LiveLog } from "./LiveLog";
 import { LiveTradeBox } from "./LiveTradeBox";
 import { ConfigSummary } from "./ConfigSummary";
+import { DeploySteps } from "./DeploySteps";
+import { StatusPill, type TxStatus } from "./StatusPill";
 import "./deploy.css";
 
 const MIN_DEPLOY_SOL = 0.05;
@@ -32,6 +34,10 @@ export function DeployPanel({ analysis, deploy, onLiveTrade, liveTrades, check }
   const { state } = deploy;
   const sol = lamports === null ? null : lamports / LAMPORTS_PER_SOL;
   const short_ = sol !== null && sol < MIN_DEPLOY_SOL;
+
+  const status: TxStatus =
+    state.kind === "deploying" ? "broadcasting" : state.kind === "error" ? "failed" : state.kind === "deployed" ? "confirmed" : signer ? "ready" : "wallet";
+  const detail = state.kind === "deploying" ? (state.step === "config" ? "1/2 config" : "2/2 pool") : undefined;
 
   const run = async () => {
     if (!signer || !analysis.ok) return;
@@ -78,6 +84,8 @@ export function DeployPanel({ analysis, deploy, onLiveTrade, liveTrades, check }
       </Section>
     )}
     <Section title="Deploy to devnet">
+      <div className="deploy-status"><StatusPill status={status} detail={detail} /></div>
+      <DeploySteps state={state} />
       <ConnectWallet />
       {signer && (
         <div className="deploy">

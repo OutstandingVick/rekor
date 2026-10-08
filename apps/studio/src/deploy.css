@@ -44,3 +44,15 @@
 .cfg-summary div { display: flex; justify-content: space-between; gap: var(--s2); line-height: 1.85; }
 .cfg-summary dt { color: var(--muted); font-size: var(--fs-sm); }
 .cfg-summary dd { margin: 0; font-family: var(--mono); font-size: var(--fs-sm); text-align: right; }
+.deploy-steps { list-style: none; margin: var(--s3) 0; padding: 0; display: grid; gap: var(--s2); }
+.deploy-steps li { display: grid; grid-template-columns: 22px 1fr; gap: var(--s2); align-items: start; }
+.deploy-steps .ds-n {
+  display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--surface-3); color: var(--muted); font-family: var(--mono); font-size: 10px;
+}
+.deploy-steps strong { display: block; font-weight: 500; font-size: var(--fs-sm); }
+.deploy-steps span { color: var(--faint); font-size: var(--fs-xs); }
+.deploy-steps .ds-active .ds-n { background: rgba(147, 197, 253, 0.15); color: var(--pending); }
+.deploy-steps .ds-done .ds-n { background: var(--ok-bg); color: var(--ok); }
+.deploy-steps .ds-failed .ds-n { background: var(--danger-bg); color: var(--danger); }
+.deploy-status { margin-bottom: var(--s1); }
