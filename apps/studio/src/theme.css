@@ -58,3 +58,9 @@ input, select, button { font: inherit; color: inherit; }
 input[type="range"]:focus-visible { outline-offset: 4px; }
 
 .num, .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* thin, quiet scrollbars for the dense panels */
+* { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 8px; border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-track { background: transparent; }
