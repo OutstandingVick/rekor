@@ -71,7 +71,7 @@
 .deploy-steps .ds-done .ds-n { background: var(--ok-bg); color: var(--ok); }
 .deploy-steps .ds-failed .ds-n { background: var(--danger-bg); color: var(--danger); }
 .deploy-status { margin-bottom: var(--s1); }
-.deploy .deploy-cta { height: 40px; border: 0; color: #0b0d14; background: var(--brand-grad); }
+.deploy .deploy-cta { height: 40px; border: 0; color: #0d1620; background: var(--brand-sky); }
 .deploy .deploy-cta:hover:not(:disabled) { border: 0; filter: brightness(1.08); }
 .deploy .deploy-cta:disabled { background: var(--surface-3); color: var(--faint); }
 .fine { margin: 0; color: var(--faint); font-size: var(--fs-xs); text-align: center; }
