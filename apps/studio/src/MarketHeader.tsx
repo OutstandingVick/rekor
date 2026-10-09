@@ -8,7 +8,7 @@ export function MarketHeader({ design, deployment, thresholdSol, raisedSol = nul
   return (
     <div className="market-head">
       <div className="mh-token">
-        <span className="mh-icon" aria-hidden="true">R</span>
+        <img className="mh-icon" src="/rekor-mark.svg" alt="" width={28} height={28} />
         <div>
           <strong>{deployment ? "Rekor Curve" : "Draft curve"}</strong>
           <span className="mh-sym">{deployment ? "RKR · SOL" : "not deployed"}</span>
