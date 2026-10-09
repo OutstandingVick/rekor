@@ -65,9 +65,10 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
         }}>
           <defs>
             <linearGradient id="curve-grad" x1={M.left} x2={width - M.right} y1="0" y2="0" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stopColor="var(--brand-mint)" />
-              <stop offset="0.42" stopColor="var(--brand-cyan)" />
-              <stop offset="1" stopColor="var(--brand-violet)" />
+              <stop offset="0" stopColor="var(--brand-sky)" />
+              <stop offset="0.3" stopColor="var(--brand-sky)" />
+              <stop offset="0.6" stopColor="var(--brand-green)" />
+              <stop offset="1" stopColor="var(--brand-pink)" />
             </linearGradient>
           </defs>
           {y.ticks(5).map((t) => (

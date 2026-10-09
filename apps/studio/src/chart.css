@@ -4,9 +4,9 @@
 .chart .axis { stroke: var(--line-strong); }
 .chart .tick { fill: var(--faint); font-size: 10px; font-family: var(--mono); }
 .chart .boundary { stroke: var(--bg); stroke-width: 1; }
-.chart .curve { fill: none; stroke: url(#curve-grad); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(95, 208, 232, 0.25)); }
-.chart .graduation circle { fill: var(--bg); stroke: var(--brand-violet); stroke-width: 2; }
-.chart .graduation .grad-rule { stroke: var(--brand-violet); stroke-opacity: 0.35; stroke-dasharray: 3 3; }
+.chart .curve { fill: none; stroke: url(#curve-grad); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(172, 210, 237, 0.22)); }
+.chart .graduation circle { fill: var(--bg); stroke: var(--brand-pink); stroke-width: 2; }
+.chart .graduation .grad-rule { stroke: var(--brand-pink); stroke-opacity: 0.35; stroke-dasharray: 3 3; }
 .chart .graduation .grad-pill { fill: var(--surface-3); stroke: var(--line-strong); }
 .chart .graduation text { fill: var(--text); font-size: 11px; font-weight: 500; }
 .chart .snipe-band rect { fill: rgba(255, 255, 255, 0.035); }
@@ -63,7 +63,7 @@
 .legend .sw.actual { border-radius: 50%; background: var(--actual); }
 .legend .sw.trades { border-radius: 50%; border: 1.5px solid var(--curve); }
 .legend .sw.segments { background: linear-gradient(90deg, hsl(170 22% 14%) 50%, hsl(170 22% 22%) 50%); }
-.legend .sw.graduation { border-radius: 50%; border: 2px solid var(--brand-violet); background: var(--bg); }
+.legend .sw.graduation { border-radius: 50%; border: 2px solid var(--brand-pink); background: var(--bg); }
 .legend .sw.snipe { background: rgba(255, 255, 255, 0.12); }
 .legend .cnt { color: var(--muted); font-family: var(--mono); }
 .chart .axis-title { fill: var(--faint); font-size: 10px; letter-spacing: 0.04em; }
