@@ -1,12 +1,11 @@
 .topbar {
   display: flex; align-items: center; gap: var(--s4);
   height: 48px; padding: 0 var(--s4);
-  background: var(--surface-1); border-bottom: 1px solid var(--line);
+  background: #111316; border-bottom: 1px solid var(--line);
 }
 .topbar .brand { display: flex; align-items: center; gap: var(--s2); white-space: nowrap; }
-.topbar .brand-mark { width: 24px; height: 24px; display: block; }
-.topbar .brand strong { font-size: var(--fs-lg); font-weight: 600; letter-spacing: -0.01em; }
-.topbar .brand-sub { color: var(--muted); font-size: var(--fs-sm); }
+.topbar .brand-logo { display: block; height: 26px; width: auto; }
+.topbar .brand-sub { color: var(--muted); font-size: var(--fs-sm); padding-left: var(--s2); border-left: 1px solid var(--line-strong); }
 .stepper { display: flex; gap: 2px; padding: 2px; background: var(--surface-2); border-radius: var(--radius); }
 .stepper .step {
   display: flex; align-items: center; gap: 6px; padding: 5px 12px;
