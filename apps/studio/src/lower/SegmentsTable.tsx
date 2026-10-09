@@ -7,10 +7,11 @@ export interface SegmentsTableProps {
   stats: SegmentStat[];
   active: number | null;
   onActive: (i: number | null) => void;
+  segmentCount: number;
 }
 
 /** Per-segment breakdown of the designed curve; rows and chart bands highlight together. */
-export function SegmentsTable({ stats, active, onActive }: SegmentsTableProps) {
+export function SegmentsTable({ stats, active, onActive, segmentCount }: SegmentsTableProps) {
   return (
     <table className="dtable">
       <thead>
@@ -29,7 +30,7 @@ export function SegmentsTable({ stats, active, onActive }: SegmentsTableProps) {
         {stats.map((s) => (
           <tr key={s.index} className={active === s.index ? "selected" : ""} onMouseEnter={() => onActive(s.index)}>
             <td>
-              <span className="swatch-inline" style={{ background: segmentTone(s.index) }} />
+              <span className="swatch-inline" style={{ background: segmentTone(s.index, segmentCount) }} />
               S{s.index + 1}
               {s.graduates && <span className="tag curve">graduates</span>}
             </td>

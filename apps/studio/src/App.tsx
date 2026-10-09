@@ -122,7 +122,7 @@ export function App() {
                 counts={{ actual: live.trades.length, trades: sim?.trades.length ?? 0, segments: design.weights.length }}
               />
             </ChartToolbar>
-            <Chart show={overlays} activeSegment={activeSegment} onSegment={setActiveSegment} stats={stats} preview={preview} path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens}
+            <Chart segmentCount={design.weights.length} show={overlays} activeSegment={activeSegment} onSegment={setActiveSegment} stats={stats} preview={preview} path={path} graduationMcSol={numbers!.graduationMcSol} supplyTokens={design.supplyTokens}
               probeSol={probeSol}
               actual={analysis.ok ? live.trades.map((t) => pointAt(design, analysis.solved, t.actualSqrtPrice)) : []}
               simulated={sim?.trades.map((t) => pointAt(design, analysis.solved, t.result.sqrtPriceAfter)) ?? []}
@@ -132,11 +132,11 @@ export function App() {
             </Chart>
             <MetricsStrip h={numbers!} />
             <LowerPanel tab={lowerTab} onTab={setLowerTab} collapsed={lowerCollapsed} onCollapse={setLowerCollapsed} counts={{ segments: stats.length, simulation: sim?.trades.length, fills: live.trades.length, transactions: deployed ? 2 + live.trades.length : 0 }}>
-              {lowerTab === "segments" && <SegmentsTable stats={stats} active={activeSegment} onActive={setActiveSegment} />}
+              {lowerTab === "segments" && <SegmentsTable segmentCount={design.weights.length} stats={stats} active={activeSegment} onActive={setActiveSegment} />}
               {lowerTab === "verification" && <VerificationTable solved={analysis.solved} check={check} />}
               {lowerTab === "transactions" && <TransactionsTable deployment={deployed} trades={live.trades} />}
               {lowerTab === "fills" && <FillsTable trades={live.trades} baseDecimals={design.baseDecimals} />}
-              {lowerTab === "simulation" && <SimulationTable trades={sim?.trades ?? []} baseDecimals={design.baseDecimals} />}
+              {lowerTab === "simulation" && <SimulationTable segmentCount={design.weights.length} trades={sim?.trades ?? []} baseDecimals={design.baseDecimals} />}
             </LowerPanel>
           </>
         ) : (
@@ -181,6 +181,7 @@ export function App() {
             quote={preview?.result ?? null}
             supplyTokens={design.supplyTokens}
             onShowAll={() => setLowerTab("simulation")}
+            segmentCount={design.weights.length}
           />
         )}
         {mode === "simulate" && (

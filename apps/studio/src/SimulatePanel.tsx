@@ -22,9 +22,10 @@ export interface SimulatePanelProps {
   quote?: SwapResult | null;
   supplyTokens: number;
   onShowAll?: () => void;
+  segmentCount: number;
 }
 
-export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSell, onReset, quote = null, supplyTokens, onShowAll }: SimulatePanelProps) {
+export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSell, onReset, quote = null, supplyTokens, onShowAll, segmentCount }: SimulatePanelProps) {
   const [side, setSide] = useState<"buy" | "sell">("buy");
   return (
     <Section title="Order">
@@ -60,13 +61,13 @@ export function SimulatePanel({ sim, baseDecimals, sizeSol, onSize, onBuy, onSel
       </div>
       {sim.trades.length > 0 ? (
         <>
-          <TradeLog trades={sim.trades.slice(-3)} baseDecimals={baseDecimals} />
+          <TradeLog trades={sim.trades.slice(-3)} baseDecimals={baseDecimals} segmentCount={segmentCount} />
           {onShowAll && sim.trades.length > 3 && (
             <button type="button" className="text-btn" onClick={onShowAll}>All {sim.trades.length} trades in the Simulation tab ↓</button>
           )}
         </>
       ) : (
-        <TradeLog trades={sim.trades} baseDecimals={baseDecimals} />
+        <TradeLog trades={sim.trades} baseDecimals={baseDecimals} segmentCount={segmentCount} />
       )}
     </Section>
   );

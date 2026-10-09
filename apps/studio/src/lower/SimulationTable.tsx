@@ -6,7 +6,7 @@ import type { SimTrade } from "../simulation";
 import "./table.ts";
 
 /** Local simulated trades, newest first. Average price is quote ÷ tokens of that trade. */
-export function SimulationTable({ trades, baseDecimals }: { trades: SimTrade[]; baseDecimals: number }) {
+export function SimulationTable({ trades, baseDecimals, segmentCount }: { trades: SimTrade[]; baseDecimals: number; segmentCount: number }) {
   if (trades.length === 0) return <p className="lower-empty">No simulated trades yet. Use Simulate to buy or sell against the designed pool.</p>;
   const q = (x: bigint) => toUi(x, QUOTE_DECIMALS);
   const b = (x: bigint) => toUi(x, baseDecimals);
@@ -41,7 +41,7 @@ export function SimulationTable({ trades, baseDecimals }: { trades: SimTrade[]; 
               <td className="l">
                 {r.steps.map((s) => (
                   <span key={s.segment} className="seg-chip">
-                    <i style={{ background: segmentTone(s.segment) }} />S{s.segment + 1}
+                    <i style={{ background: segmentTone(s.segment, segmentCount) }} />S{s.segment + 1}
                   </span>
                 ))}
               </td>
