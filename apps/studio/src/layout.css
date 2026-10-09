@@ -68,7 +68,7 @@
 .panel-status.bad::before { background: var(--danger); }
 .cta {
   height: 36px; border: 0; border-radius: var(--radius); cursor: pointer;
-  background: var(--curve); color: #062320; font-weight: 600; font-size: var(--fs-md);
+  background: var(--brand-grad); color: #0b0d14; font-weight: 600; font-size: var(--fs-md);
 }
 .cta:hover:not(:disabled) { filter: brightness(1.08); }
 .cta:disabled { background: var(--surface-3); color: var(--faint); cursor: default; }

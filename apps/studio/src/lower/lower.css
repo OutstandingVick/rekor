@@ -6,7 +6,7 @@
 }
 .lower-tabs button:hover { color: var(--text); }
 .lower-tabs button.on { color: var(--text); }
-.lower-tabs button.on::after { content: ""; position: absolute; left: var(--s2); right: var(--s2); bottom: -1px; height: 2px; border-radius: 2px; background: var(--curve); }
+.lower-tabs button.on::after { content: ""; position: absolute; left: var(--s2); right: var(--s2); bottom: -1px; height: 2px; border-radius: 2px; background: var(--brand-grad); }
 .lower-tabs .cnt { padding: 0 5px; border-radius: 999px; background: var(--surface-3); color: var(--muted); font-family: var(--mono); font-size: 10px; }
 .lower-body { flex: 1; min-height: 0; overflow: auto; }
 .lower-empty { padding: var(--s5) var(--s4); color: var(--faint); }
