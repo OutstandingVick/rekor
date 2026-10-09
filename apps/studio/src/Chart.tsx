@@ -63,6 +63,13 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
           setHover(null);
           onSegment?.(null);
         }}>
+          <defs>
+            <linearGradient id="curve-grad" x1={M.left} x2={width - M.right} y1="0" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stopColor="var(--brand-mint)" />
+              <stop offset="0.42" stopColor="var(--brand-cyan)" />
+              <stop offset="1" stopColor="var(--brand-violet)" />
+            </linearGradient>
+          </defs>
           {y.ticks(5).map((t) => (
             <g key={`y${t}`}>
               <line className="grid" x1={M.left} x2={width - M.right} y1={y(t)} y2={y(t)} />
