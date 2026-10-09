@@ -62,7 +62,7 @@
 .legend .sw.predicted { height: 2px; background: var(--brand-grad); }
 .legend .sw.actual { border-radius: 50%; background: var(--actual); }
 .legend .sw.trades { border-radius: 50%; border: 1.5px solid var(--curve); }
-.legend .sw.segments { background: linear-gradient(90deg, hsl(170 22% 14%) 50%, hsl(170 22% 22%) 50%); }
+.legend .sw.segments { background: linear-gradient(90deg, hsl(205 45% 30%) 33%, hsl(126 38% 30%) 33% 66%, hsl(345 48% 32%) 66%); }
 .legend .sw.graduation { border-radius: 50%; border: 2px solid var(--brand-pink); background: var(--bg); }
 .legend .sw.snipe { background: rgba(255, 255, 255, 0.12); }
 .legend .cnt { color: var(--muted); font-family: var(--mono); }

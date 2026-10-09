@@ -1,11 +1,17 @@
+/** Logo stripe hues: sky, green, pink — in that order along the curve. */
+const STRIPES = [
+  { h: 205, s: 45 },
+  { h: 126, s: 38 },
+  { h: 345, s: 48 },
+];
+
 /**
- * One tone per segment, stepping lightness so neighbours always differ
- * and drifting hue along the logo's mint → violet gradient.
- * Shared by chart terrain and the segment editor so a slider maps to its band.
+ * One tone per segment, echoing the logo: the first third of segments is
+ * sky-tinted, the middle green, the last pink. Lightness alternates so
+ * neighbouring segments in the same colour band stay distinct.
  */
-export function segmentTone(i: number): string {
-  const steps = [15, 21, 12, 18, 24, 14, 20, 11, 17, 23, 13, 19, 16, 22, 10, 25];
-  // hue drifts from the mark's mint (≈170°) through cyan to violet (≈258°) as price climbs
-  const hue = 170 + Math.min(i, 15) * 6;
-  return `hsl(${hue} 24% ${steps[i % steps.length]}%)`;
+export function segmentTone(i: number, count: number): string {
+  const band = STRIPES[Math.min(STRIPES.length - 1, Math.floor((i / Math.max(1, count)) * STRIPES.length))];
+  const light = i % 2 === 0 ? 17 : 23;
+  return `hsl(${band.h} ${band.s}% ${light}%)`;
 }

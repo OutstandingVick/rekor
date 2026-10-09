@@ -4,7 +4,7 @@ import { pct, sol, tokens } from "./format";
 import { segmentTone } from "./palette";
 import type { SimTrade } from "./simulation";
 
-export function TradeLog({ trades, baseDecimals }: { trades: SimTrade[]; baseDecimals: number }) {
+export function TradeLog({ trades, baseDecimals, segmentCount }: { trades: SimTrade[]; baseDecimals: number; segmentCount: number }) {
   if (trades.length === 0) return <p className="log-empty">Buy to drop trades on the curve.</p>;
   const q = (x: bigint) => sol(toUi(x, QUOTE_DECIMALS));
   const b = (x: bigint) => tokens(toUi(x, baseDecimals));
@@ -20,7 +20,7 @@ export function TradeLog({ trades, baseDecimals }: { trades: SimTrade[]; baseDec
           <div className="log-steps" aria-label="Segments crossed">
             {r.steps.map((s) => (
               <span key={s.segment} title={`segment ${s.segment + 1}: ${r.side === "buy" ? `${q(s.amountIn)} SOL in, ${b(s.amountOut)} out` : `${b(s.amountIn)} in, ${q(s.amountOut)} SOL out`}`}>
-                <i style={{ background: segmentTone(s.segment) }} />
+                <i style={{ background: segmentTone(s.segment, segmentCount) }} />
                 {s.segment + 1}
               </span>
             ))}

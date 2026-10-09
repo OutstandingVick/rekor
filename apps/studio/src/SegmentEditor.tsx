@@ -33,7 +33,7 @@ export function SegmentEditor({ weights, onChange }: SegmentEditorProps) {
       <ol>
         {weights.map((w, i) => (
           <li key={i}>
-            <span className="swatch" style={{ background: segmentTone(i) }} />
+            <span className="swatch" style={{ background: segmentTone(i, weights.length) }} />
             <span className="idx">{i + 1}</span>
             <input
               type="range"

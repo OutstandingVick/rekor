@@ -30,9 +30,11 @@ export interface ChartProps {
   stats?: SegmentStat[];
   /** where the next simulated buy would move the pool, from → to */
   preview?: { from: PathPoint; to: PathPoint } | null;
+  /** total segments in the design, for segment colours */
+  segmentCount: number;
 }
 
-export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, simulated = [], actual = [], children, show = DEFAULT_OVERLAYS, activeSegment = null, onSegment, stats = [], preview = null }: ChartProps) {
+export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, simulated = [], actual = [], children, show = DEFAULT_OVERLAYS, activeSegment = null, onSegment, stats = [], preview = null, segmentCount }: ChartProps) {
   const [ref, { width, height }] = useSize<HTMLDivElement>();
   const all = path.flat();
   const maxTokens = all.at(-1)?.tokens ?? 1;
@@ -98,7 +100,7 @@ export function Chart({ path, graduationMcSol, supplyTokens, inspect, probeSol, 
                 key={`a${i}`}
                 className={`terrain ${active ? "active" : ""} ${activeSegment !== null && !active ? "dim" : ""}`}
                 d={area}
-                fill={show.segments ? segmentTone(seg[0].segment) : "var(--curve-bg)"}
+                fill={show.segments ? segmentTone(seg[0].segment, segmentCount) : "var(--curve-bg)"}
               />
             );
           })}
