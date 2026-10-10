@@ -150,7 +150,7 @@ export function App() {
         )}
       </main>
       <aside className="zone zone-side" aria-label="Workflow panel">
-        <PanelHeader mode={mode} />
+        <PanelHeader mode={mode} onBack={goto} />
         {mode === "design" && (
           <>
             <fieldset className="lock" disabled={deployed !== null}>

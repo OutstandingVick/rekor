@@ -95,3 +95,10 @@
 .zone-stage > .market-head,
 .zone-stage > .chart-toolbar,
 .zone-stage > .metrics-strip { flex: none; }
+
+.panel-back {
+  display: inline-flex; align-items: center; gap: 4px; margin: 0 0 var(--s2) -6px; padding: 4px 6px;
+  border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--muted);
+  font-size: var(--fs-sm); cursor: pointer;
+}
+.panel-back:hover { background: var(--surface-3); color: var(--text); }
