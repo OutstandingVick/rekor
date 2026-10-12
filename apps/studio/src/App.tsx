@@ -64,6 +64,12 @@ export function App() {
   const deployed = deploy.state.kind === "deployed" ? deploy.state.deployment : null;
   const design = deployed?.design ?? draft;
   const live = useLiveTrades(deployed?.pool ?? null);
+  // unlock editing: keep the deployed design as the starting draft, forget the deployment locally
+  const newCurve = () => {
+    if (deployed) setDraft(deployed.design);
+    deploy.reset();
+    goto("design");
+  };
   const set = (patch: Partial<Design>) => setDraft((d) => ({ ...d, ...patch }));
   const analysis = useMemo(() => analyze(design), [design]);
   const check = useVerification(deployed, analysis);
@@ -153,15 +159,16 @@ export function App() {
         <PanelHeader mode={mode} onBack={goto} />
         {mode === "design" && (
           <>
+            {deployed && (
+              <div className="locked-note" role="note">
+                <strong>Locked to the deployed curve.</strong> Editing is off so live predictions always match what's on chain.
+                <button type="button" className="cta new-curve" onClick={newCurve}>Start a new curve</button>
+                <span className="fine">Starts from this design. The deployed pool stays on devnet.</span>
+              </div>
+            )}
             <fieldset className="lock" disabled={deployed !== null}>
               <ConfigPanel design={design} set={set} maxThresholdSol={maxThresholdSol} />
             </fieldset>
-            {deployed && (
-              <div className="locked-note" role="note">
-                <strong>Locked to the deployed curve.</strong> “Design a new curve” to edit again.
-                <button type="button" className="text-btn" onClick={() => goto("deploy")}>Open Deploy</button>
-              </div>
-            )}
             <PanelFooter
               tone={analysis.ok ? "ok" : "bad"}
               status={analysis.ok ? `Curve solved · ${design.weights.length} segments · ${numbers!.thresholdSol} SOL raise` : "Design is infeasible — see the chart"}
@@ -206,13 +213,7 @@ export function App() {
           onLiveTrade={live.add}
           liveTrades={live.trades}
           check={check}
-          deploy={{
-            ...deploy,
-            reset: () => {
-              if (deployed) setDraft(deployed.design);
-              deploy.reset();
-            },
-          }}
+          deploy={{ ...deploy, reset: newCurve }}
         />
         </Suspense>
         )}
