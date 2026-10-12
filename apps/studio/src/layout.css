@@ -49,7 +49,8 @@
 .lock:disabled { opacity: 0.55; }
 .locked-note { margin: var(--s3) var(--s4); padding: var(--s2) var(--s3); border-radius: var(--radius); background: var(--actual-bg); color: var(--muted); font-size: var(--fs-sm); line-height: 1.5; }
 .locked-note strong { color: var(--actual); font-weight: 600; }
-.locked-note .text-btn { display: block; margin-top: 4px; }
+.locked-note .new-curve { display: block; width: 100%; margin: var(--s2) 0 var(--s1); }
+.locked-note .fine { display: block; color: var(--faint); font-size: var(--fs-xs); }
 
 .panel-head { padding: var(--s4) var(--s4) var(--s3); border-bottom: 1px solid var(--line); }
 .panel-head h1 { margin: 0; font-size: var(--fs-lg); font-weight: 600; letter-spacing: -0.01em; }
